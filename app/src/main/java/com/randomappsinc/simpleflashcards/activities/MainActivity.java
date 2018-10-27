@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +45,7 @@ public class MainActivity extends StandardActivity
     private static final int SPEECH_REQUEST_CODE = 1;
 
     @BindView(R.id.parent) View parent;
+    @BindView(R.id.focus_sink) View focusSink;
     @BindView(R.id.search_bar) View searchBar;
     @BindView(R.id.search_input) EditText setSearch;
     @BindView(R.id.voice_search) View voiceSearch;
@@ -80,7 +82,24 @@ public class MainActivity extends StandardActivity
         sets.addItemDecoration(new SimpleDividerItemDecoration(this));
         sets.setAdapter(adapter);
 
+        // When the user is scrolling to browse flashcards, close the soft keyboard
+        sets.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    UIUtils.closeKeyboard(MainActivity.this);
+                    takeAwayFocusFromSearch();
+                }
+            }
+        });
+
         databaseManager.setListener(databaseListener);
+    }
+
+    // Stop the EditText cursor from blinking
+    protected void takeAwayFocusFromSearch() {
+        focusSink.requestFocus();
     }
 
     private final DatabaseManager.Listener databaseListener = new DatabaseManager.Listener() {
@@ -249,6 +268,12 @@ public class MainActivity extends StandardActivity
                 setSearch.setText(searchInput);
                 break;
         }
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        takeAwayFocusFromSearch();
     }
 
     @Override
