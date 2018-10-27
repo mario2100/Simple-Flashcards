@@ -8,6 +8,16 @@
 - Add however many custom flashcards to whichever flashcard set you want. You can update or delete any flashcard whenever
 - Learn any flashcard set's material with the app's browsing or quiz modes
 
+## How To Run This Project
+
+This app uses the Quizlet API to download flashcard sets from the internet, which requires a Quizlet client ID. For security reasons, I don't push my Quizlet client ID to GitHub, so you're going to get an error like the one below when you try to compile the app for the first time.
+
+<img src="https://user-images.githubusercontent.com/43277456/47573964-91938800-d90c-11e8-896e-bfd650f95a6d.PNG"/>
+
+To fix this, you need to create a Quizlet account and get a Quizlet client ID of your own from <a href="https://quizlet.com/api/2.0/docs">here</a>. To get your API credentials, you need to click on "Developer Dashboard", which will give you a form to sign up as a Quizlet developer and show you your credentials after you're done.
+
+After you get access to the Quizlet API, create a file named QuizletAuthConstants in the api package with a constant variable of CLIENT_ID that is set to your Quizlet client ID.
+
 ## Download
 
 <a href="https://play.google.com/store/apps/details?id=com.randomappsinc.simpleflashcards" target="_blank">
