@@ -135,7 +135,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
     }
 
     public Flashcard getCurrentlyChosenFlashcard() {
-        return flashcards.get(selectedItemPosition);
+        return filteredFlashcards.get(selectedItemPosition);
     }
 
     @NonNull

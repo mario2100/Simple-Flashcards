@@ -152,6 +152,7 @@ public class EditFlashcardSetActivity extends StandardActivity {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_message));
         try {
             startActivityForResult(intent, SPEECH_REQUEST_CODE);
+            overridePendingTransition(R.anim.stay, R.anim.slide_in_bottom);
         } catch (ActivityNotFoundException exception) {
             Toast.makeText(
                     this,
