@@ -56,12 +56,13 @@ public class EditFlashcardSetActivity extends StandardActivity {
     // Permission codes
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
 
+    @BindView(R.id.flashcards_info) View focusSink;
     @BindView(R.id.search_input) EditText searchInput;
     @BindView(R.id.voice_search) View voiceSearch;
     @BindView(R.id.clear_search) View clearSearch;
     @BindView(R.id.num_flashcards) TextView numFlashcards;
     @BindView(R.id.no_flashcards) TextView noFlashcards;
-    @BindView(R.id.flashcards) RecyclerView flashcards;
+    @BindView(R.id.flashcards) RecyclerView flashcardsList;
     @BindView(R.id.add_flashcard) FloatingActionButton addFlashcard;
 
     protected EditFlashcardsAdapter adapter;
@@ -98,7 +99,19 @@ public class EditFlashcardSetActivity extends StandardActivity {
         editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
                 this, currentSetName, editSetNameListener);
         adapter = new EditFlashcardsAdapter(flashcardEditingListener, setId, noFlashcards, numFlashcards);
-        flashcards.setAdapter(adapter);
+        flashcardsList.setAdapter(adapter);
+
+        // When the user is scrolling to browse flashcards, close the soft keyboard
+        flashcardsList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    UIUtils.closeKeyboard(EditFlashcardSetActivity.this);
+                    takeAwayFocusFromSearch();
+                }
+            }
+        });
 
         PreferencesManager preferencesManager = new PreferencesManager(this);
         if (preferencesManager.shouldShowRenameFlashcardSetInstructions()) {
@@ -108,6 +121,11 @@ public class EditFlashcardSetActivity extends StandardActivity {
                     R.string.rename_set_instructions_title,
                     android.R.string.ok);
         }
+    }
+
+    // Stop the EditText cursor from blinking
+    protected void takeAwayFocusFromSearch() {
+        focusSink.requestFocus();
     }
 
     @OnTextChanged(value = R.id.search_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
@@ -221,7 +239,7 @@ public class EditFlashcardSetActivity extends StandardActivity {
                 public void onFlashcardCreated(String term, String definition) {
                     databaseManager.addFlashcard(setId, term, definition);
                     adapter.refreshSet();
-                    flashcards.scrollToPosition(adapter.getItemCount() - 1);
+                    flashcardsList.scrollToPosition(adapter.getItemCount() - 1);
                 }
             };
 
