@@ -20,14 +20,14 @@
     <string name="flashcard_delete_title">Confirm Flashcard Deletion</string>
     <string name="flashcard_delete_message">Are you sure that you want to delete this flashcard?</string>
 
+    <string name="create_flashcard">Create Flashcard</string>
+
     <string name="save">Save</string>
     <string name="flashcard_edit_term_title">Edit Flashcard Term</string>
     <string name="flashcard_edit_definition_title">Edit Flashcard Definition</string>
 
-    <string name="set_flashcard_term">Set Flashcard Term</string>
-    <string name="set_flashcard_definition">Set Flashcard Definition</string>
-    <string name="next">Next</string>
-    <string name="back">Back</string>
+    <string name="term_entry_hint">Enter term here</string>
+    <string name="definition_entry_hint">Enter definition here</string>
 
     <string name="picture_icon">{ion-android-image}</string>
     <string name="add_image">Add Image</string>

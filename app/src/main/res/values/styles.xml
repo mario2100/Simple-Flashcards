@@ -116,4 +116,13 @@
         <item name="tabTextColor">@color/half_white</item>
         <item name="tabSelectedTextColor">@color/white</item>
     </style>
+
+    <style name="blue_line_edittext">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:background">@drawable/blue_edittext_background</item>
+    </style>
 </resources>
