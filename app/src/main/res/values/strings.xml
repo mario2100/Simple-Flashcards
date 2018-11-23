@@ -65,6 +65,8 @@
     <string name="add_circle_icon">{ion-android-add-circle}</string>
     <string name="share_nearby_icon">{ion-arrow-swap}</string>
     <string name="microphone_icon">{ion-android-microphone}</string>
+    <string name="settings_icon">{ion-android-settings}</string>
+    <string name="home_icon">{ion-android-home}</string>
 
     <string name="download_sets_button_text">Download them from the Internet</string>
     <string name="get_from_nearby">Get them from nearby study buddies</string>

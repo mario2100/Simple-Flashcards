@@ -1,185 +1,20 @@
-<android.support.design.widget.CoordinatorLayout
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="SpUsage, RtlHardcoded">
+    tools:ignore="SpUsage">
 
-    <LinearLayout
-        android:id="@+id/focus_sink"
-        android:orientation="vertical"
+    <com.randomappsinc.simpleflashcards.views.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
-
-        <include
-            android:id="@+id/search_bar"
-            layout="@layout/search_bar"/>
-
-        <LinearLayout
-            android:id="@+id/no_sets"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <com.joanzapata.iconify.widget.IconTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/no_sets_at_all"
-                android:textColor="@color/dark_gray"
-                android:textSize="23sp"/>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/download_sets_button"
-                android:layout_marginBottom="4dp"
-                style="@style/clickable_card">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:text="@string/download_icon"
-                        android:textColor="@color/app_blue"
-                        android:textSize="24dp"
-                        android:gravity="center"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="@string/download_sets_button_text"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="17dp"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/share_with_nearby_button"
-                android:layout_marginBottom="4dp"
-                style="@style/clickable_card">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:text="@string/share_nearby_icon"
-                        android:textColor="@color/app_blue"
-                        android:textSize="24dp"
-                        android:gravity="center"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="@string/get_from_nearby"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="17dp"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/create_set_button"
-                android:layout_marginBottom="4dp"
-                style="@style/clickable_card">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:text="@string/add_circle_icon"
-                        android:textColor="@color/app_blue"
-                        android:textSize="24dp"
-                        android:gravity="center"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="@string/create_your_own"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="17dp"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/restore_sets_button"
-                style="@style/clickable_card">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:text="@string/download_icon"
-                        android:textColor="@color/app_blue"
-                        android:textSize="24dp"
-                        android:gravity="center"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="@string/restore_them_from_backup"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="17dp"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/no_sets_match"
-            android:text="@string/no_sets_search"
-            style="@style/empty_state_text"/>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/flashcard_sets"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingBottom="88dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@drawable/list_fade"/>
-        </FrameLayout>
-    </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_flashcard_set"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"/>
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_above="@id/bottom_navigation"/>
+</RelativeLayout>

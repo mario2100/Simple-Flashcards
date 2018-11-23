@@ -86,11 +86,6 @@ public class FlashcardFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     @OnClick(R.id.flashcard_container)
     public void flipFlashcard() {
         stopSpeaking();
