@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.activities.EditFlashcardSetActivity;
+import com.randomappsinc.simpleflashcards.activities.MainActivity;
 import com.randomappsinc.simpleflashcards.activities.NearbySharingActivity;
 import com.randomappsinc.simpleflashcards.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.activities.QuizletSearchActivity;
@@ -137,7 +139,8 @@ public class HomepageFragment extends Fragment
 
     @OnClick(R.id.download_sets_button)
     public void downloadFlashcards() {
-        startActivity(new Intent(getActivity(), QuizletSearchActivity.class));
+        MainActivity activity = (MainActivity) getActivity();
+        activity.loadQuizletSetSearch();
     }
 
     @OnClick(R.id.create_set_button)
@@ -150,11 +153,13 @@ public class HomepageFragment extends Fragment
         Intent intent = new Intent(getActivity(), BackupAndRestoreActivity.class)
                 .putExtra(Constants.GO_TO_RESTORE_IMMEDIATELY_KEY, true);
         startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
     @OnClick(R.id.share_with_nearby_button)
     public void shareWithNearby() {
         startActivity(new Intent(getActivity(), NearbySharingActivity.class));
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
     private final FlashcardSetCreatorDialog.Listener setCreatedListener =
@@ -179,6 +184,7 @@ public class HomepageFragment extends Fragment
             startActivity(new Intent(
                     getActivity(), BrowseFlashcardsActivity.class)
                     .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
+            getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
         }
     }
 
@@ -202,6 +208,7 @@ public class HomepageFragment extends Fragment
         startActivity(new Intent(
                 getActivity(), EditFlashcardSetActivity.class)
                 .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
     @Override
@@ -272,7 +279,7 @@ public class HomepageFragment extends Fragment
     }
 
     @Override
-    public void startActivityForResult(android.content.Intent intent, int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
         takeAwayFocusFromSearch();
     }
