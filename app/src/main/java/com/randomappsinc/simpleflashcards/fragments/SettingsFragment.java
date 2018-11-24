@@ -36,7 +36,7 @@ public class SettingsFragment extends Fragment {
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
     public static final String REPO_URL = "https://github.com/Gear61/Simple-Flashcards";
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.settings_toolbar) Toolbar toolbar;
     @BindView(R.id.settings_options) ListView settingsOptions;
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;

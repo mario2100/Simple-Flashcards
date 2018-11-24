@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/settings_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/app_blue"
@@ -19,11 +19,11 @@
         android:id="@+id/settings_options"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"/>
+        android:layout_below="@id/settings_toolbar"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/settings_toolbar"
         android:background="@drawable/toolbar_shadow"/>
 </RelativeLayout>

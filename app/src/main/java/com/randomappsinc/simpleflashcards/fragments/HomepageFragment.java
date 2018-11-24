@@ -55,7 +55,7 @@ public class HomepageFragment extends Fragment
 
     private static final int SPEECH_REQUEST_CODE = 1;
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.homepage_toolbar) Toolbar toolbar;
     @BindView(R.id.parent) View parent;
     @BindView(R.id.focus_sink) View focusSink;
     @BindView(R.id.search_bar) View searchBar;

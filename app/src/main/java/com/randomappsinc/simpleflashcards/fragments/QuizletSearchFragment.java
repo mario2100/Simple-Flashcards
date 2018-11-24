@@ -53,7 +53,7 @@ public class QuizletSearchFragment extends Fragment {
 
     private static final long MILLIS_DELAY_FOR_KEYBOARD = 150;
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.quizlet_search_toolbar) Toolbar toolbar;
     @BindView(R.id.parent) View parent;
     @BindView(R.id.search_input) EditText setSearch;
     @BindView(R.id.voice_search) View voiceSearch;
