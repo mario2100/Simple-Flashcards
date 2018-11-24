@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,7 @@ public class SettingsFragment extends Fragment {
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
     public static final String REPO_URL = "https://github.com/Gear61/Simple-Flashcards";
 
-    @BindView(R.id.parent) View parent;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.settings_options) ListView settingsOptions;
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
@@ -56,6 +58,10 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        toolbar.setTitle(R.string.settings);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+
         nearbyNameManager = new NearbyNameManager(getActivity(), null);
         settingsOptions.setAdapter(new SettingsAdapter(getActivity()));
     }
@@ -95,7 +101,7 @@ public class SettingsFragment extends Fragment {
                 Uri uri =  Uri.parse("market://details?id=" + getContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getContext().getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                    UIUtils.showSnackbar(parent, getString(R.string.play_store_error), Snackbar.LENGTH_LONG);
+                    UIUtils.showLongToast(R.string.play_store_error, getContext());
                     return;
                 }
                 break;

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.view.Menu;
@@ -66,7 +67,7 @@ public class QuizletSearchActivity extends StandardActivity {
         searchResults.setAdapter(adapter);
         searchResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     UIUtils.closeKeyboard(QuizletSearchActivity.this);
@@ -160,10 +161,7 @@ public class QuizletSearchActivity extends StandardActivity {
             startActivityForResult(intent, SPEECH_REQUEST_CODE);
             overridePendingTransition(R.anim.stay, R.anim.slide_in_bottom);
         } catch (ActivityNotFoundException exception) {
-            Toast.makeText(
-                    this,
-                    R.string.speech_not_supported,
-                    Toast.LENGTH_SHORT).show();
+            UIUtils.showLongToast(R.string.speech_not_supported, this);
         }
     }
 

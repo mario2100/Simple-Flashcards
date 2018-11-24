@@ -9,7 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,7 @@ public class HomepageFragment extends Fragment
 
     private static final int SPEECH_REQUEST_CODE = 1;
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.parent) View parent;
     @BindView(R.id.focus_sink) View focusSink;
     @BindView(R.id.search_bar) View searchBar;
@@ -87,6 +90,10 @@ public class HomepageFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        toolbar.setTitle(R.string.app_name);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+
         flashcardSetCreatorDialog = new FlashcardSetCreatorDialog(getActivity(), setCreatedListener);
         deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
 
@@ -168,6 +175,7 @@ public class HomepageFragment extends Fragment
                     Intent intent = new Intent(getActivity(), EditFlashcardSetActivity.class);
                     intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, createdSetId);
                     startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
                 }
             };
 
