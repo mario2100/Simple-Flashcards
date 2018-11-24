@@ -11,7 +11,7 @@ public class HomepageFragmentController {
     private FragmentManager fragmentManager;
     private int containerId;
     private HomepageFragment homepageFragment;
-    private SearchFragment searchFragment;
+    private QuizletSearchFragment searchFragment;
     private SettingsFragment settingsFragment;
     @IdRes private int currentViewId;
 
@@ -45,7 +45,7 @@ public class HomepageFragmentController {
                 break;
             case R.id.search:
                 if (searchFragment == null) {
-                    searchFragment = SearchFragment.newInstance();
+                    searchFragment = QuizletSearchFragment.newInstance();
                     addFragment(searchFragment);
                 } else {
                     showFragment(searchFragment);

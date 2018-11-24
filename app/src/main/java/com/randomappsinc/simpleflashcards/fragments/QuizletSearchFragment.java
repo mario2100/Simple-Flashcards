@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.activities;
+package com.randomappsinc.simpleflashcards.fragments;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -7,18 +7,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.activities.QuizletSearchFilterActivity;
+import com.randomappsinc.simpleflashcards.activities.QuizletSetViewActivity;
 import com.randomappsinc.simpleflashcards.adapters.QuizletSearchResultsAdapter;
 import com.randomappsinc.simpleflashcards.api.QuizletSearchManager;
 import com.randomappsinc.simpleflashcards.api.models.QuizletSetResult;
@@ -33,14 +40,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import butterknife.Unbinder;
 
-public class QuizletSearchActivity extends StandardActivity {
+public class QuizletSearchFragment extends Fragment {
 
-    private static final int FILTER_REQUEST_CODE = 1;
+    public static QuizletSearchFragment newInstance() {
+        return new QuizletSearchFragment();
+    }
+
     private static final int SPEECH_REQUEST_CODE = 2;
+    private static final int FILTER_REQUEST_CODE = 3;
 
     private static final long MILLIS_DELAY_FOR_KEYBOARD = 150;
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.parent) View parent;
     @BindView(R.id.search_input) EditText setSearch;
     @BindView(R.id.voice_search) View voiceSearch;
@@ -52,25 +65,36 @@ public class QuizletSearchActivity extends StandardActivity {
 
     protected QuizletSearchResultsAdapter adapter;
     private QuizletSearchManager searchManager;
+    private Unbinder unbinder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.quizlet_search);
-        ButterKnife.bind(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(
+                R.layout.quizlet_search,
+                container,
+                false);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        toolbar.setTitle(R.string.download_flashcard_sets_title);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
 
         searchManager = QuizletSearchManager.getInstance();
         searchManager.setListener(searchListener);
 
-        adapter = new QuizletSearchResultsAdapter(this, resultClickListener);
+        adapter = new QuizletSearchResultsAdapter(getActivity(), resultClickListener);
         searchResults.setAdapter(adapter);
         searchResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    UIUtils.closeKeyboard(QuizletSearchActivity.this);
+                    UIUtils.closeKeyboard(getActivity());
                     parent.requestFocus();
                 }
             }
@@ -80,7 +104,7 @@ public class QuizletSearchActivity extends StandardActivity {
             setSearch.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm == null) {
                         return;
                     }
@@ -91,7 +115,7 @@ public class QuizletSearchActivity extends StandardActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
     }
@@ -138,11 +162,11 @@ public class QuizletSearchActivity extends StandardActivity {
                 @Override
                 public void onResultClicked(QuizletSetResult result) {
                     Intent intent = new Intent(
-                            QuizletSearchActivity.this, QuizletSetViewActivity.class)
+                            getActivity(), QuizletSetViewActivity.class)
                             .putExtra(Constants.QUIZLET_SET_ID, result.getQuizletSetId())
                             .putExtra(Constants.QUIZLET_SET_TITLE, result.getTitle());
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
+                    getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
                 }
             };
 
@@ -159,9 +183,9 @@ public class QuizletSearchActivity extends StandardActivity {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_message));
         try {
             startActivityForResult(intent, SPEECH_REQUEST_CODE);
-            overridePendingTransition(R.anim.stay, R.anim.slide_in_bottom);
+            getActivity().overridePendingTransition(R.anim.stay, R.anim.slide_in_bottom);
         } catch (ActivityNotFoundException exception) {
-            UIUtils.showLongToast(R.string.speech_not_supported, this);
+            UIUtils.showLongToast(R.string.speech_not_supported, getContext());
         }
     }
 
@@ -179,12 +203,12 @@ public class QuizletSearchActivity extends StandardActivity {
                 }
                 break;
             case SPEECH_REQUEST_CODE:
-                if (resultCode != RESULT_OK || data == null) {
+                if (resultCode != Activity.RESULT_OK || data == null) {
                     return;
                 }
                 List<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 if (result == null || result.isEmpty()) {
-                    UIUtils.showLongToast(R.string.speech_unrecognized, this);
+                    UIUtils.showLongToast(R.string.speech_unrecognized, getContext());
                     return;
                 }
                 String searchInput = StringUtils.capitalizeWords(result.get(0));
@@ -194,16 +218,17 @@ public class QuizletSearchActivity extends StandardActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         searchManager.clearEverything();
+        unbinder.unbind();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_quizlet_search, menu);
-        UIUtils.loadMenuIcon(menu, R.id.filter, IoniconsIcons.ion_funnel, this);
-        return true;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_quizlet_search, menu);
+        UIUtils.loadMenuIcon(menu, R.id.filter, IoniconsIcons.ion_funnel, getContext());
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -211,9 +236,9 @@ public class QuizletSearchActivity extends StandardActivity {
         switch (item.getItemId()) {
             case R.id.filter:
                 startActivityForResult(
-                        new Intent(this, QuizletSearchFilterActivity.class),
+                        new Intent(getActivity(), QuizletSearchFilterActivity.class),
                         FILTER_REQUEST_CODE);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
+                getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
