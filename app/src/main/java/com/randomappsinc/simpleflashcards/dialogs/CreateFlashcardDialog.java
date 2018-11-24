@@ -2,6 +2,9 @@ package com.randomappsinc.simpleflashcards.dialogs;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -44,5 +47,17 @@ public class CreateFlashcardDialog {
         termInput.setText("");
         definitionInput.setText("");
         dialog.show();
+        if (termInput.requestFocus()) {
+            termInput.post(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager inputMethodManager =
+                            (InputMethodManager) dialog.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (inputMethodManager != null) {
+                        inputMethodManager.showSoftInput(termInput, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }
+            });
+        }
     }
 }
