@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="share_with_nearby_settings">Share flashcards with nearby users</string>
     <string name="backup_and_restore_data">Backup and restore data</string>
     <string name="set_nearby_name">Set nearby name</string>
     <string name="send_feedback">Send feedback</string>
@@ -8,6 +9,7 @@
     <string name="rate_this_app">Rate this app</string>
     <string name="source_code">Source code</string>
     <string-array name="settings_options">
+        <item>@string/share_with_nearby_settings</item>
         <item>@string/backup_and_restore_data</item>
         <item>@string/set_nearby_name</item>
         <item>@string/send_feedback</item>
@@ -28,6 +30,7 @@
     <string name="like_icon">{ion-thumbsup}</string>
     <string name="github_icon">{ion-social-github}</string>
     <string-array name="settings_icons">
+        <item>@string/share_nearby_icon</item>
         <item>@string/backup_icon</item>
         <item>@string/person_icon</item>
         <item>@string/email_icon</item>
