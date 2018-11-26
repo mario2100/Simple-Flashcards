@@ -9,19 +9,10 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/quizlet_search_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/app_blue"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
     <include
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/quizlet_search_toolbar"
         layout="@layout/search_bar"/>
 
     <TextView
@@ -82,10 +73,4 @@
             android:layout_height="8dp"
             android:background="@drawable/list_fade"/>
     </FrameLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/quizlet_search_toolbar"
-        android:background="@drawable/toolbar_shadow"/>
 </RelativeLayout>

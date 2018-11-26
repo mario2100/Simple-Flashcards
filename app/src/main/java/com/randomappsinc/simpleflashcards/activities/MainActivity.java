@@ -1,7 +1,9 @@
 package com.randomappsinc.simpleflashcards.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
 
+import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.fragments.HomepageFragmentController;
 import com.randomappsinc.simpleflashcards.managers.BackupDataManager;
@@ -50,9 +52,28 @@ public class MainActivity extends StandardActivity implements BottomNavigationVi
     public void onNavItemSelected(int viewId) {
         UIUtils.closeKeyboard(this);
         navigationController.onNavItemSelected(viewId);
+
+        switch (viewId) {
+            case R.id.home:
+                setTitle(R.string.app_name);
+                break;
+            case R.id.search:
+                setTitle(R.string.download_flashcard_sets_title);
+                break;
+            case R.id.settings:
+                setTitle(R.string.settings);
+                break;
+        }
     }
 
     public void loadQuizletSetSearch() {
         bottomNavigation.onSearchClicked();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_quizlet_search, menu);
+        UIUtils.loadMenuIcon(menu, R.id.filter, IoniconsIcons.ion_funnel, this);
+        return true;
     }
 }

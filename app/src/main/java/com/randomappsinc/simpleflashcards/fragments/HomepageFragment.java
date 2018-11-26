@@ -9,11 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -55,7 +55,6 @@ public class HomepageFragment extends Fragment
 
     private static final int SPEECH_REQUEST_CODE = 1;
 
-    @BindView(R.id.homepage_toolbar) Toolbar toolbar;
     @BindView(R.id.parent) View parent;
     @BindView(R.id.focus_sink) View focusSink;
     @BindView(R.id.search_bar) View searchBar;
@@ -71,6 +70,12 @@ public class HomepageFragment extends Fragment
     private FlashcardSetCreatorDialog flashcardSetCreatorDialog;
     private DeleteFlashcardSetDialog deleteFlashcardSetDialog;
     private Unbinder unbinder;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,9 +95,6 @@ public class HomepageFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        toolbar.setTitle(R.string.app_name);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
 
         flashcardSetCreatorDialog = new FlashcardSetCreatorDialog(getActivity(), setCreatedListener);
         deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
@@ -294,5 +296,11 @@ public class HomepageFragment extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.filter).setVisible(false);
     }
 }

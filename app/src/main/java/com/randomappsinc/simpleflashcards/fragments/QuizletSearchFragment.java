@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.activities.QuizletSearchFilterActivity;
 import com.randomappsinc.simpleflashcards.activities.QuizletSetViewActivity;
@@ -53,7 +50,6 @@ public class QuizletSearchFragment extends Fragment {
 
     private static final long MILLIS_DELAY_FOR_KEYBOARD = 150;
 
-    @BindView(R.id.quizlet_search_toolbar) Toolbar toolbar;
     @BindView(R.id.parent) View parent;
     @BindView(R.id.search_input) EditText setSearch;
     @BindView(R.id.voice_search) View voiceSearch;
@@ -68,6 +64,12 @@ public class QuizletSearchFragment extends Fragment {
     private Unbinder unbinder;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.quizlet_search,
@@ -80,9 +82,6 @@ public class QuizletSearchFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        toolbar.setTitle(R.string.download_flashcard_sets_title);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
 
         searchManager = QuizletSearchManager.getInstance();
         searchManager.setListener(searchListener);
@@ -104,7 +103,8 @@ public class QuizletSearchFragment extends Fragment {
             setSearch.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm =
+                            (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm == null) {
                         return;
                     }
@@ -226,9 +226,8 @@ public class QuizletSearchFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_quizlet_search, menu);
-        UIUtils.loadMenuIcon(menu, R.id.filter, IoniconsIcons.ion_funnel, getContext());
         super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.filter).setVisible(true);
     }
 
     @Override
