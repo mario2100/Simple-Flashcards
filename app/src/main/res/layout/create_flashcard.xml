@@ -12,11 +12,23 @@
         android:textColor="@color/black"
         android:textSize="19sp"/>
 
-    <EditText
-        android:id="@+id/term_input"
+    <FrameLayout
         android:layout_marginTop="4dp"
-        android:hint="@string/term_entry_hint"
-        style="@style/blue_line_edittext"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/term_input"
+            android:hint="@string/term_entry_hint"
+            android:layout_gravity="end|center_vertical"
+            style="@style/blue_line_edittext"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/voice_term_entry"
+            android:text="@string/microphone_icon"
+            android:layout_gravity="end|center_vertical"
+            style="@style/create_flashcard_icon"/>
+    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"

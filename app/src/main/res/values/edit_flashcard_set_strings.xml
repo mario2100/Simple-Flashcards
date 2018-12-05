@@ -45,4 +45,7 @@
 
     <string name="rename_flashcard_set_title">Rename Flashcard Set</string>
     <string name="flashcard_set_renamed">Flashcard set renamed.</string>
+
+    <string name="term_speech_prompt">Tell us your flashcard\'s term.</string>
+    <string name="definition_speech_prompt">Tell us your flashcard\'s definition.</string>
 </resources>

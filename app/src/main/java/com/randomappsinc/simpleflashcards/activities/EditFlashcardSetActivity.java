@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -51,7 +52,8 @@ public class EditFlashcardSetActivity extends StandardActivity {
 
     // Intent codes
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
-    private static final int SPEECH_REQUEST_CODE = 2;
+    private static final int SEARCH_SPEECH_REQUEST_CODE = 2;
+    private static final int TERM_ENTRY_SPEECH_REQUEST_CODE = 3;
 
     // Permission codes
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
@@ -142,16 +144,24 @@ public class EditFlashcardSetActivity extends StandardActivity {
 
     @OnClick(R.id.voice_search)
     public void searchWithVoice() {
-        showGoogleSpeechDialog();
+        showGoogleSpeechDialog(SEARCH_SPEECH_REQUEST_CODE);
     }
 
-    private void showGoogleSpeechDialog() {
+    protected void showGoogleSpeechDialog(int requestCode) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_message));
+
+        switch (requestCode) {
+            case SEARCH_SPEECH_REQUEST_CODE:
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_message));
+                break;
+            case TERM_ENTRY_SPEECH_REQUEST_CODE:
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.term_speech_prompt));
+                break;
+        }
         try {
-            startActivityForResult(intent, SPEECH_REQUEST_CODE);
+            startActivityForResult(intent, requestCode);
             overridePendingTransition(R.anim.stay, R.anim.slide_in_bottom);
         } catch (ActivityNotFoundException exception) {
             Toast.makeText(
@@ -189,37 +199,52 @@ public class EditFlashcardSetActivity extends StandardActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         switch (requestCode) {
-            case SPEECH_REQUEST_CODE:
-                if (resultCode != RESULT_OK || resultData == null) {
+            case SEARCH_SPEECH_REQUEST_CODE:
+                if (resultCode != RESULT_OK) {
                     return;
                 }
-                List<String> result = resultData.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                if (result == null || result.isEmpty()) {
-                    UIUtils.showLongToast(R.string.speech_unrecognized, this);
-                    return;
+                String searchQuery = extractTranscription(resultData);
+                if (searchQuery != null) {
+                    searchInput.setText(searchQuery);
                 }
-                String searchQuery = StringUtils.capitalizeWords(result.get(0));
-                searchInput.setText(searchQuery);
                 break;
             case IMAGE_FILE_REQUEST_CODE:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-                        && resultCode == Activity.RESULT_OK) {
-                    if (resultData != null && resultData.getData() != null) {
-                        Uri uri = resultData.getData();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && resultCode == Activity.RESULT_OK
+                        && resultData != null && resultData.getData() != null) {
+                    Uri uri = resultData.getData();
 
-                        // Persist ability to read from this file
-                        int takeFlags = resultData.getFlags()
-                                & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                        getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                    // Persist ability to read from this file
+                    int takeFlags = resultData.getFlags()
+                            & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
 
-                        String uriString = uri.toString();
-                        databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, uriString);
-                        adapter.onTermImageUpdated(uriString);
-                    }
+                    String uriString = uri.toString();
+                    databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, uriString);
+                    adapter.onTermImageUpdated(uriString);
                 }
                 break;
+            case TERM_ENTRY_SPEECH_REQUEST_CODE:
+                if (resultCode != RESULT_OK) {
+                    return;
+                }
+                String term = extractTranscription(resultData);
+                createFlashcardDialog.onVoiceTermSpoken(term);
+                break;
         }
+    }
+
+    @Nullable
+    private String extractTranscription(Intent resultData) {
+        if (resultData == null) {
+            return null;
+        }
+        List<String> result = resultData.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        if (result == null || result.isEmpty()) {
+            UIUtils.showLongToast(R.string.speech_unrecognized, this);
+            return null;
+        }
+        return StringUtils.capitalizeWords(result.get(0));
     }
 
     @Override
@@ -241,6 +266,11 @@ public class EditFlashcardSetActivity extends StandardActivity {
                     databaseManager.addFlashcard(setId, term, definition);
                     adapter.refreshSet();
                     flashcardsList.scrollToPosition(adapter.getItemCount() - 1);
+                }
+
+                @Override
+                public void onVoiceTermEntryRequested() {
+                    showGoogleSpeechDialog(TERM_ENTRY_SPEECH_REQUEST_CODE);
                 }
             };
 
