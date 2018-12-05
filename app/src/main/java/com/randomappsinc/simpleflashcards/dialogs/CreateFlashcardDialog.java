@@ -2,7 +2,6 @@ package com.randomappsinc.simpleflashcards.dialogs;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,11 +22,14 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
         void onFlashcardCreated(String term, String definition);
 
         void onVoiceTermEntryRequested();
+
+        void onVoiceDefinitionEntryRequested();
     }
 
     @BindView(R.id.term_input) EditText termInput;
     @BindView(R.id.voice_term_entry) View voiceTermEntry;
     @BindView(R.id.definition_input) EditText definitionInput;
+    @BindView(R.id.voice_definition_entry) View voiceDefinitionEntry;
 
     protected MaterialDialog dialog;
     @NonNull protected Listener listener;
@@ -54,7 +56,7 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
     }
 
     @OnTextChanged(value = R.id.term_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void afterTextChanged(Editable input) {
+    public void onTermInputChanged(Editable input) {
         voiceTermEntry.setVisibility(input.length() == 0 ? View.VISIBLE : View.GONE);
     }
 
@@ -64,8 +66,25 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
     }
 
     public void onVoiceTermSpoken(String term) {
+        termInput.requestFocus();
         termInput.setText(term);
         termInput.setSelection(term.length());
+    }
+
+    @OnTextChanged(value = R.id.definition_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void onDefinitionInputChanged(Editable input) {
+        voiceDefinitionEntry.setVisibility(input.length() == 0 ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R.id.voice_definition_entry)
+    public void onVoiceDefinitionEntry() {
+        listener.onVoiceDefinitionEntryRequested();
+    }
+
+    public void onVoiceDefinitionSpoken(String term) {
+        definitionInput.requestFocus();
+        definitionInput.setText(term);
+        definitionInput.setSelection(term.length());
     }
 
     public void show() {

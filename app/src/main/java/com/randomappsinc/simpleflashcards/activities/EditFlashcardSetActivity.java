@@ -54,6 +54,7 @@ public class EditFlashcardSetActivity extends StandardActivity {
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
     private static final int SEARCH_SPEECH_REQUEST_CODE = 2;
     private static final int TERM_ENTRY_SPEECH_REQUEST_CODE = 3;
+    private static final int DEFINITION_ENTRY_SPEECH_REQUEST_CODE = 4;
 
     // Permission codes
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
@@ -159,6 +160,9 @@ public class EditFlashcardSetActivity extends StandardActivity {
             case TERM_ENTRY_SPEECH_REQUEST_CODE:
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.term_speech_prompt));
                 break;
+            case DEFINITION_ENTRY_SPEECH_REQUEST_CODE:
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.definition_speech_prompt));
+                break;
         }
         try {
             startActivityForResult(intent, requestCode);
@@ -231,6 +235,13 @@ public class EditFlashcardSetActivity extends StandardActivity {
                 String term = extractTranscription(resultData);
                 createFlashcardDialog.onVoiceTermSpoken(term);
                 break;
+            case DEFINITION_ENTRY_SPEECH_REQUEST_CODE:
+                if (resultCode != RESULT_OK) {
+                    return;
+                }
+                String definition = extractTranscription(resultData);
+                createFlashcardDialog.onVoiceDefinitionSpoken(definition);
+                break;
         }
     }
 
@@ -244,7 +255,7 @@ public class EditFlashcardSetActivity extends StandardActivity {
             UIUtils.showLongToast(R.string.speech_unrecognized, this);
             return null;
         }
-        return StringUtils.capitalizeWords(result.get(0));
+        return StringUtils.capitalizeFirstWord(result.get(0));
     }
 
     @Override
@@ -271,6 +282,11 @@ public class EditFlashcardSetActivity extends StandardActivity {
                 @Override
                 public void onVoiceTermEntryRequested() {
                     showGoogleSpeechDialog(TERM_ENTRY_SPEECH_REQUEST_CODE);
+                }
+
+                @Override
+                public void onVoiceDefinitionEntryRequested() {
+                    showGoogleSpeechDialog(DEFINITION_ENTRY_SPEECH_REQUEST_CODE);
                 }
             };
 

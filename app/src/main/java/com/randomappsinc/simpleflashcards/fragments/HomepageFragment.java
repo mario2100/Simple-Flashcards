@@ -280,7 +280,7 @@ public class HomepageFragment extends Fragment
                     UIUtils.showLongToast(R.string.speech_unrecognized, getContext());
                     return;
                 }
-                String searchInput = StringUtils.capitalizeWords(result.get(0));
+                String searchInput = StringUtils.capitalizeFirstWord(result.get(0));
                 setSearch.setText(searchInput);
                 break;
         }

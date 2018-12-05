@@ -36,7 +36,7 @@ public class StringUtils {
      *  @param givenString The input string
      *  @return The formatted string
      */
-    public static String capitalizeWords(String givenString) {
+    public static String capitalizeFirstWord(String givenString) {
         String[] words = givenString.split(" ");
         StringBuilder capitalizedWords = new StringBuilder();
 
@@ -47,8 +47,11 @@ public class StringUtils {
                 continue;
             }
 
+            char firstChar = capitalizedWords.length() == 0
+                    ? Character.toUpperCase(trimmed.charAt(0))
+                    : trimmed.charAt(0);
             capitalizedWords
-                    .append(Character.toUpperCase(trimmed.charAt(0)))
+                    .append(firstChar)
                     .append(word.substring(1))
                     .append(" ");
         }

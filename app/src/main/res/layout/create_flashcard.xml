@@ -38,9 +38,21 @@
         android:textColor="@color/black"
         android:textSize="19sp"/>
 
-    <EditText
-        android:id="@+id/definition_input"
+    <FrameLayout
         android:layout_marginTop="4dp"
-        android:hint="@string/definition_entry_hint"
-        style="@style/blue_line_edittext"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/definition_input"
+            android:layout_marginTop="4dp"
+            android:hint="@string/definition_entry_hint"
+            style="@style/blue_line_edittext"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/voice_definition_entry"
+            android:text="@string/microphone_icon"
+            android:layout_gravity="end|center_vertical"
+            style="@style/create_flashcard_icon"/>
+    </FrameLayout>
 </LinearLayout>
