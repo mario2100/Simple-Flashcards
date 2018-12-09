@@ -28,7 +28,7 @@ public class DatabaseManager {
         void onDatabaseUpdated();
     }
 
-    private static final int CURRENT_REALM_VERSION = 4;
+    private static final int CURRENT_REALM_VERSION = 5;
 
     private static DatabaseManager instance;
 
@@ -142,6 +142,19 @@ public class DatabaseManager {
                     throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }
                 oldVersion++;
+            }
+
+            // Rename "question" and "answer" to "term" and "definition"
+            if (oldVersion == 4) {
+                RealmObjectSchema folderSchema = schema.create("FolderDO")
+                        .addField("id", int.class)
+                        .addField("name", String.class);
+                RealmObjectSchema setSchema = schema.get("FlashcardSet");
+                if (setSchema != null) {
+                    folderSchema.addRealmListField("flashcardSets", setSchema);
+                } else {
+                    throw new IllegalStateException("RestaurantDO doesn't exist.");
+                }
             }
         }
     };
