@@ -21,6 +21,7 @@ public class BottomNavigationView extends LinearLayout {
 
     @BindView(R.id.home) TextView homeButton;
     @BindView(R.id.search) TextView searchButton;
+    @BindView(R.id.folders) TextView folderButton;
     @BindView(R.id.settings) TextView settingsButton;
     @BindColor(R.color.dark_gray) int darkGray;
     @BindColor(R.color.app_blue) int blue;
@@ -71,6 +72,18 @@ public class BottomNavigationView extends LinearLayout {
         searchButton.setTextColor(blue);
         currentlySelected = searchButton;
         listener.onNavItemSelected(R.id.search);
+    }
+
+    @OnClick(R.id.folders)
+    public void onFoldersClicked() {
+        if (currentlySelected == folderButton) {
+            return;
+        }
+
+        currentlySelected.setTextColor(darkGray);
+        currentlySelected = folderButton;
+        folderButton.setTextColor(blue);
+        listener.onNavItemSelected(R.id.folders);
     }
 
     @OnClick(R.id.settings)

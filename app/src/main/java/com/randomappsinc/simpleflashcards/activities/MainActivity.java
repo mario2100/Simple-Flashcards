@@ -60,6 +60,9 @@ public class MainActivity extends StandardActivity implements BottomNavigationVi
             case R.id.search:
                 setTitle(R.string.download_flashcard_sets_title);
                 break;
+            case R.id.folders:
+                setTitle(R.string.folders);
+                break;
             case R.id.settings:
                 setTitle(R.string.settings);
                 break;
@@ -72,7 +75,7 @@ public class MainActivity extends StandardActivity implements BottomNavigationVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_quizlet_search, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         UIUtils.loadMenuIcon(menu, R.id.filter, IoniconsIcons.ion_funnel, this);
         return true;
     }

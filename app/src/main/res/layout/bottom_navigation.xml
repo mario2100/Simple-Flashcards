@@ -21,6 +21,11 @@
             style="@style/bottom_navigation_item"/>
 
         <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/folders"
+            android:text="@string/home_folder_icon"
+            style="@style/bottom_navigation_item"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/settings"
             android:text="@string/settings_icon"
             style="@style/bottom_navigation_item"/>

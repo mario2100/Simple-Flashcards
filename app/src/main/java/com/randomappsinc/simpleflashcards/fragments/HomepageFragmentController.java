@@ -12,6 +12,7 @@ public class HomepageFragmentController {
     private int containerId;
     private HomepageFragment homepageFragment;
     private QuizletSearchFragment searchFragment;
+    private FoldersFragment foldersFragment;
     private SettingsFragment settingsFragment;
     @IdRes private int currentViewId;
 
@@ -33,6 +34,9 @@ public class HomepageFragmentController {
             case R.id.search:
                 hideFragment(searchFragment);
                 break;
+            case R.id.folders:
+                hideFragment(foldersFragment);
+                break;
             case R.id.settings:
                 hideFragment(settingsFragment);
                 break;
@@ -49,6 +53,14 @@ public class HomepageFragmentController {
                     addFragment(searchFragment);
                 } else {
                     showFragment(searchFragment);
+                }
+                break;
+            case R.id.folders:
+                if (foldersFragment == null) {
+                    foldersFragment = FoldersFragment.newInstance();
+                    addFragment(foldersFragment);
+                } else {
+                    showFragment(foldersFragment);
                 }
                 break;
             case R.id.settings:
