@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DBConverter {
 
-    public Folder getFolderFromDO(FolderDO folderDO) {
+    public static Folder getFolderFromDO(FolderDO folderDO) {
         Folder folder = new Folder();
         folder.setId(folderDO.getId());
         folder.setName(folderDO.getName());

@@ -3,4 +3,8 @@
     <string name="folders">Folders</string>
     <string name="create_folder">Create Folder</string>
     <string name="folder_name">Folder name</string>
+    <string name="no_folders_text">
+        Use the {ion-android-add-circle} button below
+        to create your first folder and start organizing your flashcards!
+    </string>
 </resources>

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.randomappsinc.simpleflashcards.api.models.QuizletFlashcard;
 import com.randomappsinc.simpleflashcards.api.models.QuizletFlashcardSet;
 import com.randomappsinc.simpleflashcards.models.FlashcardSetPreview;
+import com.randomappsinc.simpleflashcards.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.persistence.models.FolderDO;
@@ -467,7 +468,7 @@ public class DatabaseManager {
         return set != null;
     }
 
-    public int createFolder(String name) {
+    public void createFolder(String name) {
         try {
             realm.beginTransaction();
             FolderDO folderDO = new FolderDO();
@@ -477,10 +478,19 @@ public class DatabaseManager {
             folderDO.setName(name);
             realm.copyToRealm(folderDO);
             realm.commitTransaction();
-            return newFolderId;
         } catch (Exception e) {
             realm.cancelTransaction();
         }
-        return 0;
+    }
+
+    public List<Folder> getFolders() {
+        List<FolderDO> folderDOs = realm
+                    .where(FolderDO.class)
+                    .findAll();
+        List<Folder> folders = new ArrayList<>();
+        for (FolderDO folderDO : folderDOs) {
+            folders.add(DBConverter.getFolderFromDO(folderDO));
+        }
+        return folders;
     }
 }

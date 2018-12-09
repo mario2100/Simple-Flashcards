@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,22 +14,29 @@ import android.view.ViewGroup;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.adapters.FoldersAdapter;
 import com.randomappsinc.simpleflashcards.dialogs.CreateFolderDialog;
+import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FoldersFragment extends Fragment implements CreateFolderDialog.Listener {
+public class FoldersFragment extends Fragment implements CreateFolderDialog.Listener, FoldersAdapter.Listener {
 
     public static FoldersFragment newInstance() {
         return new FoldersFragment();
     }
 
     @BindView(R.id.add_folder) FloatingActionButton addFolder;
+    @BindView(R.id.no_folders) View noFolders;
+    @BindView(R.id.folders) RecyclerView folders;
 
     private CreateFolderDialog createFolderDialog;
+    private DatabaseManager databaseManager = DatabaseManager.get();
+    private FoldersAdapter adapter;
     private Unbinder unbinder;
 
     @Override
@@ -55,6 +63,26 @@ public class FoldersFragment extends Fragment implements CreateFolderDialog.List
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         createFolderDialog = new CreateFolderDialog(getActivity(), this);
+        adapter = new FoldersAdapter(this, getActivity());
+        folders.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        folders.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.refreshContent();
+    }
+
+    @Override
+    public void onContentUpdated(int numSets) {
+        noFolders.setVisibility(numSets == 0 ? View.VISIBLE : View.GONE);
+        folders.setVisibility(numSets == 0 ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onFolderClicked(int folderId) {
+
     }
 
     @OnClick(R.id.add_folder)
@@ -64,7 +92,8 @@ public class FoldersFragment extends Fragment implements CreateFolderDialog.List
 
     @Override
     public void onNewFolderSubmitted(String folderName) {
-
+        databaseManager.createFolder(folderName);
+        adapter.refreshContent();
     }
 
     @Override
