@@ -8,6 +8,7 @@ import com.randomappsinc.simpleflashcards.api.models.QuizletFlashcardSet;
 import com.randomappsinc.simpleflashcards.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FolderDO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -464,5 +465,22 @@ public class DatabaseManager {
                 .equalTo("quizletSetId", quizletSetId)
                 .findFirst();
         return set != null;
+    }
+
+    public int createFolder(String name) {
+        try {
+            realm.beginTransaction();
+            FolderDO folderDO = new FolderDO();
+            Number number = realm.where(FolderDO.class).findAll().max("id");
+            int newFolderId = number == null ? 1 : number.intValue() + 1;
+            folderDO.setId(newFolderId);
+            folderDO.setName(name);
+            realm.copyToRealm(folderDO);
+            realm.commitTransaction();
+            return newFolderId;
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+        return 0;
     }
 }

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="folders">Folders</string>
+    <string name="create_folder">Create Folder</string>
+    <string name="folder_name">Folder name</string>
 </resources>
