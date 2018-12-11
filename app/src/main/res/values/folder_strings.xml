@@ -7,4 +7,12 @@
         Use the {ion-android-add-circle} button below
         to create your first folder and start organizing your flashcards!
     </string>
+
+    <string name="one_flashcard_set">1 flashcard set</string>
+    <string name="x_flashcard_sets">%d flashcard sets</string>
+
+    <string name="folder_delete_title">Confirm Flashcard Deletion</string>
+    <string name="folder_delete_body">
+        Are you sure you want to delete your folder %s?
+    </string>
 </resources>

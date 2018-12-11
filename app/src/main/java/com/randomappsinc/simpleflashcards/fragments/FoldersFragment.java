@@ -16,6 +16,8 @@ import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.adapters.FoldersAdapter;
 import com.randomappsinc.simpleflashcards.dialogs.CreateFolderDialog;
+import com.randomappsinc.simpleflashcards.dialogs.DeleteFolderDialog;
+import com.randomappsinc.simpleflashcards.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
@@ -24,7 +26,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class FoldersFragment extends Fragment implements CreateFolderDialog.Listener, FoldersAdapter.Listener {
+public class FoldersFragment extends Fragment
+        implements CreateFolderDialog.Listener, FoldersAdapter.Listener, DeleteFolderDialog.Listener {
 
     public static FoldersFragment newInstance() {
         return new FoldersFragment();
@@ -35,6 +38,7 @@ public class FoldersFragment extends Fragment implements CreateFolderDialog.List
     @BindView(R.id.folders) RecyclerView folders;
 
     private CreateFolderDialog createFolderDialog;
+    private DeleteFolderDialog deleteFolderDialog;
     private DatabaseManager databaseManager = DatabaseManager.get();
     private FoldersAdapter adapter;
     private Unbinder unbinder;
@@ -63,6 +67,7 @@ public class FoldersFragment extends Fragment implements CreateFolderDialog.List
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         createFolderDialog = new CreateFolderDialog(getActivity(), this);
+        deleteFolderDialog = new DeleteFolderDialog(getActivity(), this);
         adapter = new FoldersAdapter(this, getActivity());
         folders.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         folders.setAdapter(adapter);
@@ -82,6 +87,16 @@ public class FoldersFragment extends Fragment implements CreateFolderDialog.List
 
     @Override
     public void onFolderClicked(int folderId) {
+
+    }
+
+    @Override
+    public void onFolderDeleteRequested(Folder folder) {
+        deleteFolderDialog.show(folder);
+    }
+
+    @Override
+    public void onFolderDeleted(Folder folder) {
 
     }
 

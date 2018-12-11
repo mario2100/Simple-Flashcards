@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/folder_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
-    android:padding="16dp">
+    android:padding="8dp"
+    tools:ignore="SpUsage, RtlHardcoded">
 
-    <TextView
-        android:id="@+id/folder_name"
+    <com.joanzapata.iconify.widget.IconTextView
+        android:id="@+id/delete_folder"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/delete_icon"
+        android:textSize="28dp"
+        android:textColor="@color/dark_gray"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/dark_gray"
-        android:textSize="27sp"/>
+        android:layout_toLeftOf="@id/delete_folder"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/folder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/num_sets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/dark_gray"/>
+    </LinearLayout>
 </RelativeLayout>

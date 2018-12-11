@@ -25,6 +25,8 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
         void onContentUpdated(int numSets);
 
         void onFolderClicked(int folderId);
+
+        void onFolderDeleteRequested(Folder folder);
     }
 
     @NonNull protected Listener listener;
@@ -68,6 +70,7 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
 
     public class FolderViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.folder_name) TextView folderName;
+        @BindView(R.id.num_sets) TextView numSetsText;
 
         FolderViewHolder(View view) {
             super(view);
@@ -77,11 +80,23 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
         void loadFolder(int position) {
             Folder folder = folders.get(position);
             folderName.setText(folder.getName());
+            int numSets = folder.getFlashcardSets().size();
+            if (numSets == 1) {
+                numSetsText.setText(R.string.one_flashcard_set);
+            } else {
+                Context context = numSetsText.getContext();
+                numSetsText.setText(context.getString(R.string.x_flashcard_sets, numSets));
+            }
         }
 
         @OnClick(R.id.folder_parent)
         public void onCellClicked() {
             listener.onFolderClicked(folders.get(getAdapterPosition()).getId());
+        }
+
+        @OnClick(R.id.delete_folder)
+        public void onDeleteClicked() {
+            listener.onFolderDeleteRequested(folders.get(getAdapterPosition()));
         }
     }
 }
