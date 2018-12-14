@@ -507,4 +507,12 @@ public class DatabaseManager {
             realm.cancelTransaction();
         }
     }
+
+    public Folder getFolder(int folderId) {
+        FolderDO folderDO = realm
+                .where(FolderDO.class)
+                .equalTo("id", folderId)
+                .findFirst();
+        return DBConverter.getFolderFromDO(folderDO);
+    }
 }

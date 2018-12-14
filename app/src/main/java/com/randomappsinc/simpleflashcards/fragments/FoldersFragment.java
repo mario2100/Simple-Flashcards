@@ -1,5 +1,6 @@
 package com.randomappsinc.simpleflashcards.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.activities.FolderActivity;
 import com.randomappsinc.simpleflashcards.adapters.FoldersAdapter;
+import com.randomappsinc.simpleflashcards.constants.Constants;
 import com.randomappsinc.simpleflashcards.dialogs.CreateFolderDialog;
 import com.randomappsinc.simpleflashcards.dialogs.DeleteFolderDialog;
 import com.randomappsinc.simpleflashcards.models.Folder;
@@ -87,7 +90,10 @@ public class FoldersFragment extends Fragment
 
     @Override
     public void onFolderClicked(int folderId) {
-
+        Intent intent = new Intent(getActivity(), FolderActivity.class)
+                .putExtra(Constants.FOLDER_ID_KEY, folderId);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
     @Override

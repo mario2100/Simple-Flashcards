@@ -15,4 +15,9 @@
     <string name="folder_delete_body">
         Are you sure you want to delete your folder %s?
     </string>
+
+    <string name="no_sets_in_folder_text">
+        Use the {ion-android-add-circle} button below
+        to start adding flashcard sets into this folder!
+    </string>
 </resources>
