@@ -493,4 +493,18 @@ public class DatabaseManager {
         }
         return folders;
     }
+
+    public void deleteFolder(Folder folder) {
+        try {
+            realm.beginTransaction();
+            FolderDO folderToRemove = realm
+                    .where(FolderDO.class)
+                    .equalTo("id", folder.getId())
+                    .findFirst();
+            folderToRemove.deleteFromRealm();
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
 }

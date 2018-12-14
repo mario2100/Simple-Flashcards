@@ -33,6 +33,7 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
     private Context context;
     protected List<Folder> folders;
     private DatabaseManager databaseManager;
+    protected int lastInteractedWithPosition;
 
     public FoldersAdapter(@NonNull Listener listener, Context context) {
         this.listener = listener;
@@ -46,6 +47,11 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
         folders.addAll(databaseManager.getFolders());
         notifyDataSetChanged();
         listener.onContentUpdated(getItemCount());
+    }
+
+    public void onFolderDeleted() {
+        folders.remove(lastInteractedWithPosition);
+        notifyItemRemoved(lastInteractedWithPosition);
     }
 
     @NonNull
@@ -96,6 +102,7 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
 
         @OnClick(R.id.delete_folder)
         public void onDeleteClicked() {
+            lastInteractedWithPosition = getAdapterPosition();
             listener.onFolderDeleteRequested(folders.get(getAdapterPosition()));
         }
     }

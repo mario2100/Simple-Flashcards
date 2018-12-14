@@ -97,7 +97,8 @@ public class FoldersFragment extends Fragment
 
     @Override
     public void onFolderDeleted(Folder folder) {
-
+        databaseManager.deleteFolder(folder);
+        adapter.onFolderDeleted();
     }
 
     @OnClick(R.id.add_folder)
