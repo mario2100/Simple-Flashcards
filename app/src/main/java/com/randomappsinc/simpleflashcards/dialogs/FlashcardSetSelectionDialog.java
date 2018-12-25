@@ -20,20 +20,21 @@ public class FlashcardSetSelectionDialog {
     }
 
     private MaterialDialog adderDialog;
-    private Listener listener;
-    private FlashcardSetSelectionAdapter flashcardSetSelectionAdapter;
+    protected Listener listener;
+    protected FlashcardSetSelectionAdapter setsAdapter;
 
-    public FlashcardSetSelectionDialog(Context context, Listener listener) {
-        this.listener = listener;
-        flashcardSetSelectionAdapter = new FlashcardSetSelectionAdapter();
+    public FlashcardSetSelectionDialog(Context context, Listener listenerImpl) {
+        this.listener = listenerImpl;
+        setsAdapter = new FlashcardSetSelectionAdapter();
         adderDialog = new MaterialDialog.Builder(context)
                 .title(R.string.add_flashcard_sets)
                 .positiveText(R.string.add)
                 .negativeText(R.string.cancel)
-                .adapter(flashcardSetSelectionAdapter, null)
+                .adapter(setsAdapter, null)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        listener.onFlashcardSetsSelected(setsAdapter.getSelectedSets());
                     }
                 })
                 .build();
@@ -41,7 +42,7 @@ public class FlashcardSetSelectionDialog {
     }
 
     public void setFlashcardSetList(List<FlashcardSet> flashcardSets) {
-        flashcardSetSelectionAdapter.setFlashcardSets(flashcardSets);
+        setsAdapter.setFlashcardSets(flashcardSets);
     }
 
     public void show() {

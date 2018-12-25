@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/folder_parent"
+    android:id="@+id/set_for_folder_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
@@ -13,7 +13,7 @@
     tools:ignore="SpUsage, RtlHardcoded">
 
     <CheckBox
-        android:id="@+id/select_set"
+        android:id="@+id/set_selected_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -22,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/select_set"
+        android:layout_toLeftOf="@id/set_selected_toggle"
         android:layout_centerVertical="true"
         android:orientation="vertical">
 

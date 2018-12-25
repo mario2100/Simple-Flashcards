@@ -6,27 +6,37 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /** Adapter for rendering a list of flashcard sets the user can add to a folder */
 public class FlashcardSetSelectionAdapter
         extends RecyclerView.Adapter<FlashcardSetSelectionAdapter.FlashcardSetViewHolder> {
 
     protected List<FlashcardSet> flashcardSets = new ArrayList<>();
+    protected Set<FlashcardSet> selectedSets = new HashSet<>();
 
     public void setFlashcardSets(List<FlashcardSet> newSets) {
         flashcardSets.clear();
         flashcardSets.addAll(newSets);
+        selectedSets.clear();
         notifyDataSetChanged();
+    }
+
+    public List<FlashcardSet> getSelectedSets() {
+        return new ArrayList<>(selectedSets);
     }
 
     @NonNull
@@ -52,6 +62,7 @@ public class FlashcardSetSelectionAdapter
     public class FlashcardSetViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.set_name) TextView setName;
         @BindView(R.id.num_flashcards) TextView numFlashcards;
+        @BindView(R.id.set_selected_toggle) CheckBox setSelectedToggle;
 
         FlashcardSetViewHolder(View view) {
             super(view);
@@ -63,8 +74,31 @@ public class FlashcardSetSelectionAdapter
             setName.setText(flashcardSet.getName());
             Context context = numFlashcards.getContext();
             numFlashcards.setText(flashcardSet.getFlashcards().size() == 1
-                    ? context.getString(R.string.one_flashcard_set)
-                    : context.getString(R.string.x_flashcard_sets, flashcardSet.getFlashcards().size()));
+                    ? context.getString(R.string.one_flashcard)
+                    : context.getString(R.string.x_flashcards, flashcardSet.getFlashcards().size()));
+            setSelectedToggle.setChecked(selectedSets.contains(flashcardSet));
+        }
+
+        @OnClick(R.id.set_for_folder_parent)
+        public void onSetCellClick() {
+            FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
+            if (selectedSets.contains(flashcardSet)) {
+                selectedSets.remove(flashcardSet);
+                setSelectedToggle.setChecked(false);
+            } else {
+                selectedSets.add(flashcardSet);
+                setSelectedToggle.setChecked(true);
+            }
+        }
+
+        @OnClick(R.id.set_selected_toggle)
+        public void onSetSelection() {
+            FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
+            if (selectedSets.contains(flashcardSet)) {
+                selectedSets.remove(flashcardSet);
+            } else {
+                selectedSets.add(flashcardSet);
+            }
         }
     }
 }
