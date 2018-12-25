@@ -41,6 +41,10 @@ public class FlashcardSetSelectionDialog implements FlashcardSetSelectionAdapter
         adderDialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
     }
 
+    public int getNumSets() {
+        return setsAdapter.getItemCount();
+    }
+
     @Override
     public void onNumSelectedSetsUpdated(int numSelectedSets) {
         adderDialog.getActionButton(DialogAction.POSITIVE).setEnabled(numSelectedSets > 0);

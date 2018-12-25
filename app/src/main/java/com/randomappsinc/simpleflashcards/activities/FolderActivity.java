@@ -54,7 +54,6 @@ public class FolderActivity extends StandardActivity
         setsAdapter = new FolderSetsAdapter(this);
         setsList.setAdapter(setsAdapter);
         setsList.addItemDecoration(new SimpleDividerItemDecoration(this));
-        updateSetsList();
 
         setAdderDialog = new FlashcardSetSelectionDialog(this, this);
         setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
@@ -80,7 +79,11 @@ public class FolderActivity extends StandardActivity
 
     @OnClick(R.id.add_sets)
     public void addFlashcardSets() {
-        setAdderDialog.show();
+        if (setAdderDialog.getNumSets() > 0) {
+            setAdderDialog.show();
+        } else {
+            UIUtils.showLongToast(R.string.no_sets_to_add, this);
+        }
     }
 
     @Override
