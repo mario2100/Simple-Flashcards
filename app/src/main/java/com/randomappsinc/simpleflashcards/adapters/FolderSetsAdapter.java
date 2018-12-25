@@ -32,7 +32,6 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
 
     @NonNull protected Listener listener;
     protected List<FlashcardSet> flashcardSets = new ArrayList<>();
-    protected int selectedItemIndex = -1;
 
     public FolderSetsAdapter(@NonNull Listener listener) {
         this.listener = listener;
@@ -104,8 +103,11 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
 
         @OnClick(R.id.delete_button)
         public void deleteFlashcardSet() {
-            selectedItemIndex = getAdapterPosition();
-            listener.removeFlashcardSet(flashcardSets.get(getAdapterPosition()));
+            int indexToRemove = getAdapterPosition();
+            FlashcardSet removedSet = flashcardSets.get(indexToRemove);
+            flashcardSets.remove(indexToRemove);
+            notifyItemRemoved(indexToRemove);
+            listener.removeFlashcardSet(removedSet);
         }
     }
 }

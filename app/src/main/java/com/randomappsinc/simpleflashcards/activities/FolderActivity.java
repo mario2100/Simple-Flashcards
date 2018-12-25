@@ -68,13 +68,8 @@ public class FolderActivity extends StandardActivity
     // Syncs the sets adapter against what's in DB
     private void updateSetsList() {
         setsAdapter.refreshContent(databaseManager.getFlashcardSetsInFolder(folderId));
-        if (setsAdapter.getItemCount() == 0) {
-            setsList.setVisibility(View.GONE);
-            noSets.setVisibility(View.VISIBLE);
-        } else {
-            noSets.setVisibility(View.GONE);
-            setsList.setVisibility(View.VISIBLE);
-        }
+        setsList.setVisibility(setsAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
+        noSets.setVisibility(setsAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick(R.id.add_sets)
@@ -126,6 +121,9 @@ public class FolderActivity extends StandardActivity
 
     @Override
     public void removeFlashcardSet(FlashcardSet flashcardSet) {
-
+        databaseManager.removeFlashcardSetFromFolder(folderId, flashcardSet);
+        setsList.setVisibility(setsAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
+        noSets.setVisibility(setsAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
     }
 }

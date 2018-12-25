@@ -565,4 +565,24 @@ public class DatabaseManager {
                 .findFirst()
                 .getFlashcardSets();
     }
+
+    public void removeFlashcardSetFromFolder(int folderId, FlashcardSet setToRemove) {
+        try {
+            realm.beginTransaction();
+            FolderDO folderDO = realm
+                    .where(FolderDO.class)
+                    .equalTo("id", folderId)
+                    .findFirst();
+            List<FlashcardSet> flashcardSets = folderDO.getFlashcardSets();
+            for (int i = 0; i < flashcardSets.size(); i++) {
+                if (flashcardSets.get(i).getId() == setToRemove.getId()) {
+                    flashcardSets.remove(i);
+                    break;
+                }
+            }
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
 }
