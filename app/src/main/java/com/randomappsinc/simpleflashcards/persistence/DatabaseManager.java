@@ -147,7 +147,7 @@ public class DatabaseManager {
                 oldVersion++;
             }
 
-            // Rename "question" and "answer" to "term" and "definition"
+            // Add folder support
             if (oldVersion == 4) {
                 RealmObjectSchema folderSchema = schema.create("FolderDO")
                         .addField("id", int.class)
