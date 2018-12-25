@@ -21,4 +21,6 @@
         to start adding flashcard sets into this folder!
     </string>
     <string name="add_flashcard_sets">Add Flashcard Sets</string>
+    <string name="flashcard_set_added">Flashcard set added.</string>
+    <string name="flashcard_sets_added">Flashcard sets added.</string>
 </resources>

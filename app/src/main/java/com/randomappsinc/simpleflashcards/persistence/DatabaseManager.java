@@ -469,7 +469,7 @@ public class DatabaseManager {
         return set != null;
     }
 
-    public void createFolder(String name) {
+    public int createFolder(String name) {
         try {
             realm.beginTransaction();
             FolderDO folderDO = new FolderDO();
@@ -479,9 +479,11 @@ public class DatabaseManager {
             folderDO.setName(name);
             realm.copyToRealm(folderDO);
             realm.commitTransaction();
+            return newFolderId;
         } catch (Exception e) {
             realm.cancelTransaction();
         }
+        return 0;
     }
 
     public List<Folder> getFolders() {
@@ -534,5 +536,25 @@ public class DatabaseManager {
             }
         }
         return finalSets;
+    }
+
+    public void addFlashcardSetsIntoFolder(int folderId, List<FlashcardSet> flashcardSets) {
+        try {
+            realm.beginTransaction();
+            FolderDO folderDO = realm
+                    .where(FolderDO.class)
+                    .equalTo("id", folderId)
+                    .findFirst();
+            for (FlashcardSet flashcardSet : flashcardSets) {
+                FlashcardSet setToAdd = realm
+                        .where(FlashcardSet.class)
+                        .equalTo("id", flashcardSet.getId())
+                        .findFirst();
+                folderDO.getFlashcardSets().add(setToAdd);
+            }
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
     }
 }

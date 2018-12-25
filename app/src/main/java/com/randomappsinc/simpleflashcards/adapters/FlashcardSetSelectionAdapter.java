@@ -25,14 +25,24 @@ import butterknife.OnClick;
 public class FlashcardSetSelectionAdapter
         extends RecyclerView.Adapter<FlashcardSetSelectionAdapter.FlashcardSetViewHolder> {
 
+    public interface Listener {
+        void onNumSelectedSetsUpdated(int numSelectedSets);
+    }
+
     protected List<FlashcardSet> flashcardSets = new ArrayList<>();
     protected Set<FlashcardSet> selectedSets = new HashSet<>();
+    protected Listener listener;
+
+    public FlashcardSetSelectionAdapter(Listener listener) {
+        this.listener = listener;
+    }
 
     public void setFlashcardSets(List<FlashcardSet> newSets) {
         flashcardSets.clear();
         flashcardSets.addAll(newSets);
         selectedSets.clear();
         notifyDataSetChanged();
+        listener.onNumSelectedSetsUpdated(selectedSets.size());
     }
 
     public List<FlashcardSet> getSelectedSets() {
@@ -89,6 +99,7 @@ public class FlashcardSetSelectionAdapter
                 selectedSets.add(flashcardSet);
                 setSelectedToggle.setChecked(true);
             }
+            listener.onNumSelectedSetsUpdated(selectedSets.size());
         }
 
         @OnClick(R.id.set_selected_toggle)
@@ -99,6 +110,7 @@ public class FlashcardSetSelectionAdapter
             } else {
                 selectedSets.add(flashcardSet);
             }
+            listener.onNumSelectedSetsUpdated(selectedSets.size());
         }
     }
 }

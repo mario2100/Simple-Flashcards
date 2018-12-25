@@ -13,7 +13,7 @@ import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 import java.util.List;
 
 /** Dialog to let user choose flashcard sets to put into a folder */
-public class FlashcardSetSelectionDialog {
+public class FlashcardSetSelectionDialog implements FlashcardSetSelectionAdapter.Listener {
 
     public interface Listener {
         void onFlashcardSetsSelected(List<FlashcardSet> flashcardSets);
@@ -25,7 +25,7 @@ public class FlashcardSetSelectionDialog {
 
     public FlashcardSetSelectionDialog(Context context, Listener listenerImpl) {
         this.listener = listenerImpl;
-        setsAdapter = new FlashcardSetSelectionAdapter();
+        setsAdapter = new FlashcardSetSelectionAdapter(this);
         adderDialog = new MaterialDialog.Builder(context)
                 .title(R.string.add_flashcard_sets)
                 .positiveText(R.string.add)
@@ -39,6 +39,11 @@ public class FlashcardSetSelectionDialog {
                 })
                 .build();
         adderDialog.getRecyclerView().addItemDecoration(new SimpleDividerItemDecoration(context));
+    }
+
+    @Override
+    public void onNumSelectedSetsUpdated(int numSelectedSets) {
+        adderDialog.getActionButton(DialogAction.POSITIVE).setEnabled(numSelectedSets > 0);
     }
 
     public void setFlashcardSetList(List<FlashcardSet> flashcardSets) {

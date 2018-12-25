@@ -13,6 +13,7 @@ import com.randomappsinc.simpleflashcards.dialogs.FlashcardSetSelectionDialog;
 import com.randomappsinc.simpleflashcards.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
 
@@ -56,6 +57,10 @@ public class FolderActivity extends StandardActivity implements FlashcardSetSele
 
     @Override
     public void onFlashcardSetsSelected(List<FlashcardSet> flashcardSets) {
-
+        databaseManager.addFlashcardSetsIntoFolder(folderId, flashcardSets);
+        setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
+        UIUtils.showShortToast(flashcardSets.size() == 1
+                ? R.string.flashcard_set_added
+                : R.string.flashcard_sets_added, this);
     }
 }

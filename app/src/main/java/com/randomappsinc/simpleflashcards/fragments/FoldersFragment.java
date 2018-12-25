@@ -114,8 +114,12 @@ public class FoldersFragment extends Fragment
 
     @Override
     public void onNewFolderSubmitted(String folderName) {
-        databaseManager.createFolder(folderName);
+        int newFolderId = databaseManager.createFolder(folderName);
         adapter.refreshContent();
+        Intent intent = new Intent(getActivity(), FolderActivity.class)
+                .putExtra(Constants.FOLDER_ID_KEY, newFolderId);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
     @Override
