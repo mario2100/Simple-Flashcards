@@ -11,7 +11,7 @@
     <string name="one_flashcard_set">1 flashcard set</string>
     <string name="x_flashcard_sets">%d flashcard sets</string>
 
-    <string name="folder_delete_title">Confirm Flashcard Deletion</string>
+    <string name="folder_delete_title">Confirm Folder Deletion</string>
     <string name="folder_delete_body">
         Are you sure you want to delete your folder %s?
     </string>
@@ -23,4 +23,6 @@
     <string name="add_flashcard_sets">Add Flashcard Sets</string>
     <string name="flashcard_set_added">Flashcard set added.</string>
     <string name="flashcard_sets_added">Flashcard sets added.</string>
+
+    <string name="remove">Remove</string>
 </resources>

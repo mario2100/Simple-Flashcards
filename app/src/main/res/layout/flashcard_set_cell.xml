@@ -130,6 +130,7 @@
                     style="@style/set_action_icon"/>
 
                 <TextView
+                    android:id="@+id/delete_button_text"
                     android:text="@string/delete"
                     android:paddingBottom="4dp"
                     style="@style/set_action_text"/>

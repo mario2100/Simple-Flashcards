@@ -9,7 +9,7 @@
     <style name="AppTheme.StudyMode">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimaryDark">@color/dark_gray</item>
+        <item name="colorPrimaryDark">@color/black</item>
     </style>
 
     <style name="AppTheme.PictureFullView">

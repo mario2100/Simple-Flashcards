@@ -488,8 +488,8 @@ public class DatabaseManager {
 
     public List<Folder> getFolders() {
         List<FolderDO> folderDOs = realm
-                    .where(FolderDO.class)
-                    .findAll();
+                .where(FolderDO.class)
+                .findAll();
         List<Folder> folders = new ArrayList<>();
         for (FolderDO folderDO : folderDOs) {
             folders.add(DBConverter.getFolderFromDO(folderDO));
@@ -556,5 +556,13 @@ public class DatabaseManager {
         } catch (Exception e) {
             realm.cancelTransaction();
         }
+    }
+
+    public List<FlashcardSet> getFlashcardSetsInFolder(int folderId) {
+        return realm
+                .where(FolderDO.class)
+                .equalTo("id", folderId)
+                .findFirst()
+                .getFlashcardSets();
     }
 }
