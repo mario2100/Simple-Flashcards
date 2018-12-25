@@ -71,7 +71,7 @@ public class FoldersFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         createFolderDialog = new CreateFolderDialog(getActivity(), this);
         deleteFolderDialog = new DeleteFolderDialog(getActivity(), this);
-        adapter = new FoldersAdapter(this, getActivity());
+        adapter = new FoldersAdapter(this);
         folders.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         folders.setAdapter(adapter);
     }

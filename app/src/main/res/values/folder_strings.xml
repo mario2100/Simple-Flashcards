@@ -20,4 +20,5 @@
         Use the {ion-android-add-circle} button below
         to start adding flashcard sets into this folder!
     </string>
+    <string name="add_flashcard_sets">Add Flashcard Sets</string>
 </resources>

@@ -9,18 +9,26 @@ import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.constants.Constants;
+import com.randomappsinc.simpleflashcards.dialogs.FlashcardSetSelectionDialog;
 import com.randomappsinc.simpleflashcards.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FolderActivity extends StandardActivity {
+public class FolderActivity extends StandardActivity implements FlashcardSetSelectionDialog.Listener {
 
-    @BindView(R.id.add_sets) FloatingActionButton addFolder;
+    @BindView(R.id.add_sets) FloatingActionButton addSetsButton;
     @BindView(R.id.no_sets) View noSets;
     @BindView(R.id.flashcard_sets) RecyclerView setsList;
+
+    private int folderId;
+    private DatabaseManager databaseManager = DatabaseManager.get();
+    private FlashcardSetSelectionDialog setAdderDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +37,25 @@ public class FolderActivity extends StandardActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
 
-        addFolder.setImageDrawable(new IconDrawable(this, IoniconsIcons.ion_android_add)
+        addSetsButton.setImageDrawable(new IconDrawable(this, IoniconsIcons.ion_android_add)
                 .colorRes(R.color.white)
                 .actionBarSize());
 
-        int folderId = getIntent().getIntExtra(Constants.FOLDER_ID_KEY, 0);
-        Folder folder = DatabaseManager.get().getFolder(folderId);
+        folderId = getIntent().getIntExtra(Constants.FOLDER_ID_KEY, 0);
+        Folder folder = databaseManager.getFolder(folderId);
         setTitle(folder.getName());
+
+        setAdderDialog = new FlashcardSetSelectionDialog(this, this);
+        setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
     }
 
     @OnClick(R.id.add_sets)
     public void addFlashcardSets() {
-        
+        setAdderDialog.show();
+    }
+
+    @Override
+    public void onFlashcardSetsSelected(List<FlashcardSet> flashcardSets) {
+
     }
 }

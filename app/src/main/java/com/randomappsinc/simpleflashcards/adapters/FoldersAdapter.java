@@ -30,14 +30,12 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
     }
 
     @NonNull protected Listener listener;
-    private Context context;
     protected List<Folder> folders;
     private DatabaseManager databaseManager;
     protected int lastInteractedWithPosition;
 
-    public FoldersAdapter(@NonNull Listener listener, Context context) {
+    public FoldersAdapter(@NonNull Listener listener) {
         this.listener = listener;
-        this.context = context;
         this.folders = new ArrayList<>();
         this.databaseManager = DatabaseManager.get();
     }
@@ -57,7 +55,7 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
     @NonNull
     @Override
     public FolderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.folder_cell,
                 parent,
                 false);

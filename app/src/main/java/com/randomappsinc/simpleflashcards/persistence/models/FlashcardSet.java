@@ -2,6 +2,8 @@ package com.randomappsinc.simpleflashcards.persistence.models;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.Required;
 
 public class FlashcardSet extends RealmObject {
@@ -13,6 +15,9 @@ public class FlashcardSet extends RealmObject {
     private String name;
 
     private RealmList<Flashcard> flashcards;
+
+    @LinkingObjects("flashcardSets")
+    private final RealmResults<FolderDO> folders = null;
 
     public int getId() {
         return id;
@@ -44,5 +49,9 @@ public class FlashcardSet extends RealmObject {
 
     public void setFlashcards(RealmList<Flashcard> flashcards) {
         this.flashcards = flashcards;
+    }
+
+    public RealmResults<FolderDO> getFolders() {
+        return folders;
     }
 }

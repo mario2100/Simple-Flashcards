@@ -12,6 +12,7 @@ import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.persistence.models.FolderDO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import io.realm.Case;
@@ -155,7 +156,7 @@ public class DatabaseManager {
                 if (setSchema != null) {
                     folderSchema.addRealmListField("flashcardSets", setSchema);
                 } else {
-                    throw new IllegalStateException("RestaurantDO doesn't exist.");
+                    throw new IllegalStateException("FlashcardSet doesn't exist.");
                 }
             }
         }
@@ -514,5 +515,24 @@ public class DatabaseManager {
                 .equalTo("id", folderId)
                 .findFirst();
         return DBConverter.getFolderFromDO(folderDO);
+    }
+
+    public List<FlashcardSet> getFlashcardSetsNotInFolder(int folderId) {
+        FolderDO folderDO = realm.where(FolderDO.class)
+                .equalTo("id", folderId)
+                .findFirst();
+        List<FlashcardSet> containedSets = folderDO.getFlashcardSets();
+        HashSet<Integer> containedSetIds = new HashSet<>();
+        for (FlashcardSet flashcardSet : containedSets) {
+            containedSetIds.add(flashcardSet.getId());
+        }
+        List<FlashcardSet> allSets = realm.where(FlashcardSet.class).findAll();
+        List<FlashcardSet> finalSets = new ArrayList<>();
+        for (FlashcardSet flashcardSet : allSets) {
+            if (!containedSetIds.contains(flashcardSet.getId())) {
+                finalSets.add(flashcardSet);
+            }
+        }
+        return finalSets;
     }
 }
