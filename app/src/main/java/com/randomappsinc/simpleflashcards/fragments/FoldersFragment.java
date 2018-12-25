@@ -80,12 +80,12 @@ public class FoldersFragment extends Fragment
     public void onResume() {
         super.onResume();
         adapter.refreshContent();
+        updateNoFoldersVisibility();
     }
 
-    @Override
-    public void onContentUpdated(int numSets) {
-        noFolders.setVisibility(numSets == 0 ? View.VISIBLE : View.GONE);
-        folders.setVisibility(numSets == 0 ? View.GONE : View.VISIBLE);
+    public void updateNoFoldersVisibility() {
+        noFolders.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        folders.setVisibility(adapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -105,6 +105,7 @@ public class FoldersFragment extends Fragment
     public void onFolderDeleted(Folder folder) {
         databaseManager.deleteFolder(folder);
         adapter.onFolderDeleted();
+        updateNoFoldersVisibility();
     }
 
     @OnClick(R.id.add_folder)
@@ -116,6 +117,7 @@ public class FoldersFragment extends Fragment
     public void onNewFolderSubmitted(String folderName) {
         int newFolderId = databaseManager.createFolder(folderName);
         adapter.refreshContent();
+        updateNoFoldersVisibility();
         Intent intent = new Intent(getActivity(), FolderActivity.class)
                 .putExtra(Constants.FOLDER_ID_KEY, newFolderId);
         startActivity(intent);

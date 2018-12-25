@@ -22,8 +22,6 @@ import butterknife.OnClick;
 public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderViewHolder> {
 
     public interface Listener {
-        void onContentUpdated(int numSets);
-
         void onFolderClicked(int folderId);
 
         void onFolderDeleteRequested(Folder folder);
@@ -44,7 +42,6 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
         folders.clear();
         folders.addAll(databaseManager.getFolders());
         notifyDataSetChanged();
-        listener.onContentUpdated(getItemCount());
     }
 
     public void onFolderDeleted() {
