@@ -83,6 +83,14 @@ public class FoldersFragment extends Fragment
         updateNoFoldersVisibility();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            adapter.refreshContent();
+            updateNoFoldersVisibility();
+        }
+    }
+
     public void updateNoFoldersVisibility() {
         noFolders.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         folders.setVisibility(adapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
