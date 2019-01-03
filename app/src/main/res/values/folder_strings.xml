@@ -27,4 +27,7 @@
     <string name="remove">Remove</string>
 
     <string name="no_sets_to_add">Every flashcard set you have is already in this folder.</string>
+
+    <string name="rename_folder">Rename folder</string>
+    <string name="rename_folder_title">Rename Folder</string>
 </resources>

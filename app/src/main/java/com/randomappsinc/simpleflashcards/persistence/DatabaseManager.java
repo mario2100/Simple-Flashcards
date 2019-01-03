@@ -585,4 +585,17 @@ public class DatabaseManager {
             realm.cancelTransaction();
         }
     }
+
+    public void renameFolder(int folderId, String newName) {
+        try {
+            realm.beginTransaction();
+            FolderDO folderDO = realm.where(FolderDO.class)
+                    .equalTo("id", folderId)
+                    .findFirst();
+            folderDO.setName(newName);
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
 }

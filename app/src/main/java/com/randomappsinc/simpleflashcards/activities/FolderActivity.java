@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.joanzapata.iconify.IconDrawable;
@@ -12,6 +14,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.adapters.FolderSetsAdapter;
 import com.randomappsinc.simpleflashcards.constants.Constants;
 import com.randomappsinc.simpleflashcards.dialogs.FlashcardSetSelectionDialog;
+import com.randomappsinc.simpleflashcards.dialogs.RenameFolderDialog;
 import com.randomappsinc.simpleflashcards.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
@@ -25,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FolderActivity extends StandardActivity
-        implements FlashcardSetSelectionDialog.Listener, FolderSetsAdapter.Listener {
+        implements FlashcardSetSelectionDialog.Listener, FolderSetsAdapter.Listener, RenameFolderDialog.Listener {
 
     @BindView(R.id.add_sets) FloatingActionButton addSetsButton;
     @BindView(R.id.no_sets) View noSets;
@@ -35,6 +38,7 @@ public class FolderActivity extends StandardActivity
     private DatabaseManager databaseManager = DatabaseManager.get();
     private FlashcardSetSelectionDialog setAdderDialog;
     private FolderSetsAdapter setsAdapter;
+    private RenameFolderDialog renameFolderDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class FolderActivity extends StandardActivity
 
         setAdderDialog = new FlashcardSetSelectionDialog(this, this);
         setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
+
+        renameFolderDialog = new RenameFolderDialog(this, folder.getName(), this);
     }
 
     @Override
@@ -125,5 +131,29 @@ public class FolderActivity extends StandardActivity
         setsList.setVisibility(setsAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
         noSets.setVisibility(setsAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
+    }
+
+    @Override
+    public void onFolderName(String newFolderName) {
+        databaseManager.renameFolder(folderId, newFolderName);
+        setTitle(newFolderName);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_folder, menu);
+        UIUtils.loadMenuIcon(menu, R.id.rename_folder, IoniconsIcons.ion_edit, this);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.rename_folder:
+                renameFolderDialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
