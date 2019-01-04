@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,5 +72,10 @@ public class UIUtils {
                 new IconDrawable(context, icon)
                         .colorRes(R.color.white)
                         .actionBarSize());
+    }
+
+    public static void setCheckedImmediately(CompoundButton checkableView, boolean checked) {
+        checkableView.setChecked(checked);
+        checkableView.jumpDrawablesToCurrentState();
     }
 }

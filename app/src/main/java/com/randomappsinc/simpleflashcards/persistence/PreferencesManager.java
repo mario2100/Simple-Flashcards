@@ -29,6 +29,9 @@ public class PreferencesManager {
     private static final int NUM_APP_OPENS_BEFORE_ASKING_FOR_RATING = 5;
     private static final int NUM_APP_OPENS_BEFORE_ASKING_FOR_SHARE = 10;
 
+    private static final String DARK_MODE_ENABLED = "darkModeEnabled";
+    private static final String SHOULD_TEACH_ABOUT_DARK_MODE = "shouldTeachAboutDarkMode";
+
     private SharedPreferences prefs;
 
     public PreferencesManager(Context context) {
@@ -128,5 +131,22 @@ public class PreferencesManager {
         boolean shouldShowShake = prefs.getBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, true);
         prefs.edit().putBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, false).apply();
         return shouldShowShake;
+    }
+
+    public boolean getDarkModeEnabled() {
+        return prefs.getBoolean(DARK_MODE_ENABLED, false);
+    }
+
+    public void setDarkModeEnabled(boolean darkModeEnabled) {
+        prefs.edit().putBoolean(DARK_MODE_ENABLED, darkModeEnabled).apply();
+    }
+
+    public boolean shouldTeachAboutDarkMode() {
+        boolean darkModeDisabled = !getDarkModeEnabled();
+        return darkModeDisabled && prefs.getBoolean(SHOULD_TEACH_ABOUT_DARK_MODE, true);
+    }
+
+    public void setShouldTeachAboutDarkMode(boolean shouldTeachAboutDarkMode) {
+        prefs.edit().putBoolean(SHOULD_TEACH_ABOUT_DARK_MODE, shouldTeachAboutDarkMode).apply();
     }
 }

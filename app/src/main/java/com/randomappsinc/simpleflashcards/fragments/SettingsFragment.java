@@ -6,27 +6,29 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Switch;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.activities.NearbySharingActivity;
 import com.randomappsinc.simpleflashcards.adapters.SettingsAdapter;
 import com.randomappsinc.simpleflashcards.managers.NearbyNameManager;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
+import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 import butterknife.Unbinder;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements SettingsAdapter.ItemSelectionListener {
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
@@ -36,11 +38,12 @@ public class SettingsFragment extends Fragment {
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
     public static final String REPO_URL = "https://github.com/Gear61/Simple-Flashcards";
 
-    @BindView(R.id.settings_options) ListView settingsOptions;
+    @BindView(R.id.settings_options) RecyclerView settingsOptions;
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
 
     private NearbyNameManager nearbyNameManager;
+    private ThemeManager themeManager = ThemeManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -63,10 +66,11 @@ public class SettingsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         nearbyNameManager = new NearbyNameManager(getActivity(), null);
-        settingsOptions.setAdapter(new SettingsAdapter(getActivity()));
+        settingsOptions.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        settingsOptions.setAdapter(new SettingsAdapter(getActivity(), this));
     }
 
-    @OnItemClick(R.id.settings_options)
+    @Override
     public void onItemClick(int position) {
         Intent intent = null;
         switch (position) {
@@ -77,15 +81,22 @@ public class SettingsFragment extends Fragment {
                 intent = new Intent(getActivity(), BackupAndRestoreActivity.class);
                 break;
             case 2:
-                nearbyNameManager.showNameSetter();
+                View thirdCell = settingsOptions.getChildAt(2);
+                Switch darkThemeToggle = thirdCell.findViewById(R.id.toggle);
+                boolean darkThemeEnabled = darkThemeToggle.isChecked();
+                darkThemeToggle.setChecked(!darkThemeEnabled);
+                themeManager.setDarkModeEnabled(getContext(), !darkThemeEnabled);
                 return;
             case 3:
+                nearbyNameManager.showNameSetter();
+                return;
+            case 4:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);
                 Uri mailUri = Uri.parse(uriText);
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, mailUri);
                 startActivity(Intent.createChooser(sendIntent, sendEmail));
                 return;
-            case 4:
+            case 5:
                 Intent shareIntent = ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
                         .setText(getString(R.string.share_app_message))
@@ -94,10 +105,10 @@ public class SettingsFragment extends Fragment {
                     startActivity(shareIntent);
                 }
                 return;
-            case 5:
+            case 6:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OTHER_APPS_URL));
                 break;
-            case 6:
+            case 7:
                 Uri uri =  Uri.parse("market://details?id=" + getContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getContext().getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
@@ -105,7 +116,7 @@ public class SettingsFragment extends Fragment {
                     return;
                 }
                 break;
-            case 7:
+            case 8:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(REPO_URL));
                 break;
         }

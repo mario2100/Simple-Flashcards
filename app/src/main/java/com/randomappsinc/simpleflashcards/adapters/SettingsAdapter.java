@@ -1,69 +1,101 @@
 package com.randomappsinc.simpleflashcards.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.widget.IconTextView;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class SettingsAdapter extends BaseAdapter {
+public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.SettingViewHolder> {
 
-    private String[] itemNames;
-    private String[] itemIcons;
-    private Context context;
+    public interface ItemSelectionListener {
+        void onItemClick(int position);
+    }
 
-    public SettingsAdapter(Context context) {
-        this.context = context;
-        this.itemNames = context.getResources().getStringArray(R.array.settings_options);
-        this.itemIcons = context.getResources().getStringArray(R.array.settings_icons);
+    @NonNull protected ItemSelectionListener itemSelectionListener;
+    protected String[] options;
+    protected String[] icons;
+    protected PreferencesManager preferencesManager;
+    protected ThemeManager themeManager;
+
+    public SettingsAdapter(Context context, @NonNull ItemSelectionListener itemSelectionListener) {
+        this.itemSelectionListener = itemSelectionListener;
+        this.options = context.getResources().getStringArray(R.array.settings_options);
+        this.icons = context.getResources().getStringArray(R.array.settings_icons);
+        this.preferencesManager = new PreferencesManager(context);
+        this.themeManager = ThemeManager.get();
     }
 
     @Override
-    public int getCount() {
-        return itemNames.length;
+    @NonNull
+    public SettingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.settings_item_cell,
+                parent,
+                false);
+        return new SettingViewHolder(itemView);
     }
 
     @Override
-    public String getItem(int position) {
-        return itemNames[position];
+    public void onBindViewHolder(@NonNull SettingViewHolder holder, int position) {
+        holder.loadSetting(position);
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
+    public int getItemCount() {
+        return options.length;
     }
 
-    public class SettingsViewHolder {
-        @BindView(R.id.icon) public IconTextView itemIcon;
-        @BindView(R.id.option) public TextView itemName;
+    class SettingViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.icon) TextView icon;
+        @BindView(R.id.option) TextView option;
+        @BindView(R.id.toggle)
+        Switch toggle;
 
-        SettingsViewHolder(View view) {
+        SettingViewHolder(View view) {
+            super(view);
             ButterKnife.bind(this, view);
         }
-    }
 
-    public View getView(int position, View view, ViewGroup parent) {
-        SettingsViewHolder holder;
-        if (view == null) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(R.layout.settings_item_cell, parent, false);
-            holder = new SettingsViewHolder(view);
-            view.setTag(holder);
+        void loadSetting(int position) {
+            option.setText(options[position]);
+            icon.setText(icons[position]);
+
+            switch (position) {
+                case 2:
+                    UIUtils.setCheckedImmediately(toggle, preferencesManager.getDarkModeEnabled());
+                    toggle.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    toggle.setVisibility(View.GONE);
+                    break;
+            }
         }
-        else {
-            holder = (SettingsViewHolder) view.getTag();
+
+        @OnClick(R.id.toggle)
+        void onToggle() {
+            switch (getAdapterPosition()) {
+                case 2:
+                    themeManager.setDarkModeEnabled(toggle.getContext(), toggle.isChecked());
+                    break;
+            }
         }
 
-        holder.itemName.setText(itemNames[position]);
-        holder.itemIcon.setText(itemIcons[position]);
-
-        return view;
+        @OnClick(R.id.parent)
+        void onSettingSelected() {
+            itemSelectionListener.onItemClick(getAdapterPosition());
+        }
     }
 }

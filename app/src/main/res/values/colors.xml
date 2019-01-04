@@ -15,4 +15,7 @@
 
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
+
+    <color name="dark_mode_black">#363636</color>
+    <color name="dark_mode_status_bar_black">#212121</color>
 </resources>
