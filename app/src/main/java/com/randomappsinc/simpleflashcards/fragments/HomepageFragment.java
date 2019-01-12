@@ -30,7 +30,7 @@ import com.randomappsinc.simpleflashcards.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.adapters.FlashcardSetsAdapter;
 import com.randomappsinc.simpleflashcards.constants.Constants;
 import com.randomappsinc.simpleflashcards.dialogs.DeleteFlashcardSetDialog;
-import com.randomappsinc.simpleflashcards.dialogs.FlashcardSetCreatorDialog;
+import com.randomappsinc.simpleflashcards.dialogs.CreateFlashcardSetDialog;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
@@ -61,13 +61,17 @@ public class HomepageFragment extends Fragment
     @BindView(R.id.search_input) EditText setSearch;
     @BindView(R.id.voice_search) View voiceSearch;
     @BindView(R.id.clear_search) View clearSearch;
+
+    // Contains both the list and the fade it has
+    @BindView(R.id.sets_list_container) View setsContainer;
+
     @BindView(R.id.flashcard_sets) RecyclerView sets;
     @BindView(R.id.no_sets) View noSetsAtAll;
     @BindView(R.id.no_sets_match) View noSetsMatch;
     @BindView(R.id.add_flashcard_set) FloatingActionButton addFlashcardSet;
 
     protected FlashcardSetsAdapter adapter;
-    private FlashcardSetCreatorDialog flashcardSetCreatorDialog;
+    private CreateFlashcardSetDialog createFlashcardSetDialog;
     private DeleteFlashcardSetDialog deleteFlashcardSetDialog;
     private Unbinder unbinder;
 
@@ -96,7 +100,7 @@ public class HomepageFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        flashcardSetCreatorDialog = new FlashcardSetCreatorDialog(getActivity(), setCreatedListener);
+        createFlashcardSetDialog = new CreateFlashcardSetDialog(getActivity(), setCreatedListener);
         deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
 
         adapter = new FlashcardSetsAdapter(this, getActivity());
@@ -141,7 +145,7 @@ public class HomepageFragment extends Fragment
 
     @OnClick(R.id.add_flashcard_set)
     public void addSet() {
-        flashcardSetCreatorDialog.show();
+        createFlashcardSetDialog.show();
     }
 
     @OnClick(R.id.download_sets_button)
@@ -152,7 +156,7 @@ public class HomepageFragment extends Fragment
 
     @OnClick(R.id.create_set_button)
     public void createSet() {
-        flashcardSetCreatorDialog.show();
+        createFlashcardSetDialog.show();
     }
 
     @OnClick(R.id.restore_sets_button)
@@ -169,8 +173,8 @@ public class HomepageFragment extends Fragment
         getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
-    private final FlashcardSetCreatorDialog.Listener setCreatedListener =
-            new FlashcardSetCreatorDialog.Listener() {
+    private final CreateFlashcardSetDialog.Listener setCreatedListener =
+            new CreateFlashcardSetDialog.Listener() {
                 @Override
                 public void onFlashcardSetCreated(int createdSetId) {
                     adapter.refreshContent(setSearch.getText().toString());
@@ -226,6 +230,7 @@ public class HomepageFragment extends Fragment
 
     @Override
     public void onFlashcardSetDeleted() {
+
         adapter.onFlashcardSetDeleted();
     }
 
@@ -233,18 +238,18 @@ public class HomepageFragment extends Fragment
     public void onContentUpdated(int numSets) {
         if (DatabaseManager.get().getNumFlashcardSets() == 0) {
             searchBar.setVisibility(View.GONE);
-            sets.setVisibility(View.GONE);
+            setsContainer.setVisibility(View.GONE);
             noSetsMatch.setVisibility(View.GONE);
             noSetsAtAll.setVisibility(View.VISIBLE);
         } else {
             noSetsAtAll.setVisibility(View.GONE);
             searchBar.setVisibility(View.VISIBLE);
             if (numSets == 0) {
-                sets.setVisibility(View.GONE);
+                setsContainer.setVisibility(View.GONE);
                 noSetsMatch.setVisibility(View.VISIBLE);
             } else {
                 noSetsMatch.setVisibility(View.GONE);
-                sets.setVisibility(View.VISIBLE);
+                setsContainer.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -296,6 +301,8 @@ public class HomepageFragment extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        createFlashcardSetDialog.cleanUp();
+        deleteFlashcardSetDialog.cleanUp();
     }
 
     @Override

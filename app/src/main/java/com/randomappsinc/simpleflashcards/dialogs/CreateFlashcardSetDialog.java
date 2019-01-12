@@ -6,19 +6,32 @@ import android.text.InputType;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-public class FlashcardSetCreatorDialog {
+public class CreateFlashcardSetDialog implements ThemeManager.Listener {
 
     public interface Listener {
         void onFlashcardSetCreated(int createdSetId);
     }
 
+    private Context context;
+    protected Listener listener;
     private MaterialDialog adderDialog;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public FlashcardSetCreatorDialog(Context context, @NonNull final Listener listener) {
+    public CreateFlashcardSetDialog(Context context, @NonNull Listener listener) {
+        this.context = context;
+        this.listener = listener;
+        createDialog();
+        themeManager.registerListener(this);
+    }
+
+    private void createDialog() {
         adderDialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.create_flashcard_set)
                 .alwaysCallInputCallback()
                 .inputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS)
@@ -48,5 +61,16 @@ public class FlashcardSetCreatorDialog {
     public void show() {
         adderDialog.getInputEditText().setText("");
         adderDialog.show();
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialog();
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }

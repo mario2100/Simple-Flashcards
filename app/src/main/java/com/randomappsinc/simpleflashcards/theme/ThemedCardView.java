@@ -2,29 +2,29 @@ package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 
 import com.randomappsinc.simpleflashcards.R;
 
-public class ThemedFrameLayout extends FrameLayout implements ThemeManager.Listener {
+public class ThemedCardView extends CardView implements ThemeManager.Listener {
 
     private ThemeManager themeManager;
     private int normalModeColor;
     private int darkModeColor;
 
-    public ThemedFrameLayout(Context context, AttributeSet attrs) {
+    public ThemedCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         themeManager = ThemeManager.get();
         normalModeColor = ContextCompat.getColor(context, R.color.white);
-        darkModeColor = ContextCompat.getColor(context, R.color.dark_mode_black);
+        darkModeColor = ContextCompat.getColor(context, R.color.dark_mode_card_black);
 
-        setBackgroundColor(themeManager.getDarkModeEnabled(context) ? darkModeColor : normalModeColor);
+        setCardBackgroundColor(themeManager.getDarkModeEnabled(context) ? darkModeColor : normalModeColor);
     }
 
     @Override
     public void onThemeChanged(boolean darkModeEnabled) {
-        setBackgroundColor(darkModeEnabled ? darkModeColor : normalModeColor);
+        setCardBackgroundColor(darkModeEnabled ? darkModeColor : normalModeColor);
     }
 
     @Override
