@@ -145,4 +145,12 @@
         <item name="android:textColor">@color/app_blue</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="no_sets_option_card">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">3dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
 </resources>

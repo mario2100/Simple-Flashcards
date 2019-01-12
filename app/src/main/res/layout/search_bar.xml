@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<com.randomappsinc.simpleflashcards.theme.ThemedFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -39,4 +39,4 @@
         android:text="@string/microphone_icon"
         android:layout_gravity="end|center_vertical"
         style="@style/search_icon"/>
-</FrameLayout>
+</com.randomappsinc.simpleflashcards.theme.ThemedFrameLayout>
