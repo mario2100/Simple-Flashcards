@@ -6,18 +6,31 @@ import android.text.InputType;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-public class CreateFolderDialog {
+public class CreateFolderDialog implements ThemeManager.Listener {
 
     public interface Listener {
         void onNewFolderSubmitted(String folderName);
     }
 
+    private Context context;
+    protected Listener listener;
     private MaterialDialog adderDialog;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public CreateFolderDialog(Context context, @NonNull final Listener listener) {
+    public CreateFolderDialog(Context context, @NonNull Listener listener) {
+        this.context = context;
+        this.listener = listener;
+        createDialog();
+        themeManager.registerListener(this);
+    }
+
+    private void createDialog() {
         adderDialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.create_folder)
                 .alwaysCallInputCallback()
                 .inputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS)
@@ -43,8 +56,19 @@ public class CreateFolderDialog {
                 .build();
     }
 
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialog();
+    }
+
     public void show() {
         adderDialog.getInputEditText().setText("");
         adderDialog.show();
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }
