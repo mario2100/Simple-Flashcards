@@ -7,19 +7,31 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-public class SkeletonView extends View {
+public class SkeletonView extends View implements ThemeManager.Listener {
 
     private ValueAnimator colorAnimator;
+    private ThemeManager themeManager = ThemeManager.get();
+    protected float[] from = new float[3];
+    protected float[] to = new float[3];
+    private int normalModeStartColor;
+    private int normalModeEndColor;
+    private int darkModeStartColor;
+    private int darkModeEndColor;
 
     public SkeletonView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final float[] from = new float[3];
-        final float[] to = new float[3];
+        normalModeStartColor = context.getResources().getColor(R.color.gray_100);
+        normalModeEndColor = context.getResources().getColor(R.color.gray_300);
+        darkModeStartColor = context.getResources().getColor(R.color.gray);
+        darkModeEndColor = context.getResources().getColor(R.color.dark_gray);
 
-        Color.colorToHSV(context.getResources().getColor(R.color.gray_100), from);
-        Color.colorToHSV(context.getResources().getColor(R.color.gray_300), to);
+        Color.colorToHSV(
+                themeManager.getDarkModeEnabled(context) ? darkModeStartColor : normalModeStartColor,
+                from);
+        Color.colorToHSV(themeManager.getDarkModeEnabled(context) ? darkModeEndColor : normalModeEndColor, to);
 
         colorAnimator = ValueAnimator.ofFloat(0, 1);
         colorAnimator.setDuration(context.getResources().getInteger(R.integer.skeleton_anim_length));
@@ -41,14 +53,22 @@ public class SkeletonView extends View {
     }
 
     @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        Color.colorToHSV(darkModeEnabled ? darkModeStartColor : normalModeStartColor, from);
+        Color.colorToHSV(darkModeEnabled ? darkModeEndColor : normalModeEndColor, to);
+    }
+
+    @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         colorAnimator.start();
+        themeManager.registerListener(this);
     }
 
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         colorAnimator.cancel();
+        themeManager.unregisterListener(this);
     }
 }
