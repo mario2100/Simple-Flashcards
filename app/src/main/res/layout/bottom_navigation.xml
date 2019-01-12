@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp">
 
-    <LinearLayout
+    <com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -29,7 +29,7 @@
             android:id="@+id/settings"
             android:text="@string/settings_icon"
             style="@style/bottom_navigation_item"/>
-    </LinearLayout>
+    </com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout>
 
     <View
         android:layout_width="match_parent"
