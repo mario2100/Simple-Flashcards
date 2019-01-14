@@ -6,9 +6,11 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-public class FlashcardImageOptionsDialog {
+public class FlashcardImageOptionsDialog implements ThemeManager.Listener {
 
     public interface Listener {
         void onFullViewRequested();
@@ -20,10 +22,21 @@ public class FlashcardImageOptionsDialog {
 
     protected MaterialDialog optionsDialog;
     protected MaterialDialog confirmDeletionDialog;
+    private Context context;
+    protected Listener listener;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public FlashcardImageOptionsDialog(Context context, final Listener listener) {
+    public FlashcardImageOptionsDialog(Context context, @NonNull Listener listener) {
+        this.context = context;
+        this.listener = listener;
+        createDialogs();
+        themeManager.registerListener(this);
+    }
+
+    private void createDialogs() {
         String[] options = context.getResources().getStringArray(R.array.flashcard_image_options);
         optionsDialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .items(options)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
@@ -46,6 +59,7 @@ public class FlashcardImageOptionsDialog {
                 })
                 .build();
         confirmDeletionDialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.delete_image_confirmation_title)
                 .content(R.string.delete_image_confirmation_body)
                 .positiveText(R.string.yes)
@@ -61,5 +75,16 @@ public class FlashcardImageOptionsDialog {
 
     public void show() {
         optionsDialog.show();
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialogs();
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }

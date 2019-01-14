@@ -395,6 +395,8 @@ public class EditFlashcardSetActivity extends StandardActivity {
         deleteFlashcardDialog.cleanUp();
         editFlashcardTermDialog.cleanUp();
         editFlashcardDefinitionDialog.cleanUp();
+        flashcardImageOptionsDialog.cleanUp();
+        editFlashcardSetNameDialog.cleanUp();
     }
 
     @Override
