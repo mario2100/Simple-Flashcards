@@ -9,14 +9,16 @@ import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallback {
+public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallback, ThemeManager.Listener {
 
     public interface Listener {
         void onFlashcardCreated(String term, String definition);
@@ -32,11 +34,20 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
     @BindView(R.id.voice_definition_entry) View voiceDefinitionEntry;
 
     protected MaterialDialog dialog;
-    @NonNull protected Listener listener;
+    protected Listener listener;
+    private Context context;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public CreateFlashcardDialog(Context context, @NonNull final Listener listener) {
+    public CreateFlashcardDialog(Context context, @NonNull Listener listener) {
+        this.context = context;
         this.listener = listener;
+        createDialog();
+        themeManager.registerListener(this);
+    }
+
+    private void createDialog() {
         dialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.create_flashcard)
                 .customView(R.layout.create_flashcard, true)
                 .positiveText(R.string.save)
@@ -103,5 +114,16 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
                 }
             });
         }
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialog();
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }

@@ -389,6 +389,15 @@ public class EditFlashcardSetActivity extends StandardActivity {
             };
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        createFlashcardDialog.cleanUp();
+        deleteFlashcardDialog.cleanUp();
+        editFlashcardTermDialog.cleanUp();
+        editFlashcardDefinitionDialog.cleanUp();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_set, menu);
         UIUtils.loadMenuIcon(menu, R.id.rename_flashcard_set, IoniconsIcons.ion_edit, this);
