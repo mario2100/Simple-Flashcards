@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.adapters.NearbyDevicesAdapter;
@@ -57,12 +58,14 @@ public class NearbySharingActivity extends StandardActivity {
         devicesList.setAdapter(nearbyDevicesAdapter);
 
         requestingConnectionDialog = new MaterialDialog.Builder(this)
+                .theme(themeManager.getDarkModeEnabled(this) ? Theme.DARK : Theme.LIGHT)
                 .content(R.string.requesting_connection)
                 .progress(true, 0)
                 .cancelable(false)
                 .build();
 
         waitingForAcceptDialog = new MaterialDialog.Builder(this)
+                .theme(themeManager.getDarkModeEnabled(this) ? Theme.DARK : Theme.LIGHT)
                 .content(R.string.waiting_for_accept)
                 .progress(true, 0)
                 .cancelable(false)
@@ -224,5 +227,6 @@ public class NearbySharingActivity extends StandardActivity {
     public void onDestroy() {
         super.onDestroy();
         nearbyConnectionsManager.shutdown();
+        confirmConnectionDialog.cleanUp();
     }
 }

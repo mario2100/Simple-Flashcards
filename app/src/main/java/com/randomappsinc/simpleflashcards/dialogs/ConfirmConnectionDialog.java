@@ -8,14 +8,16 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ConfirmConnectionDialog {
+public class ConfirmConnectionDialog implements ThemeManager.Listener {
 
     public interface Listener {
         void onConnectionAccepted();
@@ -27,11 +29,23 @@ public class ConfirmConnectionDialog {
     @BindView(R.id.authentication_token) TextView authToken;
 
     protected MaterialDialog dialog;
+    private View contentView;
+    private Context context;
+    protected Listener listener;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public ConfirmConnectionDialog(Context context, @NonNull final Listener listener) {
-        View contentView = LayoutInflater.from(context).inflate(R.layout.confirm_connection, null);
+    public ConfirmConnectionDialog(Context context, @NonNull Listener listener) {
+        this.context = context;
+        this.listener = listener;
+        contentView = LayoutInflater.from(context).inflate(R.layout.confirm_connection, null);
         ButterKnife.bind(this, contentView);
+        createDialog();
+        themeManager.registerListener(this);
+    }
+
+    private void createDialog() {
         dialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .customView(contentView, true)
                 .positiveText(R.string.accept)
                 .negativeText(R.string.reject)
@@ -62,5 +76,16 @@ public class ConfirmConnectionDialog {
 
     public void dismiss() {
         dialog.dismiss();
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialog();
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }

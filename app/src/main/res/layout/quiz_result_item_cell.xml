@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+        <com.randomappsinc.simpleflashcards.theme.ThemedSubtitleTextView
             android:id="@+id/question_header"
             style="@style/quiz_result_header"/>
 
@@ -33,7 +33,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"/>
 
-        <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+        <com.randomappsinc.simpleflashcards.theme.ThemedSubtitleTextView
             android:text="@string/your_answer"
             android:layout_marginTop="8dp"
             style="@style/quiz_result_header"/>
@@ -54,7 +54,7 @@
                 style="@style/quiz_result_value"/>
         </LinearLayout>
 
-        <TextView
+        <com.randomappsinc.simpleflashcards.theme.ThemedSubtitleTextView
             android:id="@+id/correct_answer_header"
             android:text="@string/correct_answer"
             android:layout_marginTop="8dp"

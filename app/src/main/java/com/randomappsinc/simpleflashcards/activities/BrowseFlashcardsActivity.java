@@ -1,7 +1,9 @@
 package com.randomappsinc.simpleflashcards.activities;
 
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -78,6 +80,11 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
                     R.string.shake_it,
                     android.R.string.ok);
         }
+    }
+
+    @Override
+    protected void setActionBarColors() {
+        // We don't have a toolbar/status bar, so we make this no-op
     }
 
     private final SeekBar.OnSeekBarChangeListener flashcardsSliderListener =

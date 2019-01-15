@@ -1,7 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="8dp"
@@ -10,7 +9,7 @@
     android:paddingBottom="4dp"
     tools:ignore="SpUsage, RtlHardcoded, ContentDescription">
 
-    <android.support.v7.widget.CardView
+    <com.randomappsinc.simpleflashcards.theme.ThemedCardView
         android:id="@+id/parent"
         style="@style/clickable_card">
 
@@ -19,19 +18,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
                 android:id="@+id/nearby_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:textColor="@color/black"/>
+                android:textSize="19sp"/>
 
-            <TextView
+            <com.randomappsinc.simpleflashcards.theme.ThemedSubtitleTextView
                 android:id="@+id/device_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="@color/dark_gray"/>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
 </LinearLayout>
