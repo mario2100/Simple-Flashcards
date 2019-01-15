@@ -43,6 +43,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textSize">17dp</item>
-        <item name="buttonTint">@color/app_blue</item>
     </style>
 </resources>

@@ -28,22 +28,10 @@ public class ThemedRadioButton extends AppCompatRadioButton implements ThemeMana
         selectedColor = ContextCompat.getColor(context, R.color.app_blue);
 
         setTextColor(themeManager.getDarkModeEnabled(context) ? darkModeTextColor : normalModeTextColor);
-        ColorStateList colorStateList = new ColorStateList(
-                new int[][] {
-                        new int[]{-android.R.attr.state_checked},
-                        new int[]{android.R.attr.state_checked}
-                },
-                new int[] {
-                        themeManager.getDarkModeEnabled(getContext()) ? unselectedColorDarkMode : unselectedColor,
-                        selectedColor
-                }
-        );
-        CompoundButtonCompat.setButtonTintList(this, colorStateList);
+        setButtonTint(themeManager.getDarkModeEnabled(context));
     }
 
-    @Override
-    public void onThemeChanged(boolean darkModeEnabled) {
-        setTextColor(darkModeEnabled ? darkModeTextColor : normalModeTextColor);
+    private void setButtonTint(boolean darkModeEnabled) {
         ColorStateList colorStateList = new ColorStateList(
                 new int[][] {
                         new int[]{-android.R.attr.state_checked},
@@ -55,6 +43,12 @@ public class ThemedRadioButton extends AppCompatRadioButton implements ThemeMana
                 }
         );
         CompoundButtonCompat.setButtonTintList(this, colorStateList);
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        setTextColor(darkModeEnabled ? darkModeTextColor : normalModeTextColor);
+        setButtonTint(darkModeEnabled);
     }
 
     @Override
