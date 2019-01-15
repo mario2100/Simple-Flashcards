@@ -25,7 +25,7 @@ public class StandardActivity extends AppCompatActivity implements ThemeManager.
         super.onCreate(savedInstanceState);
         blue = ContextCompat.getColor(this, R.color.app_blue);
         darkBlue = ContextCompat.getColor(this, R.color.dark_blue);
-        actionBarBlack = ContextCompat.getColor(this, R.color.dark_mode_black);
+        actionBarBlack = ContextCompat.getColor(this, R.color.dark_mode_toolbar_black);
         statusBarBlack = ContextCompat.getColor(this, R.color.dark_mode_status_bar_black);
         setActionBarColors();
         themeManager.registerListener(this);

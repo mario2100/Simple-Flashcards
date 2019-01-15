@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class QuizletSearchFilterActivity extends AppCompatActivity {
+public class QuizletSearchFilterActivity extends StandardActivity {
 
     @BindView(R.id.only_show_image_sets) CheckBox onlyShowImageSets;
 

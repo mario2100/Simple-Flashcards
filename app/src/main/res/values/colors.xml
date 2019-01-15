@@ -18,6 +18,7 @@
     <color name="red">#F44336</color>
 
     <color name="dark_mode_black">#363636</color>
-    <color name="dark_mode_status_bar_black">#212121</color>
-    <color name="dark_mode_card_black">#303030</color>
+    <color name="dark_mode_toolbar_black">#252525</color>
+    <color name="dark_mode_status_bar_black">#101010</color>
+    <color name="dark_mode_card_black">#252525</color>
 </resources>

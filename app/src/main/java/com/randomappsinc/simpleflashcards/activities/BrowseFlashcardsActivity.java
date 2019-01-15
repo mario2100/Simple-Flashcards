@@ -1,9 +1,7 @@
 package com.randomappsinc.simpleflashcards.activities;
 
-import android.graphics.drawable.ColorDrawable;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;

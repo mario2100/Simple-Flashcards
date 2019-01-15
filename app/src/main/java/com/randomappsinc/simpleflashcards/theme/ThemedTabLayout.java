@@ -17,7 +17,7 @@ public class ThemedTabLayout extends TabLayout implements ThemeManager.Listener 
         super(context, attrs);
         themeManager = ThemeManager.get();
         normalModeColor = ContextCompat.getColor(context, R.color.app_blue);
-        darkModeColor = ContextCompat.getColor(context, R.color.dark_mode_black);
+        darkModeColor = ContextCompat.getColor(context, R.color.dark_mode_toolbar_black);
 
         setBackgroundColor(themeManager.getDarkModeEnabled(context) ? darkModeColor : normalModeColor);
     }

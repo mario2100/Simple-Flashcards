@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.randomappsinc.simpleflashcards.theme.ThemedRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="SpUsage, RtlHardcoded">
+    tools:ignore="SpUsage, RtlHardcoded, RtlSymmetry">
 
-    <CheckBox
+    <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
         android:id="@+id/only_show_image_sets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,8 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="16dp"
-        android:background="@color/white">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/apply_filter"
@@ -31,9 +30,8 @@
             style="@style/rounded_button"/>
     </FrameLayout>
 
-    <View
+    <com.randomappsinc.simpleflashcards.theme.ThemedToolbarShadow
         android:layout_above="@+id/button_container"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/bottom_shadow"/>
-</RelativeLayout>
+        android:layout_height="2dp"/>
+</com.randomappsinc.simpleflashcards.theme.ThemedRelativeLayout>
