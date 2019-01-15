@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:ignore="SpUsage, RtlHardcoded">
 
     <LinearLayout
@@ -42,12 +41,11 @@
                 android:gravity="center"/>
         </LinearLayout>
 
-        <TextView
+        <com.randomappsinc.simpleflashcards.theme.ThemedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/permissions_explanation"
-            android:textSize="17sp"
-            android:textColor="@color/dark_gray"/>
+            android:textSize="17sp"/>
 
         <TextView
             android:id="@+id/grant_permissions"
@@ -73,12 +71,11 @@
             android:textSize="60dp"
             android:gravity="center"/>
 
-        <TextView
+        <com.randomappsinc.simpleflashcards.theme.ThemedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name_setting_needed"
-            android:textSize="17sp"
-            android:textColor="@color/dark_gray"/>
+            android:textSize="17sp"/>
 
         <TextView
             android:id="@+id/set_nearby_name_button"
@@ -94,15 +91,14 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView
+        <com.randomappsinc.simpleflashcards.theme.ThemedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:text="@string/tap_to_connect"
-            android:textSize="21sp"
-            android:textColor="@color/dark_gray"/>
+            android:textSize="21sp"/>
 
         <LinearLayout
             android:id="@+id/skeleton_devices_list"
@@ -127,4 +123,4 @@
             android:clipToPadding="false"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
     </LinearLayout>
-</LinearLayout>
+</com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout>

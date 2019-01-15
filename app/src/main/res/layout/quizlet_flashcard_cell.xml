@@ -1,7 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="8dp"
@@ -10,7 +9,7 @@
     android:paddingBottom="4dp"
     tools:ignore="SpUsage, RtlHardcoded, ContentDescription">
 
-    <android.support.v7.widget.CardView
+    <com.randomappsinc.simpleflashcards.theme.ThemedCardView
         android:layout_height="wrap_content"
         style="@style/flashcard_card">
 
@@ -19,7 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
                 android:id="@+id/position_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,11 +45,10 @@
                     android:padding="8dp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
                         android:id="@+id/term_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/dark_gray"
                         android:textSize="15sp"/>
 
                     <com.randomappsinc.simpleflashcards.views.SquareImageView
@@ -65,16 +63,15 @@
                     android:layout_height="match_parent"
                     android:background="@color/dark_gray"/>
 
-                <TextView
+                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
                     android:id="@+id/definition"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
-                    android:textColor="@color/dark_gray"
                     android:textSize="15sp"/>
             </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
 </LinearLayout>
