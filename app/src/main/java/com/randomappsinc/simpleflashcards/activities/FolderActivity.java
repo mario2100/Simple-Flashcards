@@ -140,6 +140,13 @@ public class FolderActivity extends StandardActivity
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        setAdderDialog.cleanUp();
+        renameFolderDialog.cleanUp();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_folder, menu);
         UIUtils.loadMenuIcon(menu, R.id.rename_folder, IoniconsIcons.ion_edit, this);

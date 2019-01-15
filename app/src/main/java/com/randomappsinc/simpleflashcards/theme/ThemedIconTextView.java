@@ -7,13 +7,13 @@ import android.util.AttributeSet;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.randomappsinc.simpleflashcards.R;
 
-public class ThemedIcon extends IconTextView implements ThemeManager.Listener {
+public class ThemedIconTextView extends IconTextView implements ThemeManager.Listener {
 
     private ThemeManager themeManager;
     private int normalModeColor;
     private int darkModeColor;
 
-    public ThemedIcon(Context context, AttributeSet attrs) {
+    public ThemedIconTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         themeManager = ThemeManager.get();
         normalModeColor = ContextCompat.getColor(context, R.color.dark_gray);

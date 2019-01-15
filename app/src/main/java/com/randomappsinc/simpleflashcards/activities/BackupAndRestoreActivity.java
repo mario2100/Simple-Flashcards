@@ -38,6 +38,7 @@ public class BackupAndRestoreActivity extends StandardActivity implements Folder
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setActionBarColors();
 
         viewPager.setAdapter(new BackupAndRestoreTabsAdapter(getSupportFragmentManager(), tabNames));
         tabs.setupWithViewPager(viewPager);

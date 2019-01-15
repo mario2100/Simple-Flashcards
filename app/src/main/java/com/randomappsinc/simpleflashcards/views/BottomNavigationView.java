@@ -52,6 +52,9 @@ public class BottomNavigationView extends LinearLayout implements ThemeManager.L
         setColors();
         currentlySelected = homeButton;
         homeButton.setTextColor(selectedColor);
+        searchButton.setTextColor(nonSelectedColor);
+        folderButton.setTextColor(nonSelectedColor);
+        settingsButton.setTextColor(nonSelectedColor);
     }
 
     private void setColors() {

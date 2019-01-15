@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-public class NearbyNameManager {
+public class NearbyNameManager implements ThemeManager.Listener {
 
     public interface Listener {
         void onNameChanged();
@@ -19,13 +21,22 @@ public class NearbyNameManager {
     @Nullable protected Listener listener;
     protected String currentName;
     private MaterialDialog nameSettingDialog;
+    private Context context;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public NearbyNameManager(Context context, @Nullable final Listener listener) {
+    public NearbyNameManager(Context context, @Nullable Listener listener) {
         this.preferencesManager = new PreferencesManager(context);
         this.currentName = preferencesManager.getNearbyName();
+        this.context = context;
         this.listener = listener;
+        createDialog();
+        themeManager.registerListener(this);
+    }
+
+    private void createDialog() {
         String nearbyNameHint = context.getString(R.string.nearby_name);
-        this.nameSettingDialog = new MaterialDialog.Builder(context)
+        nameSettingDialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.set_nearby_name_title)
                 .content(R.string.nearby_name_explanation)
                 .alwaysCallInputCallback()
@@ -59,5 +70,16 @@ public class NearbyNameManager {
 
     public void showNameSetter() {
         nameSettingDialog.show();
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialog();
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }

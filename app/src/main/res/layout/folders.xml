@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:ignore="SpUsage, RtlHardcoded">
 
-    <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+    <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
         android:id="@+id/no_folders"
         android:text="@string/no_folders_text"
         style="@style/empty_state_text"/>

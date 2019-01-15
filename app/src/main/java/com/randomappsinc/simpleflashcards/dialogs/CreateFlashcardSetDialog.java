@@ -17,9 +17,9 @@ public class CreateFlashcardSetDialog implements ThemeManager.Listener {
         void onFlashcardSetCreated(int createdSetId);
     }
 
+    private MaterialDialog adderDialog;
     private Context context;
     protected Listener listener;
-    private MaterialDialog adderDialog;
     private ThemeManager themeManager = ThemeManager.get();
 
     public CreateFlashcardSetDialog(Context context, @NonNull Listener listener) {

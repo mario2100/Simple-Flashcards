@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<com.randomappsinc.simpleflashcards.theme.ThemedFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.joanzapata.iconify.widget.IconTextView
+    <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
         android:id="@+id/no_problems"
         style="@style/empty_state_text"/>
 
@@ -18,4 +17,4 @@
         android:paddingBottom="4dp"
         android:clipToPadding="false"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-</FrameLayout>
+</com.randomappsinc.simpleflashcards.theme.ThemedFrameLayout>

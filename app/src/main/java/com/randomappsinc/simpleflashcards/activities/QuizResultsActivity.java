@@ -37,6 +37,7 @@ public class QuizResultsActivity extends StandardActivity {
                 .setHomeAsUpIndicator(new IconDrawable(this, IoniconsIcons.ion_android_close)
                 .colorRes(R.color.white)
                 .actionBarSize());
+        setActionBarColors();
 
         List<Problem> problems = getIntent().getParcelableArrayListExtra(Constants.QUIZ_RESULTS_KEY);
         viewPager.setAdapter(new QuizResultsTabsAdapter(getSupportFragmentManager(), problems, resultTabs));

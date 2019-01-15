@@ -31,8 +31,7 @@
             style="@style/bottom_navigation_item"/>
     </com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout>
 
-    <View
+    <com.randomappsinc.simpleflashcards.theme.ThemedToolbarShadow
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/bottom_nav_shadow"/>
+        android:layout_height="2dp"/>
 </FrameLayout>

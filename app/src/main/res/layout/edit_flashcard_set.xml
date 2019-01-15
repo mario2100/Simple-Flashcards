@@ -26,7 +26,7 @@
             android:textSize="17sp"
             android:textColor="@color/dark_gray"/>
 
-        <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+        <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
             android:id="@+id/no_flashcards"
             style="@style/empty_state_text"/>
 

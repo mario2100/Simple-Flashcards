@@ -18,11 +18,11 @@
             android:orientation="vertical">
 
             <LinearLayout style="@style/quiz_settings_header_container">
-                <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextViewGray
                     android:text="@string/question_mark_icon"
                     style="@style/quiz_settings_icon"/>
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                <com.randomappsinc.simpleflashcards.theme.ThemedExtrasTextView
                     android:text="@string/number_of_questions"
                     style="@style/quiz_settings_section_title"/>
             </LinearLayout>
@@ -70,11 +70,11 @@
                 android:layout_marginTop="16dp"
                 style="@style/quiz_settings_header_container">
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextViewGray
                     android:text="@string/time_icon"
                     style="@style/quiz_settings_icon"/>
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                <com.randomappsinc.simpleflashcards.theme.ThemedExtrasTextView
                     android:text="@string/time_limit"
                     style="@style/quiz_settings_section_title"/>
             </LinearLayout>
@@ -151,11 +151,11 @@
                 android:layout_marginTop="16dp"
                 style="@style/quiz_settings_header_container">
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextViewGray
                     android:text="@string/question_mark_icon"
                     style="@style/quiz_settings_icon"/>
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                <com.randomappsinc.simpleflashcards.theme.ThemedExtrasTextView
                     android:text="@string/question_types"
                     style="@style/quiz_settings_section_title"/>
             </LinearLayout>

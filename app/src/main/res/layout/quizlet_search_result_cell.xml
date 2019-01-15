@@ -28,7 +28,7 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
                     android:id="@+id/images_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

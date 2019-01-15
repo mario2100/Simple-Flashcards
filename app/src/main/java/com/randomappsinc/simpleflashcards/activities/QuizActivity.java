@@ -462,6 +462,7 @@ public class QuizActivity extends StandardActivity implements QuitQuizDialog.Lis
         if (timerManager != null) {
             timerManager.finish();
         }
+        quitQuizDialog.cleanUp();
     }
 
     @Override

@@ -5,18 +5,31 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-public class RenameFolderDialog {
+public class RenameFolderDialog implements ThemeManager.Listener {
 
     public interface Listener {
         void onFolderName(String newFolderName);
     }
 
     private MaterialDialog dialog;
+    private Context context;
+    protected Listener listener;
+    private ThemeManager themeManager = ThemeManager.get();
 
-    public RenameFolderDialog(Context context, String initialName, @NonNull final Listener listener) {
+    public RenameFolderDialog(Context context, String initialName, @NonNull Listener listener) {
+        this.context = context;
+        this.listener = listener;
+        createDialog(initialName);
+        themeManager.registerListener(this);
+    }
+
+    private void createDialog(String initialName) {
         dialog = new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.rename_folder_title)
                 .alwaysCallInputCallback()
                 .input(context.getString(R.string.folder_name),
@@ -43,5 +56,16 @@ public class RenameFolderDialog {
 
     public void show() {
         dialog.show();
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        createDialog(dialog.getInputEditText().getText().toString());
+    }
+
+    public void cleanUp() {
+        context = null;
+        listener = null;
+        themeManager.unregisterListener(this);
     }
 }

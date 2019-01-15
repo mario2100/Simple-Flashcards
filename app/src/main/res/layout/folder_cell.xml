@@ -9,7 +9,7 @@
     android:padding="8dp"
     tools:ignore="SpUsage, RtlHardcoded">
 
-    <com.randomappsinc.simpleflashcards.theme.ThemedIcon
+    <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
         android:id="@+id/delete_folder"
         android:layout_width="40dp"
         android:layout_height="40dp"

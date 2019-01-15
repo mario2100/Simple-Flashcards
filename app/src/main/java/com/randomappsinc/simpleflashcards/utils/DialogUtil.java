@@ -12,17 +12,21 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 public class DialogUtil {
 
     public static void showHomepageDialog(final Activity activity) {
         PreferencesManager preferencesManager = new PreferencesManager(activity);
+        ThemeManager themeManager = ThemeManager.get();
         if (preferencesManager.isFirstTimeUser()) {
             preferencesManager.rememberWelcome();
             new MaterialDialog.Builder(activity)
+                    .theme(themeManager.getDarkModeEnabled(activity) ? Theme.DARK : Theme.LIGHT)
                     .title(R.string.welcome)
                     .content(R.string.ask_for_help)
                     .positiveText(R.string.got_it)
@@ -30,6 +34,7 @@ public class DialogUtil {
         } else if (!preferencesManager.hasSeenBackupDataDialog()) {
             preferencesManager.rememberBackupDataDialogSeen();
             new MaterialDialog.Builder(activity)
+                    .theme(themeManager.getDarkModeEnabled(activity) ? Theme.DARK : Theme.LIGHT)
                     .title(R.string.backup_your_data)
                     .content(R.string.backup_your_data_explanation)
                     .negativeText(R.string.backup_deny)
@@ -44,6 +49,7 @@ public class DialogUtil {
         } else if (preferencesManager.shouldAskForRating()) {
             preferencesManager.rememberRatingDialogSeen();
             new MaterialDialog.Builder(activity)
+                    .theme(themeManager.getDarkModeEnabled(activity) ? Theme.DARK : Theme.LIGHT)
                     .content(R.string.please_rate)
                     .negativeText(R.string.no_im_good)
                     .positiveText(R.string.sure_will_help)
@@ -65,6 +71,7 @@ public class DialogUtil {
         } else if (preferencesManager.shouldAskForShare()) {
             preferencesManager.rememberSharingDialogSeen();
             new MaterialDialog.Builder(activity)
+                    .theme(themeManager.getDarkModeEnabled(activity) ? Theme.DARK : Theme.LIGHT)
                     .title(R.string.studying_best_done_in_groups)
                     .content(R.string.please_share)
                     .negativeText(R.string.no_im_good)
@@ -95,7 +102,9 @@ public class DialogUtil {
                 null,
                 false);
         dialogView.setText(bodyText);
+        ThemeManager themeManager = ThemeManager.get();
         new MaterialDialog.Builder(context)
+                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(titleText)
                 .positiveText(positiveText)
                 .customView(dialogView, true)
