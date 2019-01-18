@@ -30,7 +30,7 @@ public class PreferencesManager {
     private static final int NUM_APP_OPENS_BEFORE_ASKING_FOR_SHARE = 10;
 
     private static final String DARK_MODE_ENABLED = "darkModeEnabled";
-    private static final String SHOULD_TEACH_ABOUT_DARK_MODE = "shouldTeachAboutDarkMode";
+    private static final String HAS_SEEN_DARK_MODE_DIALOG = "hasSeenDarkModeDialog";
 
     private SharedPreferences prefs;
 
@@ -143,10 +143,10 @@ public class PreferencesManager {
 
     public boolean shouldTeachAboutDarkMode() {
         boolean darkModeDisabled = !getDarkModeEnabled();
-        return darkModeDisabled && prefs.getBoolean(SHOULD_TEACH_ABOUT_DARK_MODE, true);
+        return darkModeDisabled && !prefs.getBoolean(HAS_SEEN_DARK_MODE_DIALOG, false);
     }
 
-    public void setShouldTeachAboutDarkMode(boolean shouldTeachAboutDarkMode) {
-        prefs.edit().putBoolean(SHOULD_TEACH_ABOUT_DARK_MODE, shouldTeachAboutDarkMode).apply();
+    public void rememberDarkModeDialogSeen() {
+        prefs.edit().putBoolean(HAS_SEEN_DARK_MODE_DIALOG, true).apply();
     }
 }

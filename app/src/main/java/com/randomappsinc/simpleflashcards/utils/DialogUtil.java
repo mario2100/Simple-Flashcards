@@ -22,7 +22,7 @@ public class DialogUtil {
 
     public static void showHomepageDialog(final Activity activity) {
         PreferencesManager preferencesManager = new PreferencesManager(activity);
-        ThemeManager themeManager = ThemeManager.get();
+        final ThemeManager themeManager = ThemeManager.get();
         if (preferencesManager.isFirstTimeUser()) {
             preferencesManager.rememberWelcome();
             new MaterialDialog.Builder(activity)
@@ -45,6 +45,22 @@ public class DialogUtil {
                             activity.startActivity(new Intent(activity, BackupAndRestoreActivity.class));
                         }
                     })
+                    .show();
+        } else if (preferencesManager.shouldTeachAboutDarkMode()) {
+            preferencesManager.rememberDarkModeDialogSeen();
+            new MaterialDialog.Builder(activity)
+                    .theme(Theme.LIGHT)
+                    .title(R.string.dark_mode_tutorial_title)
+                    .content(R.string.dark_mode_explanation)
+                    .positiveText(R.string.sure_lets_do_it)
+                    .negativeText(R.string.maybe_later)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            themeManager.setDarkModeEnabled(activity, true);
+                        }
+                    })
+                    .cancelable(false)
                     .show();
         } else if (preferencesManager.shouldAskForRating()) {
             preferencesManager.rememberRatingDialogSeen();
