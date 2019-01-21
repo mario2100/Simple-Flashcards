@@ -1,4 +1,4 @@
-<com.randomappsinc.simpleflashcards.theme.ThemedCoordinatorLayout
+<com.randomappsinc.simpleflashcards.theme.ThemedFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,27 +6,41 @@
     android:layout_height="match_parent"
     tools:ignore="SpUsage, RtlHardcoded">
 
-    <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
-        android:id="@+id/no_folders"
-        android:text="@string/no_folders_text"
-        style="@style/empty_state_text"/>
-
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/focus_sink"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <com.randomappsinc.simpleflashcards.theme.ThemedRecyclerView
-            android:id="@+id/folders"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="88dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+        <include
+            android:id="@+id/search_bar"
+            layout="@layout/search_bar"/>
 
-        <com.randomappsinc.simpleflashcards.theme.ThemedListFade
+        <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
+            android:id="@+id/no_folders"
+            android:text="@string/no_folders_text"
+            style="@style/empty_state_text"/>
+
+        <FrameLayout
+            android:id="@+id/folders_list_container"
             android:layout_width="match_parent"
-            android:layout_height="8dp"/>
-    </FrameLayout>
+            android:layout_height="match_parent">
+
+            <com.randomappsinc.simpleflashcards.theme.ThemedRecyclerView
+                android:id="@+id/folders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="88dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+            <com.randomappsinc.simpleflashcards.theme.ThemedListFade
+                android:layout_width="match_parent"
+                android:layout_height="8dp"/>
+        </FrameLayout>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_folder"
@@ -34,4 +48,4 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"/>
-</com.randomappsinc.simpleflashcards.theme.ThemedCoordinatorLayout>
+</com.randomappsinc.simpleflashcards.theme.ThemedFrameLayout>

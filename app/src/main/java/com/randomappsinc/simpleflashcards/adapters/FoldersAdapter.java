@@ -38,9 +38,9 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
         this.databaseManager = DatabaseManager.get();
     }
 
-    public void refreshContent() {
+    public void refreshContent(String searchTerm) {
         folders.clear();
-        folders.addAll(databaseManager.getFolders());
+        folders.addAll(databaseManager.getFolders(searchTerm));
         notifyDataSetChanged();
     }
 

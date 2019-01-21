@@ -1,16 +1,22 @@
 package com.randomappsinc.simpleflashcards.fragments;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
@@ -22,22 +28,37 @@ import com.randomappsinc.simpleflashcards.dialogs.CreateFolderDialog;
 import com.randomappsinc.simpleflashcards.dialogs.DeleteFolderDialog;
 import com.randomappsinc.simpleflashcards.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.utils.StringUtils;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
+
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 public class FoldersFragment extends Fragment
         implements CreateFolderDialog.Listener, FoldersAdapter.Listener, DeleteFolderDialog.Listener {
 
+    private static final int SPEECH_REQUEST_CODE = 4;
+
     public static FoldersFragment newInstance() {
         return new FoldersFragment();
     }
 
+    @BindView(R.id.focus_sink) View focusSink;
+    @BindView(R.id.search_bar) View searchBar;
+    @BindView(R.id.search_input) EditText searchInput;
+    @BindView(R.id.voice_search) View voiceSearch;
+    @BindView(R.id.clear_search) View clearSearch;
+
     @BindView(R.id.add_folder) FloatingActionButton addFolder;
-    @BindView(R.id.no_folders) View noFolders;
+    @BindView(R.id.no_folders) TextView noFolders;
+    @BindView(R.id.folders_list_container) View listContainer;
     @BindView(R.id.folders) RecyclerView folders;
 
     private CreateFolderDialog createFolderDialog;
@@ -74,26 +95,114 @@ public class FoldersFragment extends Fragment
         adapter = new FoldersAdapter(this);
         folders.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         folders.setAdapter(adapter);
+
+        // When the user is scrolling, close the soft keyboard
+        folders.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    UIUtils.closeKeyboard(getActivity());
+                    takeAwayFocusFromSearch();
+                }
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        adapter.refreshContent();
+        adapter.refreshContent(searchInput.getText().toString());
         updateNoFoldersVisibility();
+    }
+
+    @OnTextChanged(value = R.id.search_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void afterTextChanged(Editable input) {
+        adapter.refreshContent(input.toString());
+        voiceSearch.setVisibility(input.length() == 0 ? View.VISIBLE : View.GONE);
+        clearSearch.setVisibility(input.length() == 0 ? View.GONE : View.VISIBLE);
+        updateNoFoldersVisibility();
+    }
+
+    @OnClick(R.id.clear_search)
+    public void clearSearch() {
+        searchInput.setText("");
+    }
+
+    @OnClick(R.id.voice_search)
+    public void searchWithVoice() {
+        showGoogleSpeechDialog();
+    }
+
+    private void showGoogleSpeechDialog() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_message));
+        try {
+            startActivityForResult(intent, SPEECH_REQUEST_CODE);
+            getActivity().overridePendingTransition(R.anim.stay, R.anim.slide_in_bottom);
+        } catch (ActivityNotFoundException exception) {
+            UIUtils.showLongToast(R.string.speech_not_supported, getContext());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SPEECH_REQUEST_CODE:
+                if (resultCode != Activity.RESULT_OK || data == null) {
+                    return;
+                }
+                List<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (result == null || result.isEmpty()) {
+                    UIUtils.showLongToast(R.string.speech_unrecognized, getContext());
+                    return;
+                }
+                String voiceQuery = StringUtils.capitalizeFirstWord(result.get(0));
+                searchInput.setText(voiceQuery);
+                break;
+        }
+    }
+
+    // Stop the EditText cursor from blinking
+    protected void takeAwayFocusFromSearch() {
+        focusSink.requestFocus();
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        takeAwayFocusFromSearch();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            adapter.refreshContent();
+            adapter.refreshContent(searchInput.getText().toString());
             updateNoFoldersVisibility();
         }
     }
 
     public void updateNoFoldersVisibility() {
-        noFolders.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        folders.setVisibility(adapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
+        int numFoldersInDb = databaseManager.getNumFolders();
+        if (numFoldersInDb == 0) {
+            searchBar.setVisibility(View.GONE);
+            listContainer.setVisibility(View.GONE);
+            noFolders.setText(R.string.no_folders_text);
+            noFolders.setVisibility(View.VISIBLE);
+        } else {
+            searchBar.setVisibility(View.VISIBLE);
+            if (adapter.getItemCount() == 0) {
+                listContainer.setVisibility(View.GONE);
+                noFolders.setText(R.string.no_folders_from_search);
+                noFolders.setVisibility(View.VISIBLE);
+            } else {
+                listContainer.setVisibility(View.VISIBLE);
+                noFolders.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -124,7 +233,7 @@ public class FoldersFragment extends Fragment
     @Override
     public void onNewFolderSubmitted(String folderName) {
         int newFolderId = databaseManager.createFolder(folderName);
-        adapter.refreshContent();
+        adapter.refreshContent(searchInput.getText().toString());
         updateNoFoldersVisibility();
         Intent intent = new Intent(getActivity(), FolderActivity.class)
                 .putExtra(Constants.FOLDER_ID_KEY, newFolderId);

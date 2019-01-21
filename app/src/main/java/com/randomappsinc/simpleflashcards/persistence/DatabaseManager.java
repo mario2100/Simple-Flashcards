@@ -486,10 +486,18 @@ public class DatabaseManager {
         return 0;
     }
 
-    public List<Folder> getFolders() {
-        List<FolderDO> folderDOs = realm
-                .where(FolderDO.class)
-                .findAll();
+    public List<Folder> getFolders(String searchTerm) {
+        List<FolderDO> folderDOs;
+        if (searchTerm.trim().isEmpty()) {
+            folderDOs = realm
+                    .where(FolderDO.class)
+                    .findAll();
+        } else {
+            folderDOs = realm
+                    .where(FolderDO.class)
+                    .contains("name", searchTerm, Case.INSENSITIVE)
+                    .findAll();
+        }
         List<Folder> folders = new ArrayList<>();
         for (FolderDO folderDO : folderDOs) {
             folders.add(DBConverter.getFolderFromDO(folderDO));
@@ -597,5 +605,12 @@ public class DatabaseManager {
         } catch (Exception e) {
             realm.cancelTransaction();
         }
+    }
+
+    public int getNumFolders() {
+        return realm
+                .where(FolderDO.class)
+                .findAll()
+                .size();
     }
 }

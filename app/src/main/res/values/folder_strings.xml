@@ -7,6 +7,9 @@
         Use the {ion-android-add-circle} button below
         to create your first folder and start organizing your flashcards!
     </string>
+    <string name="no_folders_from_search">
+        You do not have any folders that match your search.
+    </string>
 
     <string name="one_flashcard_set">1 flashcard set</string>
     <string name="x_flashcard_sets">%d flashcard sets</string>

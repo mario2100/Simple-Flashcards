@@ -230,7 +230,6 @@ public class HomepageFragment extends Fragment
 
     @Override
     public void onFlashcardSetDeleted() {
-
         adapter.onFlashcardSetDeleted();
     }
 
