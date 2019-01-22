@@ -177,7 +177,7 @@ public class DatabaseManager {
         });
     }
 
-    public int addFlashcardSet(String setName) {
+    public int createFlashcardSet(String setName) {
         try {
             realm.beginTransaction();
             FlashcardSet set = new FlashcardSet();

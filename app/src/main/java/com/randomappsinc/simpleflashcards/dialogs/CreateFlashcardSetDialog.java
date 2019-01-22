@@ -8,13 +8,12 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 public class CreateFlashcardSetDialog implements ThemeManager.Listener {
 
     public interface Listener {
-        void onFlashcardSetCreated(int createdSetId);
+        void onFlashcardSetCreated(String newSetName);
     }
 
     private MaterialDialog adderDialog;
@@ -51,8 +50,7 @@ public class CreateFlashcardSetDialog implements ThemeManager.Listener {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         String setName = dialog.getInputEditText().getText().toString().trim();
-                        int newSetId = DatabaseManager.get().addFlashcardSet(setName);
-                        listener.onFlashcardSetCreated(newSetId);
+                        listener.onFlashcardSetCreated(setName);
                     }
                 })
                 .build();

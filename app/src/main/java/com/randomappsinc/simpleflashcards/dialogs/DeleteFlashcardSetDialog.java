@@ -7,13 +7,13 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 public class DeleteFlashcardSetDialog implements ThemeManager.Listener {
 
     public interface Listener {
-        void onFlashcardSetDeleted();
+        void onFlashcardSetDeleted(int flashcardSetId);
     }
 
     private Context context;
@@ -33,14 +33,12 @@ public class DeleteFlashcardSetDialog implements ThemeManager.Listener {
         dialog = new MaterialDialog.Builder(context)
                 .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.flashcard_set_delete_title)
-                .content(R.string.flashcard_set_delete_message)
                 .positiveText(R.string.yes)
                 .negativeText(R.string.cancel)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        DatabaseManager.get().deleteFlashcardSet(flashcardSetId);
-                        listener.onFlashcardSetDeleted();
+                        listener.onFlashcardSetDeleted(flashcardSetId);
                     }
                 })
                 .build();
@@ -51,8 +49,10 @@ public class DeleteFlashcardSetDialog implements ThemeManager.Listener {
         createDialog();
     }
 
-    public void show(int flashcardSetId) {
-        this.flashcardSetId = flashcardSetId;
+    public void show(FlashcardSet flashcardSet) {
+        flashcardSetId = flashcardSet.getId();
+        String quotedName = "\"" + flashcardSet.getName() + "\"";
+        dialog.setContent(context.getString(R.string.flashcard_set_delete_message, quotedName));
         dialog.show();
     }
 

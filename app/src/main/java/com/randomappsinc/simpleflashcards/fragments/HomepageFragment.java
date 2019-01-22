@@ -46,8 +46,8 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-public class HomepageFragment extends Fragment
-        implements FlashcardSetsAdapter.Listener, DeleteFlashcardSetDialog.Listener {
+public class HomepageFragment extends Fragment implements FlashcardSetsAdapter.Listener,
+        DeleteFlashcardSetDialog.Listener, CreateFlashcardSetDialog.Listener {
 
     public static HomepageFragment newInstance() {
         return new HomepageFragment();
@@ -73,6 +73,7 @@ public class HomepageFragment extends Fragment
     protected FlashcardSetsAdapter adapter;
     private CreateFlashcardSetDialog createFlashcardSetDialog;
     private DeleteFlashcardSetDialog deleteFlashcardSetDialog;
+    private DatabaseManager databaseManager = DatabaseManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -100,7 +101,7 @@ public class HomepageFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        createFlashcardSetDialog = new CreateFlashcardSetDialog(getActivity(), setCreatedListener);
+        createFlashcardSetDialog = new CreateFlashcardSetDialog(getActivity(), this);
         deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
 
         adapter = new FlashcardSetsAdapter(this, getActivity());
@@ -173,17 +174,15 @@ public class HomepageFragment extends Fragment
         getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }
 
-    private final CreateFlashcardSetDialog.Listener setCreatedListener =
-            new CreateFlashcardSetDialog.Listener() {
-                @Override
-                public void onFlashcardSetCreated(int createdSetId) {
-                    adapter.refreshContent(setSearch.getText().toString());
-                    Intent intent = new Intent(getActivity(), EditFlashcardSetActivity.class);
-                    intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, createdSetId);
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-                }
-            };
+    @Override
+    public void onFlashcardSetCreated(String newSetName) {
+        int newSetId = databaseManager.createFlashcardSet(newSetName);
+        adapter.refreshContent(setSearch.getText().toString());
+        Intent intent = new Intent(getActivity(), EditFlashcardSetActivity.class);
+        intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, newSetId);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+    }
 
     @Override
     public void browseFlashcardSet(FlashcardSet flashcardSet) {
@@ -225,11 +224,12 @@ public class HomepageFragment extends Fragment
 
     @Override
     public void deleteFlashcardSet(FlashcardSet flashcardSet) {
-        deleteFlashcardSetDialog.show(flashcardSet.getId());
+        deleteFlashcardSetDialog.show(flashcardSet);
     }
 
     @Override
-    public void onFlashcardSetDeleted() {
+    public void onFlashcardSetDeleted(int flashcardSetId) {
+        databaseManager.deleteFlashcardSet(flashcardSetId);
         adapter.onFlashcardSetDeleted();
     }
 
