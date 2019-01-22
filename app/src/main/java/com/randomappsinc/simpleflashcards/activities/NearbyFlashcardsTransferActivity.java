@@ -37,6 +37,7 @@ public class NearbyFlashcardsTransferActivity extends StandardActivity {
                 .setHomeAsUpIndicator(new IconDrawable(this, IoniconsIcons.ion_android_close)
                         .colorRes(R.color.white)
                         .actionBarSize());
+        setActionBarColors();
         setTitle(getString(R.string.connected_to, nearbyConnectionsManager.getOtherSideName()));
 
         nearbyConnectionsManager.setPostConnectionListener(postConnectionListener);
