@@ -30,6 +30,16 @@
             style="@style/create_flashcard_icon"/>
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/duplicate_term_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/duplicate_term_warning"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:visibility="gone"/>
+
     <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,4 +65,14 @@
             android:layout_gravity="end|center_vertical"
             style="@style/create_flashcard_icon"/>
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/duplicate_definition_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/duplicate_definition_warning"
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        android:visibility="gone"/>
 </LinearLayout>

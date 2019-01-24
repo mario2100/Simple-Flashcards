@@ -48,4 +48,11 @@
 
     <string name="term_speech_prompt">Tell us your flashcard\'s term.</string>
     <string name="definition_speech_prompt">Tell us your flashcard\'s definition.</string>
+
+    <string name="duplicate_term_warning">
+        Warning: You already have a flashcard with this term in this set.
+    </string>
+    <string name="duplicate_definition_warning">
+        Warning: You already have a flashcard with this definition in this set.
+    </string>
 </resources>

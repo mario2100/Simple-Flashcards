@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 import butterknife.BindView;
@@ -30,17 +31,22 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
 
     @BindView(R.id.term_input) EditText termInput;
     @BindView(R.id.voice_term_entry) View voiceTermEntry;
+    @BindView(R.id.duplicate_term_warning) View duplicateTermWarning;
     @BindView(R.id.definition_input) EditText definitionInput;
+    @BindView(R.id.duplicate_definition_warning) View duplicateDefinitionWarning;
     @BindView(R.id.voice_definition_entry) View voiceDefinitionEntry;
 
     protected MaterialDialog dialog;
     protected Listener listener;
     private Context context;
+    private int setId;
     private ThemeManager themeManager = ThemeManager.get();
+    private DatabaseManager databaseManager = DatabaseManager.get();
 
-    public CreateFlashcardDialog(Context context, @NonNull Listener listener) {
+    public CreateFlashcardDialog(Context context, @NonNull Listener listener, int setId) {
         this.context = context;
         this.listener = listener;
+        this.setId = setId;
         createDialog();
         themeManager.registerListener(this);
     }
@@ -69,6 +75,9 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
     @OnTextChanged(value = R.id.term_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void onTermInputChanged(Editable input) {
         voiceTermEntry.setVisibility(input.length() == 0 ? View.VISIBLE : View.GONE);
+        String term = input.toString().trim();
+        boolean enableWarning = !term.isEmpty() && databaseManager.doesTermExist(setId, term);
+        duplicateTermWarning.setVisibility(enableWarning ? View.VISIBLE : View.GONE);
     }
 
     @OnClick(R.id.voice_term_entry)
@@ -85,6 +94,9 @@ public class CreateFlashcardDialog implements MaterialDialog.SingleButtonCallbac
     @OnTextChanged(value = R.id.definition_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void onDefinitionInputChanged(Editable input) {
         voiceDefinitionEntry.setVisibility(input.length() == 0 ? View.VISIBLE : View.GONE);
+        String definition = input.toString().trim();
+        boolean enableWarning = !definition.isEmpty() && databaseManager.doesDefinitionExist(setId, definition);
+        duplicateDefinitionWarning.setVisibility(enableWarning ? View.VISIBLE : View.GONE);
     }
 
     @OnClick(R.id.voice_definition_entry)

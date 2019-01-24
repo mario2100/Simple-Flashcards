@@ -92,7 +92,7 @@ public class EditFlashcardSetActivity extends StandardActivity {
         addFlashcard.setImageDrawable(
                 new IconDrawable(this, IoniconsIcons.ion_android_add)
                         .colorRes(R.color.white));
-        createFlashcardDialog = new CreateFlashcardDialog(this, flashcardCreatedListener);
+        createFlashcardDialog = new CreateFlashcardDialog(this, flashcardCreatedListener, setId);
         deleteFlashcardDialog = new DeleteFlashcardDialog(this, flashcardDeleteListener);
         editFlashcardTermDialog = new EditFlashcardTermDialog(this, flashcardTermEditListener);
         editFlashcardDefinitionDialog = new EditFlashcardDefinitionDialog(

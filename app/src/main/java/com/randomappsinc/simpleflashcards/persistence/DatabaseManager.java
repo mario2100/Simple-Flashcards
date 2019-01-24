@@ -613,4 +613,26 @@ public class DatabaseManager {
                 .findAll()
                 .size();
     }
+
+    public boolean doesTermExist(int setId, String term) {
+        RealmList<Flashcard> flashcards = realm.where(FlashcardSet.class)
+                .equalTo("id", setId)
+                .findFirst()
+                .getFlashcards();
+        return flashcards
+                .where()
+                .equalTo("term", term, Case.INSENSITIVE)
+                .findFirst() != null;
+    }
+
+    public boolean doesDefinitionExist(int setId, String definition) {
+        RealmList<Flashcard> flashcards = realm.where(FlashcardSet.class)
+                .equalTo("id", setId)
+                .findFirst()
+                .getFlashcards();
+        return flashcards
+                .where()
+                .equalTo("definition", definition, Case.INSENSITIVE)
+                .findFirst() != null;
+    }
 }
