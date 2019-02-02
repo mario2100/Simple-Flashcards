@@ -48,7 +48,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class EditFlashcardSetActivity extends StandardActivity {
+public class EditFlashcardSetActivity extends StandardActivity implements EditFlashcardsAdapter.Listener {
 
     // Intent codes
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
@@ -77,6 +77,10 @@ public class EditFlashcardSetActivity extends StandardActivity {
     protected FlashcardImageOptionsDialog flashcardImageOptionsDialog;
     private EditFlashcardSetNameDialog editFlashcardSetNameDialog;
     protected int currentlySelectedFlashcardId;
+
+    // Janky state boolean to figure out if we're working with term images or definition images
+    protected boolean forTerm;
+
     protected DatabaseManager databaseManager = DatabaseManager.get();
 
     @Override
@@ -101,7 +105,7 @@ public class EditFlashcardSetActivity extends StandardActivity {
                 this, flashcardOptionsListener);
         editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
                 this, currentSetName, editSetNameListener);
-        adapter = new EditFlashcardsAdapter(flashcardEditingListener, setId, noFlashcards, numFlashcards);
+        adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
 
         // When the user is scrolling to browse flashcards, close the soft keyboard
@@ -224,8 +228,13 @@ public class EditFlashcardSetActivity extends StandardActivity {
                     getContentResolver().takePersistableUriPermission(uri, takeFlags);
 
                     String uriString = uri.toString();
-                    databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, uriString);
-                    adapter.onTermImageUpdated(uriString);
+                    if (forTerm) {
+                        databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, uriString);
+                        adapter.onTermImageUpdated(uriString);
+                    } else {
+                        databaseManager.updateFlashcardDefinitionImageUrl(currentlySelectedFlashcardId, uriString);
+                        adapter.onDefinitionImageUpdated(uriString);
+                    }
                 }
                 break;
             case TERM_ENTRY_SPEECH_REQUEST_CODE:
@@ -290,38 +299,37 @@ public class EditFlashcardSetActivity extends StandardActivity {
                 }
             };
 
-    private final EditFlashcardsAdapter.Listener flashcardEditingListener =
-            new EditFlashcardsAdapter.Listener() {
-                @Override
-                public void onEditTerm(Flashcard flashcard) {
-                    currentlySelectedFlashcardId = flashcard.getId();
-                    editFlashcardTermDialog.show(flashcard);
-                }
+    @Override
+    public void onEditTerm(Flashcard flashcard) {
+        currentlySelectedFlashcardId = flashcard.getId();
+        editFlashcardTermDialog.show(flashcard);
+    }
 
-                @Override
-                public void onEditDefinition(Flashcard flashcard) {
-                    currentlySelectedFlashcardId = flashcard.getId();
-                    editFlashcardDefinitionDialog.show(flashcard);
-                }
+    @Override
+    public void onEditDefinition(Flashcard flashcard) {
+        currentlySelectedFlashcardId = flashcard.getId();
+        editFlashcardDefinitionDialog.show(flashcard);
+    }
 
-                @Override
-                public void onDeleteFlashcard(Flashcard flashcard) {
-                    currentlySelectedFlashcardId = flashcard.getId();
-                    deleteFlashcardDialog.show();
-                }
+    @Override
+    public void onDeleteFlashcard(Flashcard flashcard) {
+        currentlySelectedFlashcardId = flashcard.getId();
+        deleteFlashcardDialog.show();
+    }
 
-                @Override
-                public void onImageClicked(Flashcard flashcard) {
-                    currentlySelectedFlashcardId = flashcard.getId();
-                    flashcardImageOptionsDialog.show();
-                }
+    @Override
+    public void onImageClicked(Flashcard flashcard, boolean forTerm) {
+        this.forTerm = forTerm;
+        currentlySelectedFlashcardId = flashcard.getId();
+        flashcardImageOptionsDialog.show();
+    }
 
-                @Override
-                public void onAddImageClicked(Flashcard flashcard) {
-                    currentlySelectedFlashcardId = flashcard.getId();
-                    verifyReadExternalStoragePermission();
-                }
-            };
+    @Override
+    public void onAddImageClicked(Flashcard flashcard, boolean forTerm) {
+        this.forTerm = forTerm;
+        currentlySelectedFlashcardId = flashcard.getId();
+        verifyReadExternalStoragePermission();
+    }
 
     private final DeleteFlashcardDialog.Listener flashcardDeleteListener =
             new DeleteFlashcardDialog.Listener() {
@@ -358,8 +366,12 @@ public class EditFlashcardSetActivity extends StandardActivity {
                     Intent intent = new Intent(
                             EditFlashcardSetActivity.this,
                             PictureFullViewActivity.class)
-                            .putExtra(Constants.IMAGE_URL_KEY, flashcard.getTermImageUrl())
-                            .putExtra(Constants.CAPTION_KEY, flashcard.getTerm());
+                            .putExtra(Constants.IMAGE_URL_KEY, forTerm
+                                    ? flashcard.getTermImageUrl()
+                                    : flashcard.getDefinitionImageUrl())
+                            .putExtra(Constants.CAPTION_KEY, forTerm
+                                    ? flashcard.getTerm()
+                                    : flashcard.getDefinition());
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, 0);
                 }
@@ -371,8 +383,13 @@ public class EditFlashcardSetActivity extends StandardActivity {
 
                 @Override
                 public void onFlashcardImageDeleted() {
-                    databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, null);
-                    adapter.onTermImageUpdated(null);
+                    if (forTerm) {
+                        databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, null);
+                        adapter.onTermImageUpdated(null);
+                    } else {
+                        databaseManager.updateFlashcardDefinitionImageUrl(currentlySelectedFlashcardId, null);
+                        adapter.onDefinitionImageUpdated(null);
+                    }
                 }
             };
 

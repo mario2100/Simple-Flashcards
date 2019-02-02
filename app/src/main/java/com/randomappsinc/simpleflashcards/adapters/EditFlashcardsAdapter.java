@@ -31,9 +31,9 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
 
         void onDeleteFlashcard(Flashcard flashcard);
 
-        void onImageClicked(Flashcard flashcard);
+        void onImageClicked(Flashcard flashcard, boolean forTerm);
 
-        void onAddImageClicked(Flashcard flashcard);
+        void onAddImageClicked(Flashcard flashcard, boolean forTerm);
     }
 
     protected Listener listener;
@@ -99,11 +99,20 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
         selectedItemPosition = -1;
     }
 
-    public void onTermImageUpdated(@Nullable String termImageUrl) {
+    public void onTermImageUpdated(@Nullable String imageUrl) {
         if (selectedItemPosition < 0) {
             return;
         }
-        filteredFlashcards.get(selectedItemPosition).setTermImageUrl(termImageUrl);
+        filteredFlashcards.get(selectedItemPosition).setTermImageUrl(imageUrl);
+        notifyDataSetChanged();
+        selectedItemPosition = -1;
+    }
+
+    public void onDefinitionImageUpdated(@Nullable String imageUrl) {
+        if (selectedItemPosition < 0) {
+            return;
+        }
+        filteredFlashcards.get(selectedItemPosition).setDefinitionImageUrl(imageUrl);
         notifyDataSetChanged();
         selectedItemPosition = -1;
     }
@@ -163,7 +172,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
         @BindView(R.id.position_info) TextView positionInfo;
         @BindView(R.id.term_text) TextView termText;
         @BindView(R.id.term_image) ImageView termImage;
-        @BindView(R.id.add_image) View addImage;
+        @BindView(R.id.add_term_image) View addImage;
         @BindView(R.id.definition) TextView definition;
 
         FlashcardViewHolder(View view) {
@@ -200,16 +209,16 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
             listener.onEditTerm(filteredFlashcards.get(getAdapterPosition()));
         }
 
-        @OnClick(R.id.add_image)
-        public void addImage() {
+        @OnClick(R.id.add_term_image)
+        public void addTermImage() {
             selectedItemPosition = getAdapterPosition();
-            listener.onAddImageClicked(filteredFlashcards.get(getAdapterPosition()));
+            listener.onAddImageClicked(filteredFlashcards.get(getAdapterPosition()), true);
         }
 
         @OnClick(R.id.term_image)
-        public void onImageClicked() {
+        public void onTermImageClicked() {
             selectedItemPosition = getAdapterPosition();
-            listener.onImageClicked(filteredFlashcards.get(getAdapterPosition()));
+            listener.onImageClicked(filteredFlashcards.get(getAdapterPosition()), true);
         }
 
         @OnClick(R.id.definition)

@@ -72,7 +72,7 @@
                         android:layout_height="0dp"/>
 
                     <LinearLayout
-                        android:id="@+id/add_image"
+                        android:id="@+id/add_term_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="12dp"

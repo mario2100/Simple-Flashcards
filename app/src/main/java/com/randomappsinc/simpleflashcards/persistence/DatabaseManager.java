@@ -31,7 +31,7 @@ public class DatabaseManager {
         void onDatabaseUpdated();
     }
 
-    private static final int CURRENT_REALM_VERSION = 5;
+    private static final int CURRENT_REALM_VERSION = 6;
 
     private static DatabaseManager instance;
 
@@ -158,6 +158,17 @@ public class DatabaseManager {
                 } else {
                     throw new IllegalStateException("FlashcardSet doesn't exist.");
                 }
+                oldVersion++;
+            }
+
+            // Add image support for definition
+            if (oldVersion == 5) {
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
+                if (cardSchema != null) {
+                    cardSchema.addField("definitionImageUrl", String.class);
+                } else {
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
+                }
             }
         }
     };
@@ -257,13 +268,26 @@ public class DatabaseManager {
         }
     }
 
-    public void updateFlashcardTermImageUrl(int flashcardId, String termImageUrl) {
+    public void updateFlashcardTermImageUrl(int flashcardId, String imageUrl) {
         try {
             realm.beginTransaction();
             Flashcard flashcard = realm.where(Flashcard.class)
                     .equalTo("id", flashcardId)
                     .findFirst();
-            flashcard.setTermImageUrl(termImageUrl);
+            flashcard.setTermImageUrl(imageUrl);
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
+
+    public void updateFlashcardDefinitionImageUrl(int flashcardId, String imageUrl) {
+        try {
+            realm.beginTransaction();
+            Flashcard flashcard = realm.where(Flashcard.class)
+                    .equalTo("id", flashcardId)
+                    .findFirst();
+            flashcard.setDefinitionImageUrl(imageUrl);
             realm.commitTransaction();
         } catch (Exception e) {
             realm.cancelTransaction();
@@ -331,6 +355,7 @@ public class DatabaseManager {
             flashcardCopy.setTerm(flashcard.getTerm());
             flashcardCopy.setTermImageUrl(flashcard.getTermImageUrl());
             flashcardCopy.setDefinition(flashcard.getDefinition());
+            flashcardCopy.setDefinitionImageUrl(flashcard.getDefinitionImageUrl());
             copies.add(flashcardCopy);
         }
         return copies;

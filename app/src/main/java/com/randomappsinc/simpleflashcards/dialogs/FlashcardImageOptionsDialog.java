@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 public class FlashcardImageOptionsDialog implements ThemeManager.Listener {
@@ -25,6 +26,7 @@ public class FlashcardImageOptionsDialog implements ThemeManager.Listener {
     private Context context;
     protected Listener listener;
     private ThemeManager themeManager = ThemeManager.get();
+    protected Flashcard flashcard;
 
     public FlashcardImageOptionsDialog(Context context, @NonNull Listener listener) {
         this.context = context;
