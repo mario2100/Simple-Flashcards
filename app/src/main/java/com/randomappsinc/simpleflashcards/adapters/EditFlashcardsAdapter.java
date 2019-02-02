@@ -172,8 +172,10 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
         @BindView(R.id.position_info) TextView positionInfo;
         @BindView(R.id.term_text) TextView termText;
         @BindView(R.id.term_image) ImageView termImage;
-        @BindView(R.id.add_term_image) View addImage;
-        @BindView(R.id.definition) TextView definition;
+        @BindView(R.id.add_term_image) View addTermImage;
+        @BindView(R.id.definition_text) TextView definitionText;
+        @BindView(R.id.definition_image) ImageView definitionImage;
+        @BindView(R.id.add_definition_image) View addDefinitionImage;
 
         FlashcardViewHolder(View view) {
             super(view);
@@ -187,20 +189,34 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
                     position + 1,
                     getItemCount()));
             termText.setText(flashcard.getTerm());
-            String imageUrl = flashcard.getTermImageUrl();
-            if (imageUrl == null) {
+            String termImageUrl = flashcard.getTermImageUrl();
+            if (termImageUrl == null) {
                 termImage.setVisibility(View.GONE);
-                addImage.setVisibility(View.VISIBLE);
+                addTermImage.setVisibility(View.VISIBLE);
             } else {
-                addImage.setVisibility(View.GONE);
+                addTermImage.setVisibility(View.GONE);
                 termImage.setVisibility(View.VISIBLE);
                 Picasso.get()
-                        .load(imageUrl)
+                        .load(termImageUrl)
                         .fit()
                         .centerCrop()
                         .into(termImage);
             }
-            definition.setText(flashcard.getDefinition());
+
+            definitionText.setText(flashcard.getDefinition());
+            String definitionImageUrl = flashcard.getDefinitionImageUrl();
+            if (definitionImageUrl == null) {
+                definitionImage.setVisibility(View.GONE);
+                addDefinitionImage.setVisibility(View.VISIBLE);
+            } else {
+                addDefinitionImage.setVisibility(View.GONE);
+                definitionImage.setVisibility(View.VISIBLE);
+                Picasso.get()
+                        .load(definitionImageUrl)
+                        .fit()
+                        .centerCrop()
+                        .into(definitionImage);
+            }
         }
 
         @OnClick(R.id.term_text)
@@ -221,10 +237,22 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
             listener.onImageClicked(filteredFlashcards.get(getAdapterPosition()), true);
         }
 
-        @OnClick(R.id.definition)
+        @OnClick(R.id.definition_text)
         public void editDefinition() {
             selectedItemPosition = getAdapterPosition();
             listener.onEditDefinition(filteredFlashcards.get(getAdapterPosition()));
+        }
+
+        @OnClick(R.id.add_definition_image)
+        public void addDefinitionImage() {
+            selectedItemPosition = getAdapterPosition();
+            listener.onAddImageClicked(filteredFlashcards.get(getAdapterPosition()), false);
+        }
+
+        @OnClick(R.id.definition_image)
+        public void onDefinitionImageClicked() {
+            selectedItemPosition = getAdapterPosition();
+            listener.onImageClicked(filteredFlashcards.get(getAdapterPosition()), false);
         }
 
         @OnClick(R.id.delete_flashcard)
