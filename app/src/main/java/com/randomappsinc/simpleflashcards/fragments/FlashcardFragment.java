@@ -49,7 +49,7 @@ public class FlashcardFragment extends Fragment {
     @BindView(R.id.position_info) TextView positionInfo;
     @BindView(R.id.side_header) TextView sideHeader;
     @BindView(R.id.speak) View speak;
-    @BindView(R.id.term_image) ImageView termImage;
+    @BindView(R.id.card_image) ImageView cardImage;
     @BindView(R.id.content) TextView content;
     @BindView(R.id.flip_icon) View flipIcon;
 
@@ -104,7 +104,7 @@ public class FlashcardFragment extends Fragment {
                         sideHeader.setVisibility(View.GONE);
                         speak.setVisibility(View.GONE);
                         content.setVisibility(View.GONE);
-                        termImage.setVisibility(View.GONE);
+                        cardImage.setVisibility(View.GONE);
                         flipIcon.setVisibility(View.GONE);
                     }
 
@@ -133,29 +133,29 @@ public class FlashcardFragment extends Fragment {
     protected void loadFlashcardIntoView() {
         sideHeader.setText(isShowingTerm ? R.string.term_underlined : R.string.definition_underlined);
         content.setText(isShowingTerm ? flashcard.getTerm() : flashcard.getDefinition());
-        String termImageUrl = flashcard.getTermImageUrl();
-        if (isShowingTerm && !TextUtils.isEmpty(termImageUrl)) {
-            termImage.setVisibility(View.VISIBLE);
-            if (ViewCompat.isLaidOut(termImage)) {
-                loadImage(flashcard.getTermImageUrl());
+        final String imageUrl = isShowingTerm ? flashcard.getTermImageUrl() : flashcard.getDefinitionImageUrl();
+        if (!TextUtils.isEmpty(imageUrl)) {
+            cardImage.setVisibility(View.VISIBLE);
+            if (ViewCompat.isLaidOut(cardImage)) {
+                loadImage(imageUrl);
             } else {
-                ViewUtils.runOnPreDraw(termImage, new Runnable() {
+                ViewUtils.runOnPreDraw(cardImage, new Runnable() {
                     @Override
                     public void run() {
-                        loadImage(flashcard.getTermImageUrl());
+                        loadImage(imageUrl);
                     }
                 });
             }
         } else {
-            termImage.setVisibility(View.GONE);
+            cardImage.setVisibility(View.GONE);
         }
     }
 
     protected void loadImage(String imageUrl) {
         Picasso.get()
                 .load(imageUrl)
-                .resize(0, termImage.getHeight())
-                .into(termImage);
+                .resize(0, cardImage.getHeight())
+                .into(cardImage);
     }
 
     private final BrowseFlashcardsSettingsManager.Listener defaultSideListener =
@@ -186,14 +186,18 @@ public class FlashcardFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.term_image)
+    @OnClick(R.id.card_image)
     public void openImageInFullView() {
-        String imageUrl = flashcard.getTermImageUrl();
+        String imageUrl = isShowingTerm
+                ? flashcard.getTermImageUrl()
+                : flashcard.getDefinitionImageUrl();
         Activity activity = getActivity();
         if (!TextUtils.isEmpty(imageUrl) && activity != null) {
             Intent intent = new Intent(activity, PictureFullViewActivity.class)
                     .putExtra(Constants.IMAGE_URL_KEY, imageUrl)
-                    .putExtra(Constants.CAPTION_KEY, flashcard.getTerm());
+                    .putExtra(Constants.CAPTION_KEY, isShowingTerm
+                            ? flashcard.getTerm()
+                            : flashcard.getDefinition());
             activity.startActivity(intent);
             activity.overridePendingTransition(R.anim.fade_in, 0);
         }

@@ -103,6 +103,12 @@ public class Problem implements Parcelable {
     private boolean isFreeFormInputCloseEnoughMatch() {
         String[] answerSplits = answer.split("\\s+");
         HashMap<String, Integer> answerWords = StringUtils.getWordAmounts(answerSplits);
+
+        // TODO: Figure out how givenAnswer can be null
+        if (givenAnswer == null) {
+            return false;
+        }
+
         HashMap<String, Integer> responseWords = StringUtils.getWordAmounts(givenAnswer.split("\\s+"));
         int allowedMisses = answerSplits.length / 10;
         int numMisses = 0;
