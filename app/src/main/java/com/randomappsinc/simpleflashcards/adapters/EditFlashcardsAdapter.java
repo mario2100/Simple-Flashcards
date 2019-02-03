@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -170,10 +172,10 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
     public class FlashcardViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.position_info) TextView positionInfo;
-        @BindView(R.id.term_text) TextView termText;
+        @BindView(R.id.term_text) ThemedTextView termText;
         @BindView(R.id.term_image) ImageView termImage;
         @BindView(R.id.add_term_image) View addTermImage;
-        @BindView(R.id.definition_text) TextView definitionText;
+        @BindView(R.id.definition_text) ThemedTextView definitionText;
         @BindView(R.id.definition_image) ImageView definitionImage;
         @BindView(R.id.add_definition_image) View addDefinitionImage;
 
@@ -188,7 +190,14 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
                     R.string.flashcard_x_of_y,
                     position + 1,
                     getItemCount()));
-            termText.setText(flashcard.getTerm());
+
+            String term = flashcard.getTerm();
+            if (TextUtils.isEmpty(term)) {
+                termText.setTextAsHint(R.string.no_term_hint);
+            } else {
+                termText.setTextNormally(term);
+            }
+
             String termImageUrl = flashcard.getTermImageUrl();
             if (termImageUrl == null) {
                 termImage.setVisibility(View.GONE);
@@ -203,7 +212,13 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
                         .into(termImage);
             }
 
-            definitionText.setText(flashcard.getDefinition());
+            String definition = flashcard.getDefinition();
+            if (TextUtils.isEmpty(definition)) {
+                definitionText.setTextAsHint(R.string.no_definition_hint);
+            } else {
+                definitionText.setTextNormally(definition);
+            }
+
             String definitionImageUrl = flashcard.getDefinitionImageUrl();
             if (definitionImageUrl == null) {
                 definitionImage.setVisibility(View.GONE);
