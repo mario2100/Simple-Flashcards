@@ -18,7 +18,7 @@ public class Quiz {
 
     private ArrayList<Problem> problems;
     private int currentProblem = 0;
-    private int numOptions = 0;
+    private int numOptions;
 
     public class Grade {
         private @QuizScore int score = QuizScore.BAD;
@@ -66,7 +66,7 @@ public class Quiz {
             int questionTypeIndex = random.nextInt(questionTypes.size());
             switch (questionTypes.get(questionTypeIndex)) {
                 case QuestionType.MULTIPLE_CHOICE:
-                    problem.setAsMultipleChoiceQuestion(flashcard, index, flashcards);
+                    problem.setAsMultipleChoiceQuestion(flashcard, flashcards);
                     break;
                 case QuestionType.FREE_FORM_INPUT:
                     problem.setAsFreeFormInputQuestion(flashcard);

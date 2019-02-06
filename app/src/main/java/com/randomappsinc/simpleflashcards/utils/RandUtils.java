@@ -30,28 +30,4 @@ public class RandUtils {
         Collections.shuffle(numbers);
         return numbers;
     }
-
-    public static List<Integer> getQuizChoicesIndexes(int numQuestions, int quantity, int excludedIndex) {
-        List<Integer> numbers = new ArrayList<>();
-
-        // Mechanism to prevent duplicate options
-        Set<Integer> excludedNumsSet = new HashSet<>();
-        excludedNumsSet.add(excludedIndex);
-
-        int numAdded = 0;
-        Random random = new Random();
-        while (numAdded < quantity - 1) {
-            int attempt = random.nextInt(numQuestions);
-            if (!excludedNumsSet.contains(attempt)) {
-                numbers.add(attempt);
-                excludedNumsSet.add(attempt);
-                numAdded++;
-            }
-        }
-
-        // Add right answer back into mix
-        numbers.add(excludedIndex);
-        Collections.shuffle(numbers);
-        return numbers;
-    }
 }
