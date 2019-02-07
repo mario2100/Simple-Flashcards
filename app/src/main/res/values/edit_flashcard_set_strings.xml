@@ -58,4 +58,6 @@
 
     <string name="no_term_hint">This flashcard has no term. Click to add one!</string>
     <string name="no_definition_hint">This flashcard has no definition. Click to add one!</string>
+
+    <string name="import_flashcards">Import flashcards</string>
 </resources>

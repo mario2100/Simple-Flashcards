@@ -4,7 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/import_flashcards"
+        android:title="@string/import_flashcards"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/rename_flashcard_set"
         android:title="@string/rename_flashcard_set"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>

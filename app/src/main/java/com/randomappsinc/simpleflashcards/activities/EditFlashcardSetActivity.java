@@ -48,7 +48,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class EditFlashcardSetActivity extends StandardActivity implements EditFlashcardsAdapter.Listener {
+public class EditFlashcardSetActivity extends StandardActivity
+        implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener {
 
     // Intent codes
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
@@ -101,8 +102,7 @@ public class EditFlashcardSetActivity extends StandardActivity implements EditFl
         editFlashcardTermDialog = new EditFlashcardTermDialog(this, flashcardTermEditListener);
         editFlashcardDefinitionDialog = new EditFlashcardDefinitionDialog(
                 this, flashcardDefinitionEditListener);
-        flashcardImageOptionsDialog = new FlashcardImageOptionsDialog(
-                this, flashcardOptionsListener);
+        flashcardImageOptionsDialog = new FlashcardImageOptionsDialog(this, this);
         editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
                 this, currentSetName, editSetNameListener);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
@@ -358,40 +358,37 @@ public class EditFlashcardSetActivity extends StandardActivity implements EditFl
                 }
             };
 
-    private final FlashcardImageOptionsDialog.Listener flashcardOptionsListener =
-            new FlashcardImageOptionsDialog.Listener() {
-                @Override
-                public void onFullViewRequested() {
-                    Flashcard flashcard = adapter.getCurrentlyChosenFlashcard();
-                    Intent intent = new Intent(
-                            EditFlashcardSetActivity.this,
-                            PictureFullViewActivity.class)
-                            .putExtra(Constants.IMAGE_URL_KEY, forTerm
-                                    ? flashcard.getTermImageUrl()
-                                    : flashcard.getDefinitionImageUrl())
-                            .putExtra(Constants.CAPTION_KEY, forTerm
-                                    ? flashcard.getTerm()
-                                    : flashcard.getDefinition());
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, 0);
-                }
+    @Override
+    public void onFullViewRequested() {
+        Flashcard flashcard = adapter.getCurrentlyChosenFlashcard();
+        Intent intent = new Intent(
+                EditFlashcardSetActivity.this,
+                PictureFullViewActivity.class)
+                .putExtra(Constants.IMAGE_URL_KEY, forTerm
+                        ? flashcard.getTermImageUrl()
+                        : flashcard.getDefinitionImageUrl())
+                .putExtra(Constants.CAPTION_KEY, forTerm
+                        ? flashcard.getTerm()
+                        : flashcard.getDefinition());
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, 0);
+    }
 
-                @Override
-                public void onFlashcardImageChangeRequested() {
-                    verifyReadExternalStoragePermission();
-                }
+    @Override
+    public void onFlashcardImageChangeRequested() {
+        verifyReadExternalStoragePermission();
+    }
 
-                @Override
-                public void onFlashcardImageDeleted() {
-                    if (forTerm) {
-                        databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, null);
-                        adapter.onTermImageUpdated(null);
-                    } else {
-                        databaseManager.updateFlashcardDefinitionImageUrl(currentlySelectedFlashcardId, null);
-                        adapter.onDefinitionImageUpdated(null);
-                    }
-                }
-            };
+    @Override
+    public void onFlashcardImageDeleted() {
+        if (forTerm) {
+            databaseManager.updateFlashcardTermImageUrl(currentlySelectedFlashcardId, null);
+            adapter.onTermImageUpdated(null);
+        } else {
+            databaseManager.updateFlashcardDefinitionImageUrl(currentlySelectedFlashcardId, null);
+            adapter.onDefinitionImageUpdated(null);
+        }
+    }
 
     private final EditFlashcardSetNameDialog.Listener editSetNameListener =
             new EditFlashcardSetNameDialog.Listener() {
@@ -419,6 +416,7 @@ public class EditFlashcardSetActivity extends StandardActivity implements EditFl
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_set, menu);
+        UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
         UIUtils.loadMenuIcon(menu, R.id.rename_flashcard_set, IoniconsIcons.ion_edit, this);
         return true;
     }
@@ -426,6 +424,8 @@ public class EditFlashcardSetActivity extends StandardActivity implements EditFl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.import_flashcards:
+                return true;
             case R.id.rename_flashcard_set:
                 editFlashcardSetNameDialog.show();
                 return true;
