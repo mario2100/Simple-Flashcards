@@ -30,9 +30,12 @@
             <View style="@style/quiz_settings_divider"/>
 
             <LinearLayout
+                android:id="@+id/focus_sink_questions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -46,14 +49,18 @@
                     android:text="@string/minus_1"
                     style="@style/quiz_settings_number_change_button"/>
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                <com.randomappsinc.simpleflashcards.theme.ThemedEditText
                     android:id="@+id/num_questions"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
+                    android:paddingBottom="4dp"
                     android:gravity="center_horizontal"
                     android:textSize="29dp"
-                    android:textColor="@color/dark_gray"/>
+                    android:textColor="@color/dark_gray"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:background="@drawable/blue_edittext_background"/>
 
                 <TextView
                     android:id="@+id/plus_one_question"
@@ -94,9 +101,12 @@
                 style="@style/quiz_settings_checkbox"/>
 
             <LinearLayout
+                android:id="@+id/focus_sink_minutes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -110,31 +120,20 @@
                     android:text="@string/minus_1"
                     style="@style/quiz_settings_number_change_button"/>
 
-                <LinearLayout
+                <com.randomappsinc.simpleflashcards.theme.ThemedEditText
+                    android:id="@+id/num_minutes"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginRight="8dp">
-
-                    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                        android:id="@+id/num_minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-4dp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/default_num_minutes"
-                        android:textSize="29dp"
-                        android:textColor="@color/dark_gray"/>
-
-                    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-4dp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/minutes"
-                        android:textSize="13dp"
-                        android:textColor="@color/dark_gray"/>
-                </LinearLayout>
+                    android:layout_marginRight="8dp"
+                    android:paddingBottom="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/default_num_minutes"
+                    android:textSize="29dp"
+                    android:textColor="@color/dark_gray"
+                    android:maxLength="3"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:background="@drawable/blue_edittext_background"/>
 
                 <TextView
                     android:id="@+id/plus_one_minute"

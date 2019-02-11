@@ -2,8 +2,10 @@ package com.randomappsinc.simpleflashcards.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
@@ -20,16 +22,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 
 public class QuizSettingsActivity extends StandardActivity {
 
+    @BindView(R.id.focus_sink_questions) View focusSinkQuestions;
+    @BindView(R.id.focus_sink_minutes) View focusSinkMinutes;
+
     // Number of questions
-    @BindView(R.id.num_questions) TextView numQuestions;
+    @BindView(R.id.num_questions) EditText numQuestions;
 
     // Time limit
     @BindView(R.id.no_time_limit) CheckBox noTimeLimit;
     @BindView(R.id.set_time_limit) CheckBox setTimeLimit;
-    @BindView(R.id.num_minutes) TextView numMinutes;
+    @BindView(R.id.num_minutes) EditText numMinutes;
 
     // Question types
     @BindView(R.id.multiple_choice_toggle) CheckBox multipleChoiceToggle;
@@ -52,6 +58,26 @@ public class QuizSettingsActivity extends StandardActivity {
         int flashcardSetId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
         numFlashcards = DatabaseManager.get().getFlashcardSet(flashcardSetId).getFlashcards().size();
         numQuestions.setText(String.valueOf(numFlashcards));
+    }
+
+    @OnEditorAction(R.id.num_questions)
+    public boolean onNumQuestionsEditorAction(int actionId) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            focusSinkQuestions.requestFocus();
+            UIUtils.closeKeyboard(this);
+            return true;
+        }
+        return false;
+    }
+
+    @OnEditorAction(R.id.num_minutes)
+    public boolean onNumMinutesEditorAction(int actionId) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            focusSinkMinutes.requestFocus();
+            UIUtils.closeKeyboard(this);
+            return true;
+        }
+        return false;
     }
 
     @OnClick(R.id.minus_5_questions)

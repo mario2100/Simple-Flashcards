@@ -88,6 +88,7 @@
 
         <activity
             android:name=".activities.QuizSettingsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/quiz_settings"
             android:configChanges="orientation|screenSize"/>
 
