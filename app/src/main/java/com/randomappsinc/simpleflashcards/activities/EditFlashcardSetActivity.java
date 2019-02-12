@@ -416,7 +416,11 @@ public class EditFlashcardSetActivity extends StandardActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_set, menu);
-        UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
+
+        // TODO: Build out this feature
+        // UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
+        menu.findItem(R.id.import_flashcards).setVisible(false);
+
         UIUtils.loadMenuIcon(menu, R.id.rename_flashcard_set, IoniconsIcons.ion_edit, this);
         return true;
     }

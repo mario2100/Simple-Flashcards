@@ -2,6 +2,7 @@ package com.randomappsinc.simpleflashcards.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
@@ -58,6 +59,9 @@ public class QuizSettingsActivity extends StandardActivity {
         int flashcardSetId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
         numFlashcards = DatabaseManager.get().getFlashcardSet(flashcardSetId).getFlashcards().size();
         numQuestions.setText(String.valueOf(numFlashcards));
+
+        int numDigitsForQuestions = String.valueOf(numFlashcards).length();
+        numQuestions.setFilters(new InputFilter[] {new InputFilter.LengthFilter(numDigitsForQuestions)});
     }
 
     @OnEditorAction(R.id.num_questions)
@@ -181,7 +185,8 @@ public class QuizSettingsActivity extends StandardActivity {
         }
 
         int flashcardSetId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
-        int questionsValue = Integer.valueOf(numQuestions.getText().toString());
+        // User theoretically could have requested more questions than the # of cards in the set
+        int questionsValue = Math.min(Integer.valueOf(numQuestions.getText().toString()), numFlashcards);
         int numMinutesValue = Integer.valueOf(numMinutes.getText().toString());
         int finalNumMinutes = noTimeLimit.isChecked() ? 0 : numMinutesValue;
         QuizSettings quizSettings = new QuizSettings(questionsValue, finalNumMinutes, getChosenQuestionTypes());
