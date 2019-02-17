@@ -185,8 +185,15 @@ public class QuizSettingsActivity extends StandardActivity {
         }
 
         int flashcardSetId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
-        // User theoretically could have requested more questions than the # of cards in the set
-        int questionsValue = Math.min(Integer.valueOf(numQuestions.getText().toString()), numFlashcards);
+
+        // User theoretically could have requested more questions than the # of cards in the set or 0 questions
+        int questionsValue = Integer.parseInt(numQuestions.getText().toString());
+        if (questionsValue <= 0) {
+            questionsValue = 1;
+        } else if (questionsValue > numFlashcards) {
+            questionsValue = numFlashcards;
+        }
+
         int numMinutesValue = Integer.valueOf(numMinutes.getText().toString());
         int finalNumMinutes = noTimeLimit.isChecked() ? 0 : numMinutesValue;
         QuizSettings quizSettings = new QuizSettings(questionsValue, finalNumMinutes, getChosenQuestionTypes());
