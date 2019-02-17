@@ -152,10 +152,13 @@ public class FlashcardFragment extends Fragment {
     }
 
     protected void loadImage(String imageUrl) {
-        Picasso.get()
-                .load(imageUrl)
-                .resize(0, cardImage.getHeight())
-                .into(cardImage);
+        // TODO: Figure out how cardImage can be null when this method is invoked from runOnPreDraw
+        if (cardImage != null) {
+            Picasso.get()
+                    .load(imageUrl)
+                    .resize(0, cardImage.getHeight())
+                    .into(cardImage);
+        }
     }
 
     private final BrowseFlashcardsSettingsManager.Listener defaultSideListener =
