@@ -53,6 +53,8 @@ public class FlashcardFragment extends Fragment {
     @BindView(R.id.content) TextView content;
     @BindView(R.id.flip_icon) View flipIcon;
 
+    @BindView(R.id.content_wrapper) View contentWrapper;
+
     @BindInt(R.integer.default_anim_length) int flipAnimLength;
 
     protected Flashcard flashcard;
@@ -115,7 +117,6 @@ public class FlashcardFragment extends Fragment {
                         loadFlashcardIntoView();
                         sideHeader.setVisibility(View.VISIBLE);
                         speak.setVisibility(View.VISIBLE);
-                        content.setVisibility(View.VISIBLE);
                         flipIcon.setVisibility(View.VISIBLE);
                         flashcardContainer.setEnabled(true);
                     }
@@ -132,10 +133,18 @@ public class FlashcardFragment extends Fragment {
 
     protected void loadFlashcardIntoView() {
         sideHeader.setText(isShowingTerm ? R.string.term_underlined : R.string.definition_underlined);
-        content.setText(isShowingTerm ? flashcard.getTerm() : flashcard.getDefinition());
+
+        String contentText = isShowingTerm ? flashcard.getTerm() : flashcard.getDefinition();
+        if (TextUtils.isEmpty(contentText)) {
+            content.setVisibility(View.GONE);
+        } else {
+            content.setText(contentText);
+            content.setVisibility(View.INVISIBLE);
+        }
+
         final String imageUrl = isShowingTerm ? flashcard.getTermImageUrl() : flashcard.getDefinitionImageUrl();
         if (!TextUtils.isEmpty(imageUrl)) {
-            cardImage.setVisibility(View.VISIBLE);
+            cardImage.setVisibility(View.INVISIBLE);
             if (ViewCompat.isLaidOut(cardImage)) {
                 loadImage(imageUrl);
             } else {
@@ -149,6 +158,50 @@ public class FlashcardFragment extends Fragment {
         } else {
             cardImage.setVisibility(View.GONE);
         }
+        maybeAdjustContent();
+    }
+
+    /**
+     * It's possible that the user put in too much text for the flashcard container.
+     * If so, we need to truncate it.
+     */
+    private void maybeAdjustContent() {
+        contentWrapper.post(new Runnable() {
+            @Override
+            public void run() {
+                int containerHeight = contentWrapper.getHeight();
+                int cardImageHeight = cardImage.getVisibility() == View.GONE ? 0 : cardImage.getHeight();
+                int textHeight = content.getVisibility() == View.GONE ? 0 : content.getHeight();
+                if (containerHeight > cardImageHeight + textHeight) {
+                    content.setVisibility(View.VISIBLE);
+                    cardImage.setVisibility(View.VISIBLE);
+                } else {
+                    adjustContentText(containerHeight - cardImageHeight);
+                    content.setVisibility(View.VISIBLE);
+                    cardImage.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    protected void adjustContentText(int allowedHeight) {
+        String fullText = content.getText().toString();
+        int start = 1;
+        int end = fullText.length();
+        while (start < end) {
+            int mid = start + (end-start) / 2;
+            int height = ViewUtils.measureHeightOfText(
+                    fullText.substring(0, mid),
+                    (int) content.getTextSize(),
+                    content.getWidth());
+            if (height <= allowedHeight) {
+                start = mid + 1;
+            } else {
+                end = mid;
+            }
+        }
+        String finalText = fullText.substring(0, start - 1);
+        content.setText(finalText);
     }
 
     protected void loadImage(String imageUrl) {
