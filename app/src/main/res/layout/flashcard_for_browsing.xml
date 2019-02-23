@@ -54,6 +54,7 @@
             android:textSize="32dp"/>
 
         <RelativeLayout
+            android:id="@+id/content_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/flip_icon"
@@ -61,7 +62,6 @@
             android:padding="12dp">
 
             <LinearLayout
-                android:id="@+id/content_wrapper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

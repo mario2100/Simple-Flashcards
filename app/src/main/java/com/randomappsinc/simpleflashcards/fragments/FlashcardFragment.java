@@ -3,11 +3,17 @@ package com.randomappsinc.simpleflashcards.fragments;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +33,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
+import butterknife.BindDimen;
 import butterknife.BindInt;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,10 +60,10 @@ public class FlashcardFragment extends Fragment {
     @BindView(R.id.card_image) ImageView cardImage;
     @BindView(R.id.content) TextView content;
     @BindView(R.id.flip_icon) View flipIcon;
-
-    @BindView(R.id.content_wrapper) View contentWrapper;
+    @BindView(R.id.content_container) View contentContainer;
 
     @BindInt(R.integer.default_anim_length) int flipAnimLength;
+    @BindString(R.string.view_all) String viewAll;
 
     protected Flashcard flashcard;
     protected boolean isShowingTerm;
@@ -166,18 +174,18 @@ public class FlashcardFragment extends Fragment {
      * If so, we need to truncate it.
      */
     private void maybeAdjustContent() {
-        contentWrapper.post(new Runnable() {
+        contentContainer.post(new Runnable() {
             @Override
             public void run() {
-                int containerHeight = contentWrapper.getHeight();
+                int containerHeight = contentContainer.getHeight()
+                        - getResources().getDimensionPixelSize(R.dimen.browse_card_content_padding) * 2;
                 int cardImageHeight = cardImage.getVisibility() == View.GONE ? 0 : cardImage.getHeight();
                 int textHeight = content.getVisibility() == View.GONE ? 0 : content.getHeight();
-                if (containerHeight > cardImageHeight + textHeight) {
-                    content.setVisibility(View.VISIBLE);
-                    cardImage.setVisibility(View.VISIBLE);
-                } else {
+                if (containerHeight < cardImageHeight + textHeight) {
                     adjustContentText(containerHeight - cardImageHeight);
-                    content.setVisibility(View.VISIBLE);
+                }
+                content.setVisibility(View.VISIBLE);
+                if (cardImage.getVisibility() == View.INVISIBLE) {
                     cardImage.setVisibility(View.VISIBLE);
                 }
             }
@@ -200,8 +208,28 @@ public class FlashcardFragment extends Fragment {
                 end = mid;
             }
         }
-        String finalText = fullText.substring(0, start - 1);
-        content.setText(finalText);
+
+        String truncationText = "... " + viewAll;
+        String finalText = fullText.substring(0, start - 1 - truncationText.length()) + truncationText;
+        SpannableString textWithViewAll = new SpannableString(finalText);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View textView) {
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint textPaint) {
+                super.updateDrawState(textPaint);
+            }
+        };
+        textWithViewAll.setSpan(
+                clickableSpan,
+                finalText.length() - viewAll.length(),
+                finalText.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        content.setText(textWithViewAll);
+        content.setMovementMethod(LinkMovementMethod.getInstance());
+        content.setHighlightColor(Color.BLUE);
     }
 
     protected void loadImage(String imageUrl) {
