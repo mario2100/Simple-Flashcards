@@ -25,6 +25,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.constants.Constants;
+import com.randomappsinc.simpleflashcards.dialogs.FullTextDialog;
 import com.randomappsinc.simpleflashcards.managers.BrowseFlashcardsSettingsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
@@ -33,7 +34,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
-import butterknife.BindDimen;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -67,8 +67,9 @@ public class FlashcardFragment extends Fragment {
 
     protected Flashcard flashcard;
     protected boolean isShowingTerm;
-    private Unbinder unbinder;
+    private FullTextDialog fullTextDialog;
     private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +95,12 @@ public class FlashcardFragment extends Fragment {
         loadFlashcardIntoView();
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        fullTextDialog = new FullTextDialog(getActivity());
     }
 
     @OnClick(R.id.flashcard_container)
@@ -193,7 +200,7 @@ public class FlashcardFragment extends Fragment {
     }
 
     protected void adjustContentText(int allowedHeight) {
-        String fullText = content.getText().toString();
+        final String fullText = content.getText().toString();
         int start = 1;
         int end = fullText.length();
         while (start < end) {
@@ -215,6 +222,7 @@ public class FlashcardFragment extends Fragment {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View textView) {
+                showFullTextInDialog(fullText);
             }
 
             @Override
@@ -230,6 +238,10 @@ public class FlashcardFragment extends Fragment {
         content.setText(textWithViewAll);
         content.setMovementMethod(LinkMovementMethod.getInstance());
         content.setHighlightColor(Color.BLUE);
+    }
+
+    protected void showFullTextInDialog(String fullText) {
+        fullTextDialog.show(fullText, isShowingTerm);
     }
 
     protected void loadImage(String imageUrl) {
@@ -290,6 +302,7 @@ public class FlashcardFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        fullTextDialog.cleanUp();
         settingsManager.removeListener(defaultSideListener);
         unbinder.unbind();
     }
