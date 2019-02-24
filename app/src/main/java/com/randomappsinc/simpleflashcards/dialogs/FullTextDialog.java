@@ -1,6 +1,7 @@
 package com.randomappsinc.simpleflashcards.dialogs;
 
 import android.content.Context;
+import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -37,6 +38,8 @@ public class FullTextDialog implements ThemeManager.Listener {
     public void show(String content, boolean isTerm) {
         dialog.setTitle(isTerm ? R.string.term : R.string.definition);
         dialog.setContent(content);
+        View parent = (View) dialog.getContentView().getParent();
+        parent.scrollTo(0, 0);
         dialog.show();
     }
 
