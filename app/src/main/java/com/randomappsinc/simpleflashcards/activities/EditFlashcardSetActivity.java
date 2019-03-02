@@ -32,6 +32,7 @@ import com.randomappsinc.simpleflashcards.dialogs.EditFlashcardDefinitionDialog;
 import com.randomappsinc.simpleflashcards.dialogs.EditFlashcardSetNameDialog;
 import com.randomappsinc.simpleflashcards.dialogs.EditFlashcardTermDialog;
 import com.randomappsinc.simpleflashcards.dialogs.FlashcardImageOptionsDialog;
+import com.randomappsinc.simpleflashcards.dialogs.ImportFlashcardsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
@@ -78,6 +79,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     protected FlashcardImageOptionsDialog flashcardImageOptionsDialog;
     private EditFlashcardSetNameDialog editFlashcardSetNameDialog;
     protected int currentlySelectedFlashcardId;
+    private ImportFlashcardsManager importFlashcardsManager;
 
     // Janky state boolean to figure out if we're working with term images or definition images
     protected boolean forTerm;
@@ -107,6 +109,7 @@ public class EditFlashcardSetActivity extends StandardActivity
                 this, currentSetName, editSetNameListener);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
+        importFlashcardsManager = new ImportFlashcardsManager(this);
 
         // When the user is scrolling to browse flashcards, close the soft keyboard
         flashcardsList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -416,11 +419,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_set, menu);
-
-        // TODO: Build out this feature
-        // UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
-        menu.findItem(R.id.import_flashcards).setVisible(false);
-
+        UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
         UIUtils.loadMenuIcon(menu, R.id.rename_flashcard_set, IoniconsIcons.ion_edit, this);
         return true;
     }
@@ -429,6 +428,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.import_flashcards:
+                importFlashcardsManager.startImport();
                 return true;
             case R.id.rename_flashcard_set:
                 editFlashcardSetNameDialog.show();
