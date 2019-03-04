@@ -22,23 +22,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp"
+                android:padding="8dp"
                 android:orientation="vertical">
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedTextView
                     android:id="@+id/term_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"/>
+                    android:textSize="15sp"/>
 
                 <com.randomappsinc.simpleflashcards.common.views.SquareImageView
                     android:id="@+id/term_image"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
             <View
@@ -51,23 +48,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp"
+                android:padding="8dp"
                 android:orientation="vertical">
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedTextView
                     android:id="@+id/definition_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"/>
+                    android:textSize="15sp"/>
 
                 <com.randomappsinc.simpleflashcards.common.views.SquareImageView
                     android:id="@+id/definition_image"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
             <View
