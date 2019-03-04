@@ -6,11 +6,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MultiFlashcardsSelectorAdapter
         extends RecyclerView.Adapter<MultiFlashcardsSelectorAdapter.FlashcardViewHolder>{
@@ -39,6 +42,15 @@ public class MultiFlashcardsSelectorAdapter
 
     public List<Integer> getSelectedFlashcardIds() {
         return new ArrayList<>(selectedFlashcardIds);
+    }
+
+    public void selectAll() {
+        selectedFlashcardIds.clear();
+        for (Flashcard flashcard : flashcards) {
+            selectedFlashcardIds.add(flashcard.getId());
+        }
+        notifyDataSetChanged();
+        listener.onNumSelectedSetsUpdated(selectedFlashcardIds.size());
     }
 
     @NonNull
@@ -67,6 +79,7 @@ public class MultiFlashcardsSelectorAdapter
         @BindView(R.id.term_image) ImageView termImage;
         @BindView(R.id.definition_text) ThemedTextView definitionText;
         @BindView(R.id.definition_image) ImageView definitionImage;
+        @BindView(R.id.flashcard_selected_toggle) CheckBox flashcardToggle;
 
         FlashcardViewHolder(View view) {
             super(view);
@@ -78,7 +91,7 @@ public class MultiFlashcardsSelectorAdapter
 
             String term = flashcard.getTerm();
             if (TextUtils.isEmpty(term)) {
-                termText.setTextAsHint(R.string.no_term_hint);
+                termText.setTextAsHint(R.string.no_term);
             } else {
                 termText.setTextNormally(term);
             }
@@ -97,7 +110,7 @@ public class MultiFlashcardsSelectorAdapter
 
             String definition = flashcard.getDefinition();
             if (TextUtils.isEmpty(definition)) {
-                definitionText.setTextAsHint(R.string.no_definition_hint);
+                definitionText.setTextAsHint(R.string.no_description);
             } else {
                 definitionText.setTextNormally(definition);
             }
@@ -113,6 +126,32 @@ public class MultiFlashcardsSelectorAdapter
                         .centerCrop()
                         .into(definitionImage);
             }
+
+            UIUtils.setCheckedImmediately(flashcardToggle, selectedFlashcardIds.contains(flashcard.getId()));
+        }
+
+        @OnClick(R.id.flashcard_for_choosing_parent)
+        public void onSetCellClick() {
+            int setId = flashcards.get(getAdapterPosition()).getId();
+            if (selectedFlashcardIds.contains(setId)) {
+                selectedFlashcardIds.remove(setId);
+                flashcardToggle.setChecked(false);
+            } else {
+                selectedFlashcardIds.add(setId);
+                flashcardToggle.setChecked(true);
+            }
+            listener.onNumSelectedSetsUpdated(selectedFlashcardIds.size());
+        }
+
+        @OnClick(R.id.flashcard_selected_toggle)
+        public void onSetSelection() {
+            int setId = flashcards.get(getAdapterPosition()).getId();
+            if (selectedFlashcardIds.contains(setId)) {
+                selectedFlashcardIds.remove(setId);
+            } else {
+                selectedFlashcardIds.add(setId);
+            }
+            listener.onNumSelectedSetsUpdated(selectedFlashcardIds.size());
         }
     }
 }

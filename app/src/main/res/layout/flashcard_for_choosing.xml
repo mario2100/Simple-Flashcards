@@ -1,6 +1,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flashcard_for_choosing_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="4dp"
@@ -75,7 +76,7 @@
                 android:background="@color/dark_gray"/>
 
             <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
-                android:id="@+id/set_selected_toggle"
+                android:id="@+id/flashcard_selected_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"

@@ -78,4 +78,7 @@
 
     <string name="move_x">Move (%d)</string>
     <string name="copy_x">Copy (%d)</string>
+
+    <string name="no_term">This flashcard has no term.</string>
+    <string name="no_description">This flashcard has no definition.</string>
 </resources>

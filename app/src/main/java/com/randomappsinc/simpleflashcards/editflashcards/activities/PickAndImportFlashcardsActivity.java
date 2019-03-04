@@ -76,6 +76,7 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.select_all:
+                flashcardsAdapter.selectAll();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
