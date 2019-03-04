@@ -22,8 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /** Adapter for rendering a list of flashcard sets the user can add to a folder */
-public class FlashcardSetSelectionAdapter
-        extends RecyclerView.Adapter<FlashcardSetSelectionAdapter.FlashcardSetViewHolder> {
+public class MultiFlashcardSetSelectionAdapter
+        extends RecyclerView.Adapter<MultiFlashcardSetSelectionAdapter.FlashcardSetViewHolder> {
 
     public interface Listener {
         void onNumSelectedSetsUpdated(int numSelectedSets);
@@ -33,7 +33,7 @@ public class FlashcardSetSelectionAdapter
     protected Set<FlashcardSet> selectedSets = new HashSet<>();
     protected Listener listener;
 
-    public FlashcardSetSelectionAdapter(Listener listener) {
+    public MultiFlashcardSetSelectionAdapter(Listener listener) {
         this.listener = listener;
     }
 

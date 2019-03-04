@@ -7,7 +7,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.adapters.FlashcardSetSelectionAdapter;
+import com.randomappsinc.simpleflashcards.adapters.MultiFlashcardSetSelectionAdapter;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
@@ -15,14 +15,14 @@ import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 import java.util.List;
 
 /** Dialog to let user choose flashcard sets to put into a folder */
-public class FlashcardSetSelectionDialog implements FlashcardSetSelectionAdapter.Listener, ThemeManager.Listener {
+public class FlashcardSetSelectionDialog implements MultiFlashcardSetSelectionAdapter.Listener, ThemeManager.Listener {
 
     public interface Listener {
         void onFlashcardSetsSelected(List<FlashcardSet> flashcardSets);
     }
 
     private MaterialDialog adderDialog;
-    protected FlashcardSetSelectionAdapter setsAdapter;
+    protected MultiFlashcardSetSelectionAdapter setsAdapter;
     protected Listener listener;
     private Context context;
     private ThemeManager themeManager = ThemeManager.get();
@@ -35,7 +35,7 @@ public class FlashcardSetSelectionDialog implements FlashcardSetSelectionAdapter
     }
 
     private void createDialog() {
-        setsAdapter = new FlashcardSetSelectionAdapter(this);
+        setsAdapter = new MultiFlashcardSetSelectionAdapter(this);
         adderDialog = new MaterialDialog.Builder(context)
                 .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.add_flashcard_sets)
