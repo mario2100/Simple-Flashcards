@@ -695,5 +695,33 @@ public class DatabaseManager {
     }
 
     public void copyFlashcards(int receivingSetId, int sendingSetId, Set<Integer> flashcardIds) {
+        RealmList<Flashcard> flashcardsToSend = realm.where(FlashcardSet.class)
+                .equalTo("id", sendingSetId)
+                .findFirst()
+                .getFlashcards();
+        try {
+            realm.beginTransaction();
+            FlashcardSet receivingSet = realm
+                    .where(FlashcardSet.class)
+                    .equalTo("id", receivingSetId)
+                    .findFirst();
+            int nextCardId = getNextFlashcardId();
+            for (int i = 0; i < flashcardsToSend.size(); i++) {
+                if (flashcardIds.contains(flashcardsToSend.get(i).getId())) {
+                    Flashcard originalCard = flashcardsToSend.get(i);
+                    Flashcard newFlashcard = new Flashcard();
+                    newFlashcard.setId(nextCardId);
+                    newFlashcard.setTerm(originalCard.getTerm());
+                    newFlashcard.setDefinition(originalCard.getDefinition());
+                    newFlashcard.setTermImageUrl(originalCard.getTermImageUrl());
+                    newFlashcard.setDefinitionImageUrl(originalCard.getDefinitionImageUrl());
+                    receivingSet.getFlashcards().add(newFlashcard);
+                    nextCardId++;
+                }
+            }
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
     }
 }
