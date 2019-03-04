@@ -32,7 +32,7 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
         this.context = context;
         this.listener = listener;
         this.setId = setId;
-        setChooserDialog = new SingleFlashcardSetChooserDialog(context, this);
+        setChooserDialog = new SingleFlashcardSetChooserDialog(context, this, setId);
         createDialogs();
         themeManager.registerListener(this);
     }
@@ -57,7 +57,7 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
                         }
                         setChooserDialog.show(importMode == ImportFlashcardsMode.MOVE
                                 ? R.string.move_flashcards_description
-                                : R.string.copy_flashcards_description, setId);
+                                : R.string.copy_flashcards_description);
                     }
                 })
                 .positiveText(R.string.cancel)

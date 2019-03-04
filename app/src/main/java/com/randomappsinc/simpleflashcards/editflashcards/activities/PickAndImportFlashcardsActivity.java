@@ -1,21 +1,33 @@
 package com.randomappsinc.simpleflashcards.editflashcards.activities;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.editflashcards.adapters.MultiFlashcardsSelectorAdapter;
 import com.randomappsinc.simpleflashcards.editflashcards.constants.ImportFlashcardsMode;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PickAndImportFlashcardsActivity extends StandardActivity {
+public class PickAndImportFlashcardsActivity extends StandardActivity
+        implements MultiFlashcardsSelectorAdapter.Listener {
 
+    @BindView(R.id.flashcards_list) RecyclerView flashcardsList;
+    @BindView(R.id.action_button) TextView actionButton;
+
+    private int setId;
     private @ImportFlashcardsMode int importMode;
     private DatabaseManager databaseManager = DatabaseManager.get();
 
@@ -31,8 +43,18 @@ public class PickAndImportFlashcardsActivity extends StandardActivity {
                         .colorRes(R.color.white)
                         .actionBarSize());
 
-        int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY,0);
+        setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY,0);
         importMode = getIntent().getIntExtra(Constants.IMPORT_MODE_KEY, 0);
+
+        List<Flashcard> flashcards = databaseManager.getAllFlashcards(setId);
+
+        onNumSelectedSetsUpdated(0);
+    }
+
+    @Override
+    public void onNumSelectedSetsUpdated(int numSelectedFlashcards) {
+        int textId = importMode == ImportFlashcardsMode.MOVE ? R.string.move_x : R.string.copy_x;
+        actionButton.setText(getString(textId, numSelectedFlashcards));
     }
 
     @Override

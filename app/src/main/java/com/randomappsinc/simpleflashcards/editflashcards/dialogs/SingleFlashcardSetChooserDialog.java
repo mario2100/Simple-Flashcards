@@ -19,13 +19,15 @@ public class SingleFlashcardSetChooserDialog implements SingleFlashcardSetChoose
 
     private Context context;
     private Listener listener;
+    private int setId;
     private MaterialDialog chooserDialog;
     private SingleFlashcardSetChooserAdapter setsAdapter;
     private DatabaseManager databaseManager = DatabaseManager.get();
 
-    public SingleFlashcardSetChooserDialog(Context context, Listener listener) {
+    public SingleFlashcardSetChooserDialog(Context context, Listener listener, int setId) {
         this.context = context;
         this.listener = listener;
+        this.setId = setId;
     }
 
     public void createDialog(boolean darkModeEnabled) {
@@ -45,7 +47,7 @@ public class SingleFlashcardSetChooserDialog implements SingleFlashcardSetChoose
         listener.onFlashcardSetChosen(flashcardSet);
     }
 
-    public void show(@StringRes int contentId, int setId) {
+    public void show(@StringRes int contentId) {
         setsAdapter.setFlashcardSets(databaseManager.getNonEmptyFlashcardSets(setId));
         chooserDialog.setContent(contentId);
         chooserDialog.show();
