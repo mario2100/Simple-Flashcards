@@ -52,23 +52,23 @@
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.BrowseFlashcardsActivity"
+            android:name=".browse.activities.BrowseFlashcardsActivity"
             android:theme="@style/AppTheme.StudyMode"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.QuizActivity"
+            android:name=".quiz.activities.QuizActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.QuizResultsActivity"
+            android:name=".quiz.activities.QuizResultsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/quiz_results"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.QuizletSetViewActivity"
+            android:name=".quizlet.activities.QuizletSetViewActivity"
             android:configChanges="orientation|screenSize"/>
 
         <activity
@@ -77,34 +77,34 @@
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.NearbySharingActivity"
+            android:name=".nearbysharing.activities.NearbySharingActivity"
             android:label="@string/nearby_sharing"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.NearbyFlashcardsTransferActivity"
+            android:name=".nearbysharing.activities.NearbyFlashcardsTransferActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.QuizSettingsActivity"
+            android:name=".quiz.activities.QuizSettingsActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/quiz_settings"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.QuizletSearchFilterActivity"
+            android:name=".quizlet.activities.QuizletSearchFilterActivity"
             android:label="@string/filter"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.BackupAndRestoreActivity"
+            android:name=".backupandrestore.activities.BackupAndRestoreActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/backup_and_restore_title"
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.AddedFlashcardSetsActivity"
+            android:name=".common.activities.AddedFlashcardSetsActivity"
             android:label="@string/added_flashcard_sets"
             android:configChanges="orientation|screenSize"/>
 
@@ -113,7 +113,7 @@
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.FolderActivity"
+            android:name=".folders.activities.FolderActivity"
             android:configChanges="orientation|screenSize"/>
     </application>
 </manifest>

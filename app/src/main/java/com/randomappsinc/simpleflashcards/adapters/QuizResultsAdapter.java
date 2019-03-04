@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.models.Problem;
+import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 import com.randomappsinc.simpleflashcards.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 

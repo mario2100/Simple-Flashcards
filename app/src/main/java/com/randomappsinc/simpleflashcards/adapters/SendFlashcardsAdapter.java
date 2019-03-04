@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.constants.FlashcardSetTransferState;
 import com.randomappsinc.simpleflashcards.managers.NearbyConnectionsManager;
-import com.randomappsinc.simpleflashcards.models.FlashcardSetForTransfer;
+import com.randomappsinc.simpleflashcards.nearbysharing.models.FlashcardSetForTransfer;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 
 import java.util.ArrayList;

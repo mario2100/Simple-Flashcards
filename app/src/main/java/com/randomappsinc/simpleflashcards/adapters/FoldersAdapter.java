@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.models.Folder;
+import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 
 import java.util.ArrayList;

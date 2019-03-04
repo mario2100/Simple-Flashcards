@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.BackupAndRestoreActivity;
-import com.randomappsinc.simpleflashcards.activities.NearbySharingActivity;
+import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
+import com.randomappsinc.simpleflashcards.nearbysharing.activities.NearbySharingActivity;
 import com.randomappsinc.simpleflashcards.adapters.SettingsAdapter;
 import com.randomappsinc.simpleflashcards.managers.NearbyNameManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;

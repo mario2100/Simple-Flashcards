@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.persistence;
 
-import com.randomappsinc.simpleflashcards.models.Folder;
+import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.persistence.models.FolderDO;
 

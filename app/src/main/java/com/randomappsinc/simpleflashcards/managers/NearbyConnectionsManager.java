@@ -20,7 +20,7 @@ import com.google.android.gms.nearby.connection.PayloadCallback;
 import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.randomappsinc.simpleflashcards.models.NearbyDevice;
+import com.randomappsinc.simpleflashcards.nearbysharing.models.NearbyDevice;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;

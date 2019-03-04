@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.randomappsinc.simpleflashcards.api.models.QuizletFlashcard;
 import com.randomappsinc.simpleflashcards.api.models.QuizletFlashcardSet;
 import com.randomappsinc.simpleflashcards.models.FlashcardSetPreview;
-import com.randomappsinc.simpleflashcards.models.Folder;
+import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.persistence.models.FolderDO;

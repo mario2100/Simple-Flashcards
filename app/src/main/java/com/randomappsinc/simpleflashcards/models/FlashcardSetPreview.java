@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 
 /**
- * Used to show added flashcard sets from data restoration.
+ * Used to show added flashcard sets from data restoration or nearby sharing.
  */
 public class FlashcardSetPreview implements Parcelable {
 

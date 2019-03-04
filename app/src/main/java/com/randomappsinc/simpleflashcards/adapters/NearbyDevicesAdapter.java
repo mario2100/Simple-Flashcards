@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.models.NearbyDevice;
+import com.randomappsinc.simpleflashcards.nearbysharing.models.NearbyDevice;
 
 import java.util.ArrayList;
 import java.util.List;

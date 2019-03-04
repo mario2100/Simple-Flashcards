@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.randomappsinc.simpleflashcards.fragments.QuizResultsFragment;
-import com.randomappsinc.simpleflashcards.models.Problem;
+import com.randomappsinc.simpleflashcards.quiz.fragments.QuizResultsFragment;
+import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.randomappsinc.simpleflashcards.fragments.ReceivedFlashcardsFragment;
-import com.randomappsinc.simpleflashcards.fragments.SendFlashcardsFragment;
+import com.randomappsinc.simpleflashcards.nearbysharing.fragments.ReceivedFlashcardsFragment;
+import com.randomappsinc.simpleflashcards.nearbysharing.fragments.SendFlashcardsFragment;
 
 public class NearbyFlashcardsTabsAdapter extends FragmentPagerAdapter {
 

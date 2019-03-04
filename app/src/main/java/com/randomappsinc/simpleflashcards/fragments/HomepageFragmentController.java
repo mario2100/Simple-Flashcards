@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.folders.fragments.FoldersFragment;
 
 public class HomepageFragmentController {
 

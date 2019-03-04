@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.randomappsinc.simpleflashcards.fragments.BackupDataFragment;
-import com.randomappsinc.simpleflashcards.fragments.RestoreDataFragment;
+import com.randomappsinc.simpleflashcards.backupandrestore.fragments.BackupDataFragment;
+import com.randomappsinc.simpleflashcards.backupandrestore.fragments.RestoreDataFragment;
 
 public class BackupAndRestoreTabsAdapter extends FragmentPagerAdapter {
 

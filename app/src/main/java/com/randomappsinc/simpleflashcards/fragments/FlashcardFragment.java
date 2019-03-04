@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.BrowseFlashcardsActivity;
+import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.constants.Constants;
 import com.randomappsinc.simpleflashcards.dialogs.FullTextDialog;
