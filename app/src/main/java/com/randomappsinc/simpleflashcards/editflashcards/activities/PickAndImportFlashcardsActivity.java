@@ -29,6 +29,7 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
 
     private int setId;
     private @ImportFlashcardsMode int importMode;
+    private MultiFlashcardsSelectorAdapter flashcardsAdapter;
     private DatabaseManager databaseManager = DatabaseManager.get();
 
     @Override
@@ -47,6 +48,8 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
         importMode = getIntent().getIntExtra(Constants.IMPORT_MODE_KEY, 0);
 
         List<Flashcard> flashcards = databaseManager.getAllFlashcards(setId);
+        flashcardsAdapter = new MultiFlashcardsSelectorAdapter(this, flashcards);
+        flashcardsList.setAdapter(flashcardsAdapter);
 
         onNumSelectedSetsUpdated(0);
     }

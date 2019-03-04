@@ -15,5 +15,8 @@
         android:id="@+id/flashcards_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/action_button"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 </com.randomappsinc.simpleflashcards.theme.ThemedRelativeLayout>
