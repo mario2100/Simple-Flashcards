@@ -15,8 +15,7 @@
         android:layout_marginTop="1dp"
         android:gravity="center"
         android:text="@string/card_icon"
-        android:textSize="16dp"
-        android:textColor="@color/dark_gray"/>
+        android:textSize="16dp"/>
 
     <com.randomappsinc.simpleflashcards.theme.ThemedTextView
         android:id="@+id/num_flashcards"
@@ -26,12 +25,10 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:gravity="center_vertical"
-        android:textSize="13dp"
-        android:textColor="@color/dark_gray"/>
+        android:textSize="13dp"/>
 
     <com.randomappsinc.simpleflashcards.theme.ThemedTextView
         android:id="@+id/set_name"
-        android:textColor="@color/dark_gray"
         android:textSize="27dp"
         android:layout_toLeftOf="@+id/num_flashcards"
         android:layout_width="match_parent"
@@ -55,12 +52,14 @@
                 android:orientation="horizontal">
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
+                    android:id="@+id/eye_icon"
                     android:text="@string/eye_icon"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dp"
                     style="@style/set_action_icon"/>
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                    android:id="@+id/browse_text"
                     android:text="@string/browse"
                     style="@style/set_action_text"/>
             </LinearLayout>
@@ -77,10 +76,12 @@
                 android:orientation="horizontal">
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
+                    android:id="@+id/quiz_icon"
                     android:text="@string/list_icon"
                     style="@style/set_action_icon"/>
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                    android:id="@+id/quiz_text"
                     android:text="@string/quiz"
                     android:paddingBottom="4dp"
                     style="@style/set_action_text"/>
@@ -106,11 +107,13 @@
                 android:orientation="horizontal">
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
+                    android:id="@+id/edit_icon"
                     android:text="@string/edit_icon"
                     android:layout_height="wrap_content"
                     style="@style/set_action_icon"/>
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                    android:id="@+id/edit_text"
                     android:text="@string/edit"
                     style="@style/set_action_text"/>
             </LinearLayout>
@@ -127,6 +130,7 @@
                 android:orientation="horizontal">
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
+                    android:id="@+id/delete_icon"
                     android:text="@string/delete_icon"
                     style="@style/set_action_icon"/>
 

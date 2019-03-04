@@ -299,9 +299,10 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        adapter.cleanup();
         createFlashcardSetDialog.cleanUp();
         deleteFlashcardSetDialog.cleanUp();
+        unbinder.unbind();
     }
 
     @Override

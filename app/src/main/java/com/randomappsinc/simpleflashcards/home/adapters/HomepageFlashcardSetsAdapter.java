@@ -6,11 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+import com.randomappsinc.simpleflashcards.theme.ThemedCardView;
+import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
+import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomepageFlashcardSetsAdapter extends RecyclerView.Adapter<HomepageFlashcardSetsAdapter.FlashcardSetViewHolder> {
+public class HomepageFlashcardSetsAdapter
+        extends RecyclerView.Adapter<HomepageFlashcardSetsAdapter.FlashcardSetViewHolder>
+        implements ThemeManager.Listener {
 
     public interface Listener {
         void browseFlashcardSet(FlashcardSet flashcardSet);
@@ -37,11 +42,22 @@ public class HomepageFlashcardSetsAdapter extends RecyclerView.Adapter<HomepageF
     private Context context;
     protected List<FlashcardSet> flashcardSets;
     protected int selectedItemIndex = -1;
+    private ThemeManager themeManager = ThemeManager.get();
 
     public HomepageFlashcardSetsAdapter(@NonNull Listener listener, Context context) {
         this.listener = listener;
         this.context = context;
         this.flashcardSets = new ArrayList<>();
+        this.themeManager.registerListener(this);
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        notifyDataSetChanged();
+    }
+
+    public void cleanup() {
+        themeManager.unregisterListener(this);
     }
 
     public void refreshContent(String searchTerm) {
@@ -82,8 +98,22 @@ public class HomepageFlashcardSetsAdapter extends RecyclerView.Adapter<HomepageF
     }
 
     public class FlashcardSetViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.set_name) TextView setName;
-        @BindView(R.id.num_flashcards) TextView numFlashcards;
+
+        @BindView(R.id.card_icon) ThemedIconTextView cardIcon;
+        @BindView(R.id.num_flashcards) ThemedTextView numFlashcards;
+        @BindView(R.id.set_name) ThemedTextView setName;
+        @BindView(R.id.browse_button) ThemedCardView browseButton;
+        @BindView(R.id.eye_icon) ThemedIconTextView eyeIcon;
+        @BindView(R.id.browse_text) ThemedTextView browseText;
+        @BindView(R.id.quiz_button) ThemedCardView quizButton;
+        @BindView(R.id.quiz_icon) ThemedIconTextView quizIcon;
+        @BindView(R.id.quiz_text) ThemedTextView quizText;
+        @BindView(R.id.edit_button) ThemedCardView editButton;
+        @BindView(R.id.edit_icon) ThemedIconTextView editIcon;
+        @BindView(R.id.edit_text) ThemedTextView editText;
+        @BindView(R.id.delete_button) ThemedCardView deleteButton;
+        @BindView(R.id.delete_icon) ThemedIconTextView deleteIcon;
+        @BindView(R.id.delete_button_text) ThemedTextView deleteText;
 
         FlashcardSetViewHolder(View view) {
             super(view);
@@ -94,6 +124,25 @@ public class HomepageFlashcardSetsAdapter extends RecyclerView.Adapter<HomepageF
             FlashcardSet flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
             numFlashcards.setText(String.valueOf(flashcardSet.getFlashcards().size()));
+            adjustForDarkMode();
+        }
+
+        void adjustForDarkMode() {
+            cardIcon.setProperColors();
+            numFlashcards.setProperTextColor();
+            setName.setProperTextColor();
+            browseButton.setProperColors();
+            eyeIcon.setProperColors();
+            browseText.setProperTextColor();
+            quizButton.setProperColors();
+            quizIcon.setProperColors();
+            quizText.setProperTextColor();
+            editButton.setProperColors();
+            editIcon.setProperColors();
+            editText.setProperTextColor();
+            deleteButton.setProperColors();
+            deleteIcon.setProperColors();
+            deleteText.setProperTextColor();
         }
 
         @OnClick(R.id.browse_button)
