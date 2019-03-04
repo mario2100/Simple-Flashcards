@@ -8,8 +8,10 @@ import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.adapters.PlainSetViewAdapter;
-import com.randomappsinc.simpleflashcards.constants.Constants;
-import com.randomappsinc.simpleflashcards.models.FlashcardSetPreview;
+import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
+import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 
 import butterknife.BindView;

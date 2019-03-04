@@ -15,10 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.adapters.SettingsAdapter;
 import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.nearbysharing.activities.NearbySharingActivity;
-import com.randomappsinc.simpleflashcards.adapters.SettingsAdapter;
-import com.randomappsinc.simpleflashcards.managers.NearbyNameManager;
+import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyNameManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;

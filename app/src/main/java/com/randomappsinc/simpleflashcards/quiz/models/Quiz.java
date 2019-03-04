@@ -1,9 +1,9 @@
 package com.randomappsinc.simpleflashcards.quiz.models;
 
-import com.randomappsinc.simpleflashcards.constants.QuestionType;
-import com.randomappsinc.simpleflashcards.constants.QuizScore;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;
+import com.randomappsinc.simpleflashcards.quiz.constants.QuizScore;
 import com.randomappsinc.simpleflashcards.utils.RandUtils;
 
 import java.util.ArrayList;

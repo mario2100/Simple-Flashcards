@@ -11,11 +11,11 @@ import android.widget.EditText;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.StandardActivity;
-import com.randomappsinc.simpleflashcards.constants.Constants;
-import com.randomappsinc.simpleflashcards.constants.QuestionType;
-import com.randomappsinc.simpleflashcards.quiz.models.QuizSettings;
+import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;
+import com.randomappsinc.simpleflashcards.quiz.models.QuizSettings;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.ArrayList;

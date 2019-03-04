@@ -47,7 +47,7 @@
             android:label="@string/app_name"/>
 
         <activity
-            android:name=".activities.EditFlashcardSetActivity"
+            android:name=".editflashcards.activities.EditFlashcardSetActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:configChanges="orientation|screenSize"/>
 
@@ -72,7 +72,7 @@
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.PictureFullViewActivity"
+            android:name=".common.activities.PictureFullViewActivity"
             android:theme="@style/AppTheme.PictureFullView"
             android:configChanges="orientation|screenSize"/>
 

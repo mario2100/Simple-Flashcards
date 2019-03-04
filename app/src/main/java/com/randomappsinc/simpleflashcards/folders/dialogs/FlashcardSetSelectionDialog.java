@@ -7,7 +7,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.adapters.MultiFlashcardSetSelectionAdapter;
+import com.randomappsinc.simpleflashcards.folders.adapters.MultiFlashcardSetSelectionAdapter;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;

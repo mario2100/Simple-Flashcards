@@ -8,8 +8,8 @@ import android.widget.CheckBox;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.StandardActivity;
-import com.randomappsinc.simpleflashcards.api.QuizletSearchManager;
+import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.quizlet.api.QuizletSearchManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import butterknife.BindView;

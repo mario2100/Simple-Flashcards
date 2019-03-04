@@ -3,7 +3,7 @@ package com.randomappsinc.simpleflashcards.utils;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.randomappsinc.simpleflashcards.constants.Constants;
+import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 

@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.activities.PlainSetViewActivity;
-import com.randomappsinc.simpleflashcards.adapters.ReceivedFlashcardsAdapter;
-import com.randomappsinc.simpleflashcards.constants.Constants;
-import com.randomappsinc.simpleflashcards.managers.NearbyConnectionsManager;
-import com.randomappsinc.simpleflashcards.models.FlashcardSetPreview;
+import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
+import com.randomappsinc.simpleflashcards.nearbysharing.adapters.ReceivedFlashcardsAdapter;
+import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectionsManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;

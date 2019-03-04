@@ -16,10 +16,10 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.backupandrestore.managers.RestoreDataManager;
+import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.AddedFlashcardSetsActivity;
-import com.randomappsinc.simpleflashcards.constants.Constants;
-import com.randomappsinc.simpleflashcards.managers.RestoreDataManager;
-import com.randomappsinc.simpleflashcards.models.FlashcardSetPreview;
+import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 

@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.models;
 
-import com.randomappsinc.simpleflashcards.constants.FlashcardSetTransferState;
+import com.randomappsinc.simpleflashcards.nearbysharing.constants.FlashcardSetTransferState;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 
 public class FlashcardSetForTransfer {

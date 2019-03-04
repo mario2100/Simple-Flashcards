@@ -8,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.StandardActivity;
-import com.randomappsinc.simpleflashcards.adapters.QuizResultsTabsAdapter;
-import com.randomappsinc.simpleflashcards.constants.Constants;
+import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.quiz.adapters.QuizResultsTabsAdapter;
 import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 
 import java.util.List;

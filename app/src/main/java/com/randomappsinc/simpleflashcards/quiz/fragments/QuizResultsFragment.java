@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.PictureFullViewActivity;
-import com.randomappsinc.simpleflashcards.adapters.QuizResultsAdapter;
-import com.randomappsinc.simpleflashcards.constants.Constants;
+import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
+import com.randomappsinc.simpleflashcards.quiz.adapters.QuizResultsAdapter;
 import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 
 import java.util.ArrayList;

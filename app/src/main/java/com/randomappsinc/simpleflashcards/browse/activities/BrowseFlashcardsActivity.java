@@ -9,11 +9,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.StandardActivity;
-import com.randomappsinc.simpleflashcards.adapters.FlashcardsBrowsingAdapter;
-import com.randomappsinc.simpleflashcards.constants.Constants;
-import com.randomappsinc.simpleflashcards.managers.BrowseFlashcardsSettingsManager;
-import com.randomappsinc.simpleflashcards.managers.TextToSpeechManager;
+import com.randomappsinc.simpleflashcards.browse.adapters.FlashcardsBrowsingAdapter;
+import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
+import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.common.managers.TextToSpeechManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
