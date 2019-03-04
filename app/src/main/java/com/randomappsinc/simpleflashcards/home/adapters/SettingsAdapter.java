@@ -12,13 +12,17 @@ import android.widget.TextView;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
+import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.SettingViewHolder> {
+public class SettingsAdapter
+        extends RecyclerView.Adapter<SettingsAdapter.SettingViewHolder>
+        implements ThemeManager.Listener {
 
     public interface ItemSelectionListener {
         void onItemClick(int position);
@@ -36,6 +40,16 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         this.icons = context.getResources().getStringArray(R.array.settings_icons);
         this.preferencesManager = new PreferencesManager(context);
         this.themeManager = ThemeManager.get();
+        themeManager.registerListener(this);
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        notifyDataSetChanged();
+    }
+
+    public void cleanUp() {
+        themeManager.unregisterListener(this);
     }
 
     @Override
@@ -59,10 +73,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
     }
 
     class SettingViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.icon) TextView icon;
-        @BindView(R.id.option) TextView option;
-        @BindView(R.id.toggle)
-        Switch toggle;
+        @BindView(R.id.icon) ThemedIconTextView icon;
+        @BindView(R.id.option) ThemedTextView option;
+        @BindView(R.id.toggle) Switch toggle;
 
         SettingViewHolder(View view) {
             super(view);
@@ -72,6 +85,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         void loadSetting(int position) {
             option.setText(options[position]);
             icon.setText(icons[position]);
+            adjustForDarkMode();
 
             switch (position) {
                 case 2:
@@ -82,6 +96,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                     toggle.setVisibility(View.GONE);
                     break;
             }
+        }
+
+        void adjustForDarkMode() {
+            icon.setProperColors();
+            option.setProperTextColor();
         }
 
         @OnClick(R.id.toggle)

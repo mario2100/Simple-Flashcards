@@ -42,6 +42,7 @@ public class SettingsFragment extends Fragment implements SettingsAdapter.ItemSe
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
 
+    private SettingsAdapter settingsAdapter;
     private NearbyNameManager nearbyNameManager;
     private ThemeManager themeManager = ThemeManager.get();
     private Unbinder unbinder;
@@ -67,7 +68,8 @@ public class SettingsFragment extends Fragment implements SettingsAdapter.ItemSe
         super.onActivityCreated(savedInstanceState);
         nearbyNameManager = new NearbyNameManager(getActivity(), null);
         settingsOptions.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
-        settingsOptions.setAdapter(new SettingsAdapter(getActivity(), this));
+        settingsAdapter = new SettingsAdapter(getActivity(), this);
+        settingsOptions.setAdapter(settingsAdapter);
     }
 
     @Override
@@ -127,6 +129,7 @@ public class SettingsFragment extends Fragment implements SettingsAdapter.ItemSe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        settingsAdapter.cleanUp();
         unbinder.unbind();
     }
 
