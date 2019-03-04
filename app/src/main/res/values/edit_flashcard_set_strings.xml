@@ -66,7 +66,10 @@
 
     <string name="import_flashcards_options_title">Import Flashcards Options</string>
     <string-array name="import_flashcards_options">
-        <item>Move flashcards from another flashcard set</item>
-        <item>Copy flashcards from another flashcard set</item>
+        <item>Move flashcards from another set</item>
+        <item>Copy flashcards from another set</item>
     </string-array>
+
+    <string name="move_flashcards_description">Choose the flashcard set you want to move flashcards from.</string>
+    <string name="copy_flashcards_description">Choose the flashcard set you want to copy flashcards from.</string>
 </resources>

@@ -36,7 +36,7 @@ public class AddedFlashcardSetsAdapter
     @Override
     public FlashcardSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.set_preview_cell,
+                R.layout.simple_flashcard_set_cell,
                 parent,
                 false);
         return new FlashcardSetViewHolder(itemView);

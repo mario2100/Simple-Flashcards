@@ -38,6 +38,7 @@ import com.randomappsinc.simpleflashcards.editflashcards.managers.ImportFlashcar
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.utils.DialogUtil;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
@@ -52,7 +53,8 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class EditFlashcardSetActivity extends StandardActivity
-        implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener {
+        implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener,
+        ImportFlashcardsManager.Listener {
 
     // Intent codes
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
@@ -111,7 +113,7 @@ public class EditFlashcardSetActivity extends StandardActivity
                 this, currentSetName, editSetNameListener);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
-        importFlashcardsManager = new ImportFlashcardsManager(this);
+        importFlashcardsManager = new ImportFlashcardsManager(this, this);
 
         // When the user is scrolling to browse flashcards, close the soft keyboard
         flashcardsList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -207,6 +209,11 @@ public class EditFlashcardSetActivity extends StandardActivity
             intent.setType("image/*");
             startActivityForResult(intent, IMAGE_FILE_REQUEST_CODE);
         }
+    }
+
+    @Override
+    public void onSetChosen(FlashcardSet flashcardSet, int importMode) {
+
     }
 
     @Override

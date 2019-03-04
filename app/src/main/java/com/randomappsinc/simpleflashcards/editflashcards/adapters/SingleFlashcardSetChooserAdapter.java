@@ -1,5 +1,6 @@
-package com.randomappsinc.simpleflashcards.nearbysharing.adapters;
+package com.randomappsinc.simpleflashcards.editflashcards.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,39 +9,38 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ReceivedFlashcardsAdapter
-        extends RecyclerView.Adapter<ReceivedFlashcardsAdapter.FlashcardSetViewHolder>{
+public class SingleFlashcardSetChooserAdapter
+        extends RecyclerView.Adapter<SingleFlashcardSetChooserAdapter.FlashcardSetViewHolder>{
 
     public interface Listener {
-        void onCellClicked(FlashcardSetPreview setPreview);
+        void onFlashcardSetSelected(FlashcardSet flashcardSet);
     }
 
-    protected Listener listener;
     protected List<FlashcardSet> flashcardSets = new ArrayList<>();
+    protected Listener listener;
 
-    public ReceivedFlashcardsAdapter(Listener listener) {
+    public SingleFlashcardSetChooserAdapter(Listener listener) {
         this.listener = listener;
     }
 
-    public void addFlashcardSet(FlashcardSet flashcardSet) {
-        flashcardSets.add(flashcardSet);
-        notifyItemInserted(getItemCount() - 1);
+    public void setFlashcardSets(List<FlashcardSet> newSets) {
+        flashcardSets.clear();
+        flashcardSets.addAll(newSets);
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public FlashcardSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FlashcardSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.simple_flashcard_set_cell,
                 parent,
@@ -49,7 +49,8 @@ public class ReceivedFlashcardsAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FlashcardSetViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull SingleFlashcardSetChooserAdapter.FlashcardSetViewHolder holder, int position) {
         holder.loadFlashcardSet(position);
     }
 
@@ -58,12 +59,10 @@ public class ReceivedFlashcardsAdapter
         return flashcardSets.size();
     }
 
-    class FlashcardSetViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.set_name) TextView setName;
-        @BindView(R.id.num_flashcards) TextView numFlashcardsText;
+    public class FlashcardSetViewHolder extends RecyclerView.ViewHolder {
 
-        @BindString(R.string.one_flashcard) String oneFlashcard;
-        @BindString(R.string.x_flashcards) String manyFlashcardsTemplate;
+        @BindView(R.id.set_name) TextView setName;
+        @BindView(R.id.num_flashcards) TextView numFlashcards;
 
         FlashcardSetViewHolder(View view) {
             super(view);
@@ -73,16 +72,16 @@ public class ReceivedFlashcardsAdapter
         void loadFlashcardSet(int position) {
             FlashcardSet flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
-            int numFlashcards = flashcardSet.getFlashcards().size();
-            numFlashcardsText.setText(numFlashcards == 1
-                    ? oneFlashcard
-                    : String.format(manyFlashcardsTemplate, numFlashcards));
+            Context context = numFlashcards.getContext();
+            numFlashcards.setText(flashcardSet.getFlashcards().size() == 1
+                    ? context.getString(R.string.one_flashcard)
+                    : context.getString(R.string.x_flashcards, flashcardSet.getFlashcards().size()));
         }
 
         @OnClick(R.id.set_preview_parent)
-        public void onCellClicked() {
+        public void onSetCellClick() {
             FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
-            listener.onCellClicked(new FlashcardSetPreview(flashcardSet));
+            listener.onFlashcardSetSelected(flashcardSet);
         }
     }
 }
