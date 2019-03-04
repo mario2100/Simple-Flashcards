@@ -667,4 +667,12 @@ public class DatabaseManager {
                 .equalTo("definition", definition, Case.INSENSITIVE)
                 .findFirst() != null;
     }
+
+    public void moveFlashcards(int receivingSetId, int sendingSetId, List<Integer> flashcardIds) {
+
+    }
+
+    public void copyFlashcards(int receivingSetId, int sendingSetId, List<Integer> flashcardIds) {
+
+    }
 }

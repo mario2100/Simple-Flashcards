@@ -81,4 +81,6 @@
 
     <string name="no_term">This flashcard has no term.</string>
     <string name="no_description">This flashcard has no definition.</string>
+
+    <string name="flashcards_import_success">Flashcards successfully imported!</string>
 </resources>

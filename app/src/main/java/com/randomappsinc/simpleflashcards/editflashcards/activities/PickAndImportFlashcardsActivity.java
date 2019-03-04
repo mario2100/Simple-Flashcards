@@ -15,11 +15,13 @@ import com.randomappsinc.simpleflashcards.editflashcards.adapters.MultiFlashcard
 import com.randomappsinc.simpleflashcards.editflashcards.constants.ImportFlashcardsMode;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PickAndImportFlashcardsActivity extends StandardActivity
         implements MultiFlashcardsSelectorAdapter.Listener {
@@ -27,7 +29,8 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
     @BindView(R.id.flashcards_list) RecyclerView flashcardsList;
     @BindView(R.id.action_button) TextView actionButton;
 
-    private int setId;
+    private int receivingSetId;
+    private int sendingSetId;
     private @ImportFlashcardsMode int importMode;
     private MultiFlashcardsSelectorAdapter flashcardsAdapter;
     private DatabaseManager databaseManager = DatabaseManager.get();
@@ -44,10 +47,11 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
                         .colorRes(R.color.white)
                         .actionBarSize());
 
-        setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY,0);
+        receivingSetId = getIntent().getIntExtra(Constants.RECEIVING_SET_ID,0);
+        sendingSetId = getIntent().getIntExtra(Constants.SENDING_SET_ID,0);
         importMode = getIntent().getIntExtra(Constants.IMPORT_MODE_KEY, 0);
 
-        List<Flashcard> flashcards = databaseManager.getAllFlashcards(setId);
+        List<Flashcard> flashcards = databaseManager.getAllFlashcards(sendingSetId);
         flashcardsAdapter = new MultiFlashcardsSelectorAdapter(this, flashcards);
         flashcardsList.setAdapter(flashcardsAdapter);
 
@@ -58,6 +62,22 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
     public void onNumSelectedSetsUpdated(int numSelectedFlashcards) {
         int textId = importMode == ImportFlashcardsMode.MOVE ? R.string.move_x : R.string.copy_x;
         actionButton.setText(getString(textId, numSelectedFlashcards));
+    }
+
+    @OnClick(R.id.action_button)
+    public void onActionSubmitted() {
+        List<Integer> selectedFlashcardIds = flashcardsAdapter.getSelectedFlashcardIds();
+        switch (importMode) {
+            case ImportFlashcardsMode.MOVE:
+                databaseManager.moveFlashcards(receivingSetId, sendingSetId, selectedFlashcardIds);
+                break;
+            case ImportFlashcardsMode.COPY:
+                databaseManager.moveFlashcards(receivingSetId, sendingSetId, selectedFlashcardIds);
+                break;
+        }
+        UIUtils.showLongToast(R.string.flashcards_import_success, this);
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override

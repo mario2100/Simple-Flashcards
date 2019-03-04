@@ -215,7 +215,8 @@ public class EditFlashcardSetActivity extends StandardActivity
     @Override
     public void onSetChosen(FlashcardSet flashcardSet, int importMode) {
         Intent intent = new Intent(this, PickAndImportFlashcardsActivity.class)
-                .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId())
+                .putExtra(Constants.RECEIVING_SET_ID, setId)
+                .putExtra(Constants.SENDING_SET_ID, flashcardSet.getId())
                 .putExtra(Constants.IMPORT_MODE_KEY, importMode);
         startActivityForResult(intent, IMPORT_CODE);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
@@ -267,6 +268,11 @@ public class EditFlashcardSetActivity extends StandardActivity
                 }
                 String definition = extractTranscription(resultData);
                 createFlashcardDialog.onVoiceDefinitionSpoken(definition);
+                break;
+            case IMPORT_CODE:
+                if (resultCode == RESULT_OK) {
+                    adapter.refreshSet();
+                }
                 break;
         }
     }
