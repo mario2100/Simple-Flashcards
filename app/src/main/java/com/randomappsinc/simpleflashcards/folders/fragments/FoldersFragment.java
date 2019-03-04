@@ -244,9 +244,10 @@ public class FoldersFragment extends Fragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        adapter.cleanup();
         createFolderDialog.cleanUp();
         deleteFolderDialog.cleanUp();
+        unbinder.unbind();
     }
 
     @Override

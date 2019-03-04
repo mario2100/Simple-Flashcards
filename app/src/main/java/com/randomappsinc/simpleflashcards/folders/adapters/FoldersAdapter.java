@@ -6,11 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
+import com.randomappsinc.simpleflashcards.theme.ThemedSubtitleTextView;
+import com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderViewHolder> {
+public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderViewHolder>
+        implements ThemeManager.Listener {
 
     public interface Listener {
         void onFolderClicked(int folderId);
@@ -31,11 +35,22 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
     protected List<Folder> folders;
     private DatabaseManager databaseManager;
     protected int lastInteractedWithPosition;
+    private ThemeManager themeManager = ThemeManager.get();
 
     public FoldersAdapter(@NonNull Listener listener) {
         this.listener = listener;
         this.folders = new ArrayList<>();
         this.databaseManager = DatabaseManager.get();
+        this.themeManager.registerListener(this);
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        notifyDataSetChanged();
+    }
+
+    public void cleanup() {
+        themeManager.unregisterListener(this);
     }
 
     public void refreshContent(String searchTerm) {
@@ -70,8 +85,10 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
     }
 
     public class FolderViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.folder_name) TextView folderName;
-        @BindView(R.id.num_sets) TextView numSetsText;
+
+        @BindView(R.id.delete_folder) ThemedIconTextView deleteFolder;
+        @BindView(R.id.folder_name) ThemedTitleTextView folderName;
+        @BindView(R.id.num_sets) ThemedSubtitleTextView numSetsText;
 
         FolderViewHolder(View view) {
             super(view);
@@ -88,6 +105,13 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.FolderVi
                 Context context = numSetsText.getContext();
                 numSetsText.setText(context.getString(R.string.x_flashcard_sets, numSets));
             }
+            adjustForDarkMode();
+        }
+
+        void adjustForDarkMode() {
+            deleteFolder.setProperColors();
+            folderName.setProperColors();
+            numSetsText.setProperColors();
         }
 
         @OnClick(R.id.folder_parent)
