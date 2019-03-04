@@ -115,5 +115,10 @@
         <activity
             android:name=".folders.activities.FolderActivity"
             android:configChanges="orientation|screenSize"/>
+
+        <activity
+            android:name=".editflashcards.activities.PickAndImportFlashcardsActivity"
+            android:label=" "
+            android:configChanges="orientation|screenSize"/>
     </application>
 </manifest>

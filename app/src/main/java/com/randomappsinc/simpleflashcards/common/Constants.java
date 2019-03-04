@@ -16,6 +16,7 @@ public class Constants {
     public static final String SHOW_WRONG_QUESTIONS_KEY = "showWrongQuestions";
     public static final String CAPTION_KEY = "caption";
     public static final String FOLDER_ID_KEY = "folderId";
+    public static final String IMPORT_MODE_KEY = "importMode";
 
     public static final String BACKUP_KEY = "backup";
     public static final String RESTORE_KEY = "restore";

@@ -72,4 +72,6 @@
 
     <string name="move_flashcards_description">Choose the flashcard set you want to move flashcards from.</string>
     <string name="copy_flashcards_description">Choose the flashcard set you want to copy flashcards from.</string>
+
+    <string name="select_all">Select All</string>
 </resources>
