@@ -9,10 +9,15 @@ import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.editflashcards.constants.ImportFlashcardsMode;
+import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 
 import butterknife.ButterKnife;
 
 public class PickAndImportFlashcardsActivity extends StandardActivity {
+
+    private @ImportFlashcardsMode int importMode;
+    private DatabaseManager databaseManager = DatabaseManager.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class PickAndImportFlashcardsActivity extends StandardActivity {
                         .actionBarSize());
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY,0);
+        importMode = getIntent().getIntExtra(Constants.IMPORT_MODE_KEY, 0);
     }
 
     @Override

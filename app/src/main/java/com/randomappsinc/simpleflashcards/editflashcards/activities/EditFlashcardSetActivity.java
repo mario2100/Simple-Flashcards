@@ -114,7 +114,7 @@ public class EditFlashcardSetActivity extends StandardActivity
                 this, currentSetName, editSetNameListener);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
-        importFlashcardsManager = new ImportFlashcardsManager(this, this);
+        importFlashcardsManager = new ImportFlashcardsManager(this, this, setId);
 
         // When the user is scrolling to browse flashcards, close the soft keyboard
         flashcardsList.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -8,8 +8,10 @@ import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.editflashcards.constants.ImportFlashcardsMode;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.SingleFlashcardSetChooserDialog;
+import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFlashcardSetChooserDialog.Listener {
 
@@ -19,14 +21,17 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
 
     private Context context;
     private Listener listener;
+    protected int setId;
     private MaterialDialog optionsDialog;
     protected SingleFlashcardSetChooserDialog setChooserDialog;
     protected @ImportFlashcardsMode int importMode;
     private ThemeManager themeManager = ThemeManager.get();
+    private DatabaseManager databaseManager = DatabaseManager.get();
 
-    public ImportFlashcardsManager(Context context, Listener listener) {
+    public ImportFlashcardsManager(Context context, Listener listener, int setId) {
         this.context = context;
         this.listener = listener;
+        this.setId = setId;
         setChooserDialog = new SingleFlashcardSetChooserDialog(context, this);
         createDialogs();
         themeManager.registerListener(this);
@@ -52,7 +57,7 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
                         }
                         setChooserDialog.show(importMode == ImportFlashcardsMode.MOVE
                                 ? R.string.move_flashcards_description
-                                : R.string.copy_flashcards_description);
+                                : R.string.copy_flashcards_description, setId);
                     }
                 })
                 .positiveText(R.string.cancel)
@@ -66,7 +71,12 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
     }
 
     public void startImport() {
-        optionsDialog.show();
+        // No non-empty flashcard sets to import from
+        if (databaseManager.getNonEmptyFlashcardSets(setId).isEmpty()) {
+            UIUtils.showLongToast(R.string.no_non_empty_sets_error, context);
+        } else {
+            optionsDialog.show();
+        }
     }
 
     @Override
@@ -76,6 +86,7 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
 
     public void cleanUp() {
         context = null;
+        setChooserDialog.cleanUp();
         themeManager.unregisterListener(this);
     }
 }

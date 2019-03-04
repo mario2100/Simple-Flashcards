@@ -69,6 +69,7 @@
         <item>Move flashcards from another set</item>
         <item>Copy flashcards from another set</item>
     </string-array>
+    <string name="no_non_empty_sets_error">You have no non-empty flashcard sets to import from!</string>
 
     <string name="move_flashcards_description">Choose the flashcard set you want to move flashcards from.</string>
     <string name="copy_flashcards_description">Choose the flashcard set you want to copy flashcards from.</string>

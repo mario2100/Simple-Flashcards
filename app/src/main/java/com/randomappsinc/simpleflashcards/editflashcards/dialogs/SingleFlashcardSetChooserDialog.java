@@ -45,9 +45,13 @@ public class SingleFlashcardSetChooserDialog implements SingleFlashcardSetChoose
         listener.onFlashcardSetChosen(flashcardSet);
     }
 
-    public void show(@StringRes int contentId) {
-        setsAdapter.setFlashcardSets(databaseManager.getFlashcardSets(""));
+    public void show(@StringRes int contentId, int setId) {
+        setsAdapter.setFlashcardSets(databaseManager.getNonEmptyFlashcardSets(setId));
         chooserDialog.setContent(contentId);
         chooserDialog.show();
+    }
+
+    public void cleanUp() {
+        context = null;
     }
 }

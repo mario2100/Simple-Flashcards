@@ -336,6 +336,13 @@ public class DatabaseManager {
         return flashcardSets;
     }
 
+    public List<FlashcardSet> getNonEmptyFlashcardSets(int setIdToExclude) {
+        return realm.where(FlashcardSet.class)
+                .isNotEmpty("flashcards")
+                .notEqualTo("id", setIdToExclude)
+                .findAll();
+    }
+
     /**
      * Creates a deep copy of all flashcard sets to avoid Realm access shenanigans.
      */
