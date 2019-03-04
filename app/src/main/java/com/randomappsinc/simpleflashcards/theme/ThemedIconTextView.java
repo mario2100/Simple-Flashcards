@@ -27,6 +27,10 @@ public class ThemedIconTextView extends IconTextView implements ThemeManager.Lis
         setTextColor(darkModeEnabled ? darkModeColor : normalModeColor);
     }
 
+    public void setProperColors() {
+        setTextColor(themeManager.getDarkModeEnabled(getContext()) ? darkModeColor : normalModeColor);
+    }
+
     @Override
     public void onAttachedToWindow() {
         themeManager.registerListener(this);

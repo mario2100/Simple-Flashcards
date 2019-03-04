@@ -27,6 +27,10 @@ public class ThemedSubtitleTextView extends AppCompatTextView implements ThemeMa
         setTextColor(darkModeEnabled ? darkModeColor : normalModeColor);
     }
 
+    public void setProperColors() {
+        setTextColor(themeManager.getDarkModeEnabled(getContext()) ? darkModeColor : normalModeColor);
+    }
+
     @Override
     public void onAttachedToWindow() {
         themeManager.registerListener(this);

@@ -27,6 +27,10 @@ public class ThemedCardView extends CardView implements ThemeManager.Listener {
         setCardBackgroundColor(darkModeEnabled ? darkModeColor : normalModeColor);
     }
 
+    public void setProperColors() {
+        setCardBackgroundColor(themeManager.getDarkModeEnabled(getContext()) ? darkModeColor : normalModeColor);
+    }
+
     @Override
     public void onAttachedToWindow() {
         themeManager.registerListener(this);

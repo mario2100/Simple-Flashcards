@@ -221,6 +221,7 @@ public class QuizletSearchFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         searchManager.clearEverything();
+        adapter.cleanUp();
         unbinder.unbind();
     }
 

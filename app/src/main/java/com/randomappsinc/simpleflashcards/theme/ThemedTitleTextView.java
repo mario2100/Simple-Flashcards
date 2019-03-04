@@ -27,6 +27,10 @@ public class ThemedTitleTextView extends AppCompatTextView implements ThemeManag
         setTextColor(darkModeEnabled ? darkModeColor : normalModeColor);
     }
 
+    public void setProperColors() {
+        setTextColor(themeManager.getDarkModeEnabled(getContext()) ? darkModeColor : normalModeColor);
+    }
+
     @Override
     public void onAttachedToWindow() {
         themeManager.registerListener(this);

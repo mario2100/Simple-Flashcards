@@ -12,6 +12,7 @@
     tools:ignore="SpUsage, RtlHardcoded">
 
     <com.randomappsinc.simpleflashcards.theme.ThemedCardView
+        android:id="@+id/card_parent"
         style="@style/clickable_card">
 
         <RelativeLayout
