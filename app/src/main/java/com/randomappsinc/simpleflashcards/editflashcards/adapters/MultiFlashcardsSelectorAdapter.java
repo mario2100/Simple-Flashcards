@@ -15,7 +15,6 @@ import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +39,8 @@ public class MultiFlashcardsSelectorAdapter
         this.flashcards = flashcards;
     }
 
-    public List<Integer> getSelectedFlashcardIds() {
-        return new ArrayList<>(selectedFlashcardIds);
+    public Set<Integer> getSelectedFlashcardIds() {
+        return selectedFlashcardIds;
     }
 
     public void selectAll() {

@@ -18,6 +18,7 @@ import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,13 +67,13 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
 
     @OnClick(R.id.action_button)
     public void onActionSubmitted() {
-        List<Integer> selectedFlashcardIds = flashcardsAdapter.getSelectedFlashcardIds();
+        Set<Integer> selectedFlashcardIds = flashcardsAdapter.getSelectedFlashcardIds();
         switch (importMode) {
             case ImportFlashcardsMode.MOVE:
                 databaseManager.moveFlashcards(receivingSetId, sendingSetId, selectedFlashcardIds);
                 break;
             case ImportFlashcardsMode.COPY:
-                databaseManager.moveFlashcards(receivingSetId, sendingSetId, selectedFlashcardIds);
+                databaseManager.copyFlashcards(receivingSetId, sendingSetId, selectedFlashcardIds);
                 break;
         }
         UIUtils.showLongToast(R.string.flashcards_import_success, this);

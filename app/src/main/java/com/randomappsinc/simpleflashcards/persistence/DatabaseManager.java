@@ -14,6 +14,7 @@ import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcardSet
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.realm.Case;
 import io.realm.DynamicRealm;
@@ -668,11 +669,31 @@ public class DatabaseManager {
                 .findFirst() != null;
     }
 
-    public void moveFlashcards(int receivingSetId, int sendingSetId, List<Integer> flashcardIds) {
-
+    public void moveFlashcards(int receivingSetId, int sendingSetId, Set<Integer> flashcardIds) {
+        RealmList<Flashcard> flashcardsToSend = realm.where(FlashcardSet.class)
+                .equalTo("id", sendingSetId)
+                .findFirst()
+                .getFlashcards();
+        try {
+            realm.beginTransaction();
+            FlashcardSet receivingSet = realm
+                    .where(FlashcardSet.class)
+                    .equalTo("id", receivingSetId)
+                    .findFirst();
+            for (int i = 0; i < flashcardsToSend.size(); i++) {
+                if (flashcardIds.contains(flashcardsToSend.get(i).getId())) {
+                    Flashcard flashcardToAdd = flashcardsToSend.get(i);
+                    flashcardsToSend.remove(i);
+                    receivingSet.getFlashcards().add(flashcardToAdd);
+                    i--;
+                }
+            }
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
     }
 
-    public void copyFlashcards(int receivingSetId, int sendingSetId, List<Integer> flashcardIds) {
-
+    public void copyFlashcards(int receivingSetId, int sendingSetId, Set<Integer> flashcardIds) {
     }
 }
