@@ -12,23 +12,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.randomappsinc.simpleflashcards.views.SkeletonView
+        <com.randomappsinc.simpleflashcards.common.views.SkeletonView
             android:layout_width="200dp"
             android:layout_height="19dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="7dp"/>
 
-        <com.randomappsinc.simpleflashcards.views.SkeletonView
+        <com.randomappsinc.simpleflashcards.common.views.SkeletonView
             android:layout_width="100dp"
             android:layout_height="17dp"
             android:layout_marginBottom="11dp"/>
 
-        <com.randomappsinc.simpleflashcards.views.SkeletonView
+        <com.randomappsinc.simpleflashcards.common.views.SkeletonView
             android:layout_width="140dp"
             android:layout_height="13dp"
             android:layout_marginBottom="7dp"/>
 
-        <com.randomappsinc.simpleflashcards.views.SkeletonView
+        <com.randomappsinc.simpleflashcards.common.views.SkeletonView
             android:layout_width="140dp"
             android:layout_height="13dp"/>
     </LinearLayout>

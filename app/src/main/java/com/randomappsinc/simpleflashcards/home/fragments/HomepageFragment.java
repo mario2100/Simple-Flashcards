@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.fragments;
+package com.randomappsinc.simpleflashcards.home.fragments;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -21,21 +21,21 @@ import android.widget.EditText;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.MainActivity;
-import com.randomappsinc.simpleflashcards.adapters.FlashcardSetsAdapter;
 import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.common.Constants;
-import com.randomappsinc.simpleflashcards.dialogs.CreateFlashcardSetDialog;
-import com.randomappsinc.simpleflashcards.dialogs.DeleteFlashcardSetDialog;
+import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
+import com.randomappsinc.simpleflashcards.home.activities.MainActivity;
+import com.randomappsinc.simpleflashcards.home.adapters.HomepageFlashcardSetsAdapter;
+import com.randomappsinc.simpleflashcards.home.dialogs.CreateFlashcardSetDialog;
+import com.randomappsinc.simpleflashcards.home.dialogs.DeleteFlashcardSetDialog;
 import com.randomappsinc.simpleflashcards.nearbysharing.activities.NearbySharingActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.quiz.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
-import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
 import java.util.List;
 import java.util.Locale;
@@ -46,7 +46,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-public class HomepageFragment extends Fragment implements FlashcardSetsAdapter.Listener,
+public class HomepageFragment extends Fragment implements HomepageFlashcardSetsAdapter.Listener,
         DeleteFlashcardSetDialog.Listener, CreateFlashcardSetDialog.Listener {
 
     public static HomepageFragment newInstance() {
@@ -70,7 +70,7 @@ public class HomepageFragment extends Fragment implements FlashcardSetsAdapter.L
     @BindView(R.id.no_sets_match) View noSetsMatch;
     @BindView(R.id.add_flashcard_set) FloatingActionButton addFlashcardSet;
 
-    protected FlashcardSetsAdapter adapter;
+    protected HomepageFlashcardSetsAdapter adapter;
     private CreateFlashcardSetDialog createFlashcardSetDialog;
     private DeleteFlashcardSetDialog deleteFlashcardSetDialog;
     private DatabaseManager databaseManager = DatabaseManager.get();
@@ -104,7 +104,7 @@ public class HomepageFragment extends Fragment implements FlashcardSetsAdapter.L
         createFlashcardSetDialog = new CreateFlashcardSetDialog(getActivity(), this);
         deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
 
-        adapter = new FlashcardSetsAdapter(this, getActivity());
+        adapter = new HomepageFlashcardSetsAdapter(this, getActivity());
         sets.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         sets.setAdapter(adapter);
 

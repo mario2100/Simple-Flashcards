@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.dialogs;
+package com.randomappsinc.simpleflashcards.home.dialogs;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

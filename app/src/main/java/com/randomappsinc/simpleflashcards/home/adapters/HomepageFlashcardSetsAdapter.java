@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.adapters;
+package com.randomappsinc.simpleflashcards.home.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FlashcardSetsAdapter extends RecyclerView.Adapter<FlashcardSetsAdapter.FlashcardSetViewHolder> {
+public class HomepageFlashcardSetsAdapter extends RecyclerView.Adapter<HomepageFlashcardSetsAdapter.FlashcardSetViewHolder> {
 
     public interface Listener {
         void browseFlashcardSet(FlashcardSet flashcardSet);
@@ -38,7 +38,7 @@ public class FlashcardSetsAdapter extends RecyclerView.Adapter<FlashcardSetsAdap
     protected List<FlashcardSet> flashcardSets;
     protected int selectedItemIndex = -1;
 
-    public FlashcardSetsAdapter(@NonNull Listener listener, Context context) {
+    public HomepageFlashcardSetsAdapter(@NonNull Listener listener, Context context) {
         this.listener = listener;
         this.context = context;
         this.flashcardSets = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.activities;
+package com.randomappsinc.simpleflashcards.home.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,12 +7,12 @@ import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.managers.BackupDataManager;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
-import com.randomappsinc.simpleflashcards.fragments.HomepageFragmentController;
+import com.randomappsinc.simpleflashcards.home.fragments.HomepageFragmentController;
+import com.randomappsinc.simpleflashcards.home.views.BottomNavigationView;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.utils.DialogUtil;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
-import com.randomappsinc.simpleflashcards.views.BottomNavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

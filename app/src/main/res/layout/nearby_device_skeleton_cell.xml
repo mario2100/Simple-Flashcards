@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.randomappsinc.simpleflashcards.views.SkeletonView
+        <com.randomappsinc.simpleflashcards.common.views.SkeletonView
             android:layout_width="100dp"
             android:layout_height="19dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="7dp"/>
 
-        <com.randomappsinc.simpleflashcards.views.SkeletonView
+        <com.randomappsinc.simpleflashcards.common.views.SkeletonView
             android:layout_width="160dp"
             android:layout_height="17dp"/>
     </LinearLayout>

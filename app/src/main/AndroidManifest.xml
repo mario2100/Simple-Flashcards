@@ -32,7 +32,7 @@
         </provider>
 
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".home.activities.SplashActivity"
             android:theme="@style/SplashTheme">
 
             <intent-filter>
@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".home.activities.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/app_name"/>
 
@@ -109,7 +109,7 @@
             android:configChanges="orientation|screenSize"/>
 
         <activity
-            android:name=".activities.PlainSetViewActivity"
+            android:name=".common.activities.PlainSetViewActivity"
             android:configChanges="orientation|screenSize"/>
 
         <activity

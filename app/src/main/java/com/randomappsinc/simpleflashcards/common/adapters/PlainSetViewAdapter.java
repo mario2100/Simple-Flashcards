@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.adapters;
+package com.randomappsinc.simpleflashcards.common.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

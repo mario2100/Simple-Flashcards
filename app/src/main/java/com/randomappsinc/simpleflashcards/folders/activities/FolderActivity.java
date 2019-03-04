@@ -14,6 +14,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
 import com.randomappsinc.simpleflashcards.folders.adapters.FolderSetsAdapter;
 import com.randomappsinc.simpleflashcards.folders.dialogs.FlashcardSetSelectionDialog;
@@ -23,7 +24,6 @@ import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.quiz.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
-import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
 import java.util.List;
 

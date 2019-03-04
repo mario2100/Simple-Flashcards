@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.activities;
+package com.randomappsinc.simpleflashcards.home.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

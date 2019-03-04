@@ -22,6 +22,7 @@ import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.folders.activities.FolderActivity;
 import com.randomappsinc.simpleflashcards.folders.adapters.FoldersAdapter;
 import com.randomappsinc.simpleflashcards.folders.dialogs.CreateFolderDialog;
@@ -30,7 +31,6 @@ import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
-import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
 import java.util.List;
 import java.util.Locale;

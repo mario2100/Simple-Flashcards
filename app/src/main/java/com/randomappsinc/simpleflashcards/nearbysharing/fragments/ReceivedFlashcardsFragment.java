@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.PlainSetViewActivity;
 import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.activities.PlainSetViewActivity;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
+import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.nearbysharing.adapters.ReceivedFlashcardsAdapter;
 import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectionsManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
-import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

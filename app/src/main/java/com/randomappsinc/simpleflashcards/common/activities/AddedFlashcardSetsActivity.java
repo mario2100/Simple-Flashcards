@@ -7,11 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.activities.PlainSetViewActivity;
-import com.randomappsinc.simpleflashcards.adapters.AddedFlashcardSetsAdapter;
 import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.adapters.AddedFlashcardSetsAdapter;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
-import com.randomappsinc.simpleflashcards.views.SimpleDividerItemDecoration;
+import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 
 import java.util.List;
 

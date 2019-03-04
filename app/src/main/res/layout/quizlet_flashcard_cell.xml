@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"/>
 
-                    <com.randomappsinc.simpleflashcards.views.SquareImageView
+                    <com.randomappsinc.simpleflashcards.common.views.SquareImageView
                         android:id="@+id/term_image"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"

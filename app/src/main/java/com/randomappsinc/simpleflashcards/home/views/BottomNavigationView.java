@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.views;
+package com.randomappsinc.simpleflashcards.home.views;
 
 import android.content.Context;
 import android.support.annotation.IdRes;

@@ -1,4 +1,4 @@
-package com.randomappsinc.simpleflashcards.views;
+package com.randomappsinc.simpleflashcards.common.views;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
