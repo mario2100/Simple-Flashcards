@@ -3,6 +3,7 @@ package com.randomappsinc.simpleflashcards.browse.activities;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.SeekBar;
@@ -32,6 +33,7 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
 
     private static final float DISABLED_ALPHA = 0.25f;
 
+    @BindView(R.id.browse_parent) View parent;
     @BindView(R.id.flashcards_pager) ViewPager flashcardsPager;
     @BindView(R.id.flashcards_slider) SeekBar flashcardsSlider;
     @BindView(R.id.shake_toggle) View shakeToggle;
@@ -55,10 +57,17 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
         textToSpeechManager = new TextToSpeechManager(this, textToSpeechListener);
 
         preferencesManager = new PreferencesManager(this);
+        parent.setBackgroundColor(preferencesManager.getDarkModeEnabled()
+                ? ContextCompat.getColor(this, R.color.dark_mode_browse)
+                : ContextCompat.getColor(this, R.color.theater_black));
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
         FlashcardSet flashcardSet = DatabaseManager.get().getFlashcardSet(setId);
         setTitle(flashcardSet.getName());
+
+        if (flashcardSet.getFlashcards().size() < 2) {
+            flashcardsSlider.setVisibility(View.GONE);
+        }
 
         flashcardsBrowsingAdapter = new FlashcardsBrowsingAdapter(getSupportFragmentManager(), setId);
         flashcardsPager.setAdapter(flashcardsBrowsingAdapter);

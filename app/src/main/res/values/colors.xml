@@ -21,4 +21,5 @@
     <color name="dark_mode_toolbar_black">#252525</color>
     <color name="dark_mode_status_bar_black">#101010</color>
     <color name="dark_mode_card_black">#252525</color>
+    <color name="dark_mode_browse">#424242</color>
 </resources>
