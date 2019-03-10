@@ -34,12 +34,11 @@ import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardDe
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardSetNameDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardTermDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.FlashcardImageOptionsDialog;
+import com.randomappsinc.simpleflashcards.editflashcards.helpers.EditFlashcardsTutorialHelper;
 import com.randomappsinc.simpleflashcards.editflashcards.managers.ImportFlashcardsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
-import com.randomappsinc.simpleflashcards.utils.DialogUtil;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
@@ -128,14 +127,7 @@ public class EditFlashcardSetActivity extends StandardActivity
             }
         });
 
-        PreferencesManager preferencesManager = new PreferencesManager(this);
-        if (preferencesManager.shouldShowRenameFlashcardSetInstructions()) {
-            DialogUtil.showDialogWithIconTextBody(
-                    this,
-                    R.string.rename_set_instructions,
-                    R.string.rename_set_instructions_title,
-                    android.R.string.ok);
-        }
+        EditFlashcardsTutorialHelper.teach(this);
     }
 
     // Stop the EditText cursor from blinking

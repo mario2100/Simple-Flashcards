@@ -13,6 +13,7 @@ public class PreferencesManager {
     private static final String SHAKE_IS_NEW = "shakeIsNew";
     private static final String ENABLE_SHAKE = "enableShake";
     private static final String SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS = "shouldShowFlashcardSetInstructions";
+    private static final String SHOULD_TEACH_IMPORT_FLASHCARDS = "shouldTeachImportFlashcards";
 
     // Pre-Kitkat (19), we work with file paths
     private static final String BACKUP_FILE_PATH = "backupFilePath";
@@ -128,9 +129,9 @@ public class PreferencesManager {
     }
 
     public boolean shouldShowRenameFlashcardSetInstructions() {
-        boolean shouldShowShake = prefs.getBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, true);
+        boolean shouldTeachRenameSet = prefs.getBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, true);
         prefs.edit().putBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, false).apply();
-        return shouldShowShake;
+        return shouldTeachRenameSet;
     }
 
     public boolean getDarkModeEnabled() {
@@ -148,5 +149,11 @@ public class PreferencesManager {
 
     public void rememberDarkModeDialogSeen() {
         prefs.edit().putBoolean(HAS_SEEN_DARK_MODE_DIALOG, true).apply();
+    }
+
+    public boolean showTeachImportFlashcards() {
+        boolean shouldTeachImport = prefs.getBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, true);
+        prefs.edit().putBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, false).apply();
+        return shouldTeachImport;
     }
 }

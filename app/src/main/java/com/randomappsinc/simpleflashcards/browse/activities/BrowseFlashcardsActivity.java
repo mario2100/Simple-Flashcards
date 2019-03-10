@@ -73,11 +73,12 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
         random = new Random();
         shakeDetector = new ShakeDetector(this);
         if (preferencesManager.shouldShowShakeAdvice()) {
-            DialogUtil.showDialogWithIconTextBody(
+            DialogUtil.createDialogWithIconTextBody(
                     this,
                     R.string.shake_now_supported,
                     R.string.shake_it,
-                    android.R.string.ok);
+                    android.R.string.ok,
+                    null).show();
         }
     }
 

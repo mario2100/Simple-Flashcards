@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
@@ -108,23 +109,27 @@ public class DialogUtil {
         }
     }
 
-    public static void showDialogWithIconTextBody(
+    public static MaterialDialog createDialogWithIconTextBody(
             Context context,
             @StringRes int bodyText,
             @StringRes int titleText,
-            @StringRes int positiveText) {
+            @StringRes int positiveText,
+            @Nullable MaterialDialog.SingleButtonCallback positiveCallback) {
         TextView dialogView = (TextView) LayoutInflater.from(context).inflate(
                 R.layout.dialog_body_text,
                 null,
                 false);
         dialogView.setText(bodyText);
         ThemeManager themeManager = ThemeManager.get();
-        new MaterialDialog.Builder(context)
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
                 .title(titleText)
                 .positiveText(positiveText)
                 .customView(dialogView, true)
-                .cancelable(false)
-                .show();
+                .cancelable(false);
+        if (positiveCallback != null) {
+            dialogBuilder.onPositive(positiveCallback);
+        }
+        return dialogBuilder.build();
     }
 }

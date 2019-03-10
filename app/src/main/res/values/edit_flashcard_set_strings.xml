@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="rename_flashcard_set">Rename flashcard set</string>
-    <string name="rename_set_instructions_title">Rename Flashcard Set Instructions</string>
+    <string name="rename_set_instructions_title">Rename Flashcard Set</string>
     <string name="rename_set_instructions">
         To rename this flashcard set, click the {ion-edit} button at the top right of the page.
     </string>
@@ -83,4 +83,11 @@
     <string name="no_description">This flashcard has no definition.</string>
 
     <string name="flashcards_import_success">Flashcards successfully imported!</string>
+
+    <string name="import_flashcards_instructions_title">Import Your Flashcards</string>
+    <string name="import_flashcards_instructions">
+        You can quickly add flashcards to this flashcard set by moving or copying them
+        from another flashcard set in your library.
+        Simply click the {ion-android-upload} button at the top right of the page to do this!
+    </string>
 </resources>
