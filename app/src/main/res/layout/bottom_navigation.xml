@@ -2,36 +2,43 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="56dp">
+    android:layout_height="56dp"
+    >
 
     <com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/home"
             android:text="@string/home_icon"
-            style="@style/bottom_navigation_item"/>
+            style="@style/bottom_navigation_item"
+            />
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/search"
             android:text="@string/download_icon"
-            style="@style/bottom_navigation_item"/>
+            style="@style/bottom_navigation_item"
+            />
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/folders"
             android:text="@string/home_folder_icon"
-            style="@style/bottom_navigation_item"/>
+            style="@style/bottom_navigation_item"
+            />
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/settings"
             android:text="@string/settings_icon"
-            style="@style/bottom_navigation_item"/>
+            style="@style/bottom_navigation_item"
+            />
     </com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout>
 
     <com.randomappsinc.simpleflashcards.theme.ThemedToolbarShadow
         android:layout_width="match_parent"
-        android:layout_height="2dp"/>
+        android:layout_height="2dp"
+        />
 </FrameLayout>

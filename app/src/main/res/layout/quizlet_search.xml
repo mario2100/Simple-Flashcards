@@ -6,19 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    >
 
     <include
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/search_bar"/>
+        layout="@layout/search_bar"
+        />
 
     <com.randomappsinc.simpleflashcards.theme.ThemedTextView
         android:id="@+id/search_empty_text"
         android:text="@string/quizlet_search_empty_state"
         android:layout_below="@id/search_bar"
-        style="@style/empty_state_text"/>
+        style="@style/empty_state_text"
+        />
 
     <ImageView
         android:id="@+id/quizlet_attribution"
@@ -28,7 +31,8 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
         android:contentDescription="@string/this_uses_quizlet"
-        android:src="@drawable/quizlet_attribution"/>
+        android:src="@drawable/quizlet_attribution"
+        />
 
     <LinearLayout
         android:id="@+id/skeleton_results"
@@ -36,7 +40,8 @@
         android:layout_height="match_parent"
         android:layout_below="@id/search_bar"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
         <include layout="@layout/quizlet_result_skeleton_cell"/>
 
@@ -56,7 +61,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_bar">
+        android:layout_below="@id/search_bar"
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/search_results"
@@ -65,11 +71,13 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:clipToPadding="false"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            />
 
         <com.randomappsinc.simpleflashcards.theme.ThemedListFade
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:background="@drawable/list_fade"/>
+            android:background="@drawable/list_fade"
+            />
     </FrameLayout>
 </com.randomappsinc.simpleflashcards.theme.ThemedRelativeLayout>
