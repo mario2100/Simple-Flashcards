@@ -6,8 +6,6 @@
 
     <string name="speak_icon">{ion-ios-volume-high}</string>
     <string name="back_arrow_icon">{ion-android-arrow-back}</string>
-    <string name="shake_icon">{ion-radio-waves}</string>
-    <string name="shuffle_icon">{ion-shuffle}</string>
     <string name="flip_icon">{ion-refresh}</string>
 
     <string name="flashcards_shuffled">Flashcards shuffled.</string>

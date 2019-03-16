@@ -1,12 +1,22 @@
 package com.randomappsinc.simpleflashcards.browse.managers;
 
+import android.content.Context;
+
+import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BrowseFlashcardsSettingsManager {
 
-    public interface Listener {
+    public interface DefaultSideListener {
         void onDefaultSideChanged(boolean showTermsByDefault);
+    }
+
+    public interface ShakeAndShuffleListener {
+        void onShuffleChanged(boolean shuffle);
+
+        void onEnableShakeChanged(boolean enableShake);
     }
 
     private static BrowseFlashcardsSettingsManager instance;
@@ -25,8 +35,11 @@ public class BrowseFlashcardsSettingsManager {
         return instance;
     }
 
-    private boolean showTermsByDefault = true;
-    private List<Listener> listeners = new ArrayList<>();
+    private boolean showTermsByDefault;
+    private boolean shuffle;
+    private boolean enableShake;
+    private List<DefaultSideListener> defaultSideListeners = new ArrayList<>();
+    private ShakeAndShuffleListener shakeAndShuffleListener;
 
     private BrowseFlashcardsSettingsManager() {}
 
@@ -34,23 +47,46 @@ public class BrowseFlashcardsSettingsManager {
         return showTermsByDefault;
     }
 
-    public void toggleDefaultSide() {
-        showTermsByDefault = !showTermsByDefault;
-        for (Listener listener : listeners) {
-            listener.onDefaultSideChanged(showTermsByDefault);
+    public void applySettings(boolean showTermsByDefault, boolean shuffle, boolean enableShake) {
+        if (this.showTermsByDefault != showTermsByDefault) {
+            this.showTermsByDefault = showTermsByDefault;
+            for (DefaultSideListener defaultSideListener : defaultSideListeners) {
+                defaultSideListener.onDefaultSideChanged(showTermsByDefault);
+            }
+        }
+
+        if (this.shuffle != shuffle) {
+            this.shuffle = shuffle;
+            shakeAndShuffleListener.onShuffleChanged(shuffle);
+        }
+
+        if (this.enableShake != enableShake) {
+            this.enableShake = enableShake;
+            shakeAndShuffleListener.onEnableShakeChanged(enableShake);
         }
     }
 
-    public void addListener(Listener listener) {
-        listeners.add(listener);
+    public void addDefaultSideListener(DefaultSideListener defaultSideListener) {
+        defaultSideListeners.add(defaultSideListener);
     }
 
-    public void removeListener(Listener listener) {
-        listeners.remove(listener);
+    public void removeDefaultSideListener(DefaultSideListener defaultSideListener) {
+        defaultSideListeners.remove(defaultSideListener);
+    }
+
+    public void setShakeAndShuffleListener(ShakeAndShuffleListener shakeAndShuffleListener) {
+        this.shakeAndShuffleListener = shakeAndShuffleListener;
+    }
+
+    public void start(Context context) {
+        PreferencesManager preferencesManager = new PreferencesManager(context);
+        showTermsByDefault = true;
+        shuffle = false;
+        enableShake = preferencesManager.isShakeEnabled();
     }
 
     public void shutdown() {
-        showTermsByDefault = true;
-        listeners.clear();
+        defaultSideListeners.clear();
+        shakeAndShuffleListener = null;
     }
 }

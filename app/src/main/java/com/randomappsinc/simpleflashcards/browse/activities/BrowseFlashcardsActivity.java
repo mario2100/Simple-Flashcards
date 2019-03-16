@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.browse.adapters.FlashcardsBrowsingAdapter;
@@ -29,16 +28,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
 
-public class BrowseFlashcardsActivity extends StandardActivity implements ShakeDetector.Listener {
-
-    private static final float DISABLED_ALPHA = 0.25f;
+public class BrowseFlashcardsActivity extends StandardActivity
+        implements ShakeDetector.Listener, BrowseFlashcardsSettingsManager.ShakeAndShuffleListener {
 
     @BindView(R.id.browse_parent) View parent;
     @BindView(R.id.flashcards_pager) ViewPager flashcardsPager;
     @BindView(R.id.flashcards_slider) SeekBar flashcardsSlider;
-    @BindView(R.id.shake_toggle) View shakeToggle;
-    @BindView(R.id.term_definition_toggle) TextView defaultSideToggle;
-    @BindView(R.id.shuffle) View shuffleToggle;
 
     private FlashcardsBrowsingAdapter flashcardsBrowsingAdapter;
     private TextToSpeechManager textToSpeechManager;
@@ -75,9 +70,9 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
         flashcardsSlider.setMax(flashcardSet.getFlashcards().size() - 1);
         flashcardsSlider.setOnSeekBarChangeListener(flashcardsSliderListener);
 
-        shakeToggle.setAlpha(preferencesManager.isShakeEnabled() ? 1.0f : DISABLED_ALPHA);
-
-        settingsManager.addListener(defaultSideListener);
+        settingsManager.start(this);
+        settingsManager.addDefaultSideListener(defaultSideListener);
+        settingsManager.setShakeAndShuffleListener(this);
 
         random = new Random();
         shakeDetector = new ShakeDetector(this);
@@ -138,6 +133,32 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
     }
 
     @Override
+    public void onShuffleChanged(boolean shuffle) {
+        flashcardsBrowsingAdapter.toggleShuffle();
+        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
+        flashcardsPager.setCurrentItem(0);
+        flashcardsSlider.setProgress(0);
+        UIUtils.showShortToast(
+                flashcardsBrowsingAdapter.isShuffled()
+                        ? R.string.flashcards_shuffled
+                        : R.string.flashcards_order_restored,
+                this);
+    }
+
+    @Override
+    public void onEnableShakeChanged(boolean enableShake) {
+        if (enableShake) {
+            shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
+            preferencesManager.setShakeEnabled(true);
+            UIUtils.showShortToast(R.string.shake_to_jump_enabled, this);
+        } else {
+            shakeDetector.stop();
+            preferencesManager.setShakeEnabled(false);
+            UIUtils.showShortToast(R.string.shake_to_jump_disabled, this);
+        }
+    }
+
+    @Override
     public void hearShake() {
         int index = random.nextInt(flashcardsBrowsingAdapter.getCount());
         flashcardsPager.setCurrentItem(index);
@@ -149,29 +170,8 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
         flashcardsSlider.setProgress(position);
     }
 
-    @OnClick(R.id.shake_toggle)
-    public void toggleShakeToChoose() {
-        if (shakeToggle.getAlpha() < 1) {
-            shakeToggle.setAlpha(1.0f);
-            shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
-            preferencesManager.setShakeEnabled(true);
-            UIUtils.showShortToast(R.string.shake_to_jump_enabled, this);
-        } else {
-            shakeToggle.setAlpha(DISABLED_ALPHA);
-            shakeDetector.stop();
-            preferencesManager.setShakeEnabled(false);
-            UIUtils.showShortToast(R.string.shake_to_jump_disabled, this);
-        }
-    }
-
-    @OnClick(R.id.term_definition_toggle)
-    public void toggleDefaultSide() {
-        settingsManager.toggleDefaultSide();
-        defaultSideToggle.setText(settingsManager.getShowTermsByDefault() ? R.string.t : R.string.d);
-    }
-
-    private final BrowseFlashcardsSettingsManager.Listener defaultSideListener =
-            new BrowseFlashcardsSettingsManager.Listener() {
+    private final BrowseFlashcardsSettingsManager.DefaultSideListener defaultSideListener =
+            new BrowseFlashcardsSettingsManager.DefaultSideListener() {
                 @Override
                 public void onDefaultSideChanged(boolean showTermsByDefault) {
                     UIUtils.showShortToast(showTermsByDefault
@@ -180,20 +180,6 @@ public class BrowseFlashcardsActivity extends StandardActivity implements ShakeD
                             BrowseFlashcardsActivity.this);
                 }
             };
-
-    @OnClick(R.id.shuffle)
-    public void shuffleFlashcards() {
-        flashcardsBrowsingAdapter.toggleShuffle();
-        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
-        flashcardsPager.setCurrentItem(0);
-        flashcardsSlider.setProgress(0);
-        shuffleToggle.setAlpha(shuffleToggle.getAlpha() < 1 ? 1.0f : DISABLED_ALPHA);
-        UIUtils.showShortToast(
-                flashcardsBrowsingAdapter.isShuffled()
-                        ? R.string.flashcards_shuffled
-                        : R.string.flashcards_order_restored,
-                this);
-    }
 
     public void speak(String text) {
         textToSpeechManager.speak(text);

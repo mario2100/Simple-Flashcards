@@ -74,7 +74,7 @@ public class BrowseFlashcardFragment extends Fragment {
                 false);
         unbinder = ButterKnife.bind(this, rootView);
 
-        settingsManager.addListener(defaultSideListener);
+        settingsManager.addDefaultSideListener(defaultSideListener);
         isShowingTerm = settingsManager.getShowTermsByDefault();
 
         int flashcardId = getArguments().getInt(Constants.FLASHCARD_ID_KEY);
@@ -196,8 +196,8 @@ public class BrowseFlashcardFragment extends Fragment {
         }
     }
 
-    private final BrowseFlashcardsSettingsManager.Listener defaultSideListener =
-            new BrowseFlashcardsSettingsManager.Listener() {
+    private final BrowseFlashcardsSettingsManager.DefaultSideListener defaultSideListener =
+            new BrowseFlashcardsSettingsManager.DefaultSideListener() {
                 @Override
                 public void onDefaultSideChanged(boolean showTermsByDefault) {
                     isShowingTerm = showTermsByDefault;
@@ -252,7 +252,7 @@ public class BrowseFlashcardFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        settingsManager.removeListener(defaultSideListener);
+        settingsManager.removeDefaultSideListener(defaultSideListener);
         unbinder.unbind();
     }
 }

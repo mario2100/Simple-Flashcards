@@ -8,7 +8,7 @@
     tools:ignore="RtlHardcoded"
     >
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/toolbar"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
@@ -18,33 +18,17 @@
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/back"
             android:text="@string/back_arrow_icon"
-            android:layout_alignParentLeft="true"
+            android:layout_gravity="start"
             style="@style/action_bar_icon"
             />
 
         <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/shake_toggle"
-            android:text="@string/shake_icon"
-            android:layout_toLeftOf="@id/term_definition_toggle"
+            android:id="@+id/settings"
+            android:text="@string/settings_icon"
+            android:layout_gravity="end"
             style="@style/action_bar_icon"
             />
-
-        <TextView
-            android:id="@+id/term_definition_toggle"
-            android:text="@string/t"
-            android:layout_toLeftOf="@id/shuffle"
-            android:background="@drawable/white_square_border"
-            style="@style/action_bar_icon"
-            />
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/shuffle"
-            android:text="@string/shuffle_icon"
-            android:layout_alignParentRight="true"
-            android:alpha="0.25"
-            style="@style/action_bar_icon"
-            />
-    </RelativeLayout>
+    </FrameLayout>
 
     <android.support.v7.widget.AppCompatSeekBar
         android:id="@+id/flashcards_slider"
