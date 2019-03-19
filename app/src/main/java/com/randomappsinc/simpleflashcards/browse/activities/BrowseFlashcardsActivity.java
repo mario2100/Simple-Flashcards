@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.browse.adapters.FlashcardsBrowsingAdapter;
+import com.randomappsinc.simpleflashcards.browse.dialogs.BrowseSettingsDialogsManager;
 import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
@@ -29,7 +30,9 @@ import butterknife.OnClick;
 import butterknife.OnPageChange;
 
 public class BrowseFlashcardsActivity extends StandardActivity
-        implements ShakeDetector.Listener, BrowseFlashcardsSettingsManager.ShakeAndShuffleListener {
+        implements ShakeDetector.Listener,
+        BrowseFlashcardsSettingsManager.ShakeListener,
+        BrowseSettingsDialogsManager.Listener {
 
     @BindView(R.id.browse_parent) View parent;
     @BindView(R.id.flashcards_pager) ViewPager flashcardsPager;
@@ -37,6 +40,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
 
     private FlashcardsBrowsingAdapter flashcardsBrowsingAdapter;
     private TextToSpeechManager textToSpeechManager;
+    private BrowseSettingsDialogsManager browseSettingsDialogsManager;
     private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
     private PreferencesManager preferencesManager;
     private Random random;
@@ -70,9 +74,10 @@ public class BrowseFlashcardsActivity extends StandardActivity
         flashcardsSlider.setMax(flashcardSet.getFlashcards().size() - 1);
         flashcardsSlider.setOnSeekBarChangeListener(flashcardsSliderListener);
 
+        browseSettingsDialogsManager = new BrowseSettingsDialogsManager(this, this);
         settingsManager.start(this);
         settingsManager.addDefaultSideListener(defaultSideListener);
-        settingsManager.setShakeAndShuffleListener(this);
+        settingsManager.setShakeListener(this);
 
         random = new Random();
         shakeDetector = new ShakeDetector(this);
@@ -132,9 +137,8 @@ public class BrowseFlashcardsActivity extends StandardActivity
         }
     }
 
-    @Override
-    public void onShuffleChanged(boolean shuffle) {
-        flashcardsBrowsingAdapter.toggleShuffle();
+    public void onShuffleChanged() {
+        flashcardsBrowsingAdapter.shuffle();
         flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
         flashcardsPager.setCurrentItem(0);
         flashcardsSlider.setProgress(0);
@@ -143,6 +147,28 @@ public class BrowseFlashcardsActivity extends StandardActivity
                         ? R.string.flashcards_shuffled
                         : R.string.flashcards_order_restored,
                 this);
+    }
+
+    @Override
+    public void onShuffleRequested() {
+        flashcardsBrowsingAdapter.shuffle();
+        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
+        flashcardsPager.setCurrentItem(0);
+        flashcardsSlider.setProgress(0);
+        UIUtils.showShortToast(R.string.flashcards_shuffled, this);
+    }
+
+    @Override
+    public void onRestoreRequested() {
+        if (flashcardsBrowsingAdapter.isShuffled()) {
+            flashcardsBrowsingAdapter.restoreOrder();
+            flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
+            flashcardsPager.setCurrentItem(0);
+            flashcardsSlider.setProgress(0);
+            UIUtils.showShortToast(R.string.flashcards_order_restored, this);
+        } else {
+            UIUtils.showLongToast(R.string.flashcards_original_order_already, this);
+        }
     }
 
     @Override
@@ -189,6 +215,11 @@ public class BrowseFlashcardsActivity extends StandardActivity
         textToSpeechManager.stopSpeaking();
     }
 
+    @OnClick(R.id.settings)
+    public void onSettingsClick() {
+        browseSettingsDialogsManager.showOptions();
+    }
+
     @OnClick(R.id.back)
     public void back() {
         finish();
@@ -207,6 +238,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
     public void onDestroy() {
         textToSpeechManager.shutdown();
         settingsManager.shutdown();
+        browseSettingsDialogsManager.shutdown();
         super.onDestroy();
     }
 }

@@ -10,6 +10,7 @@
 
     <string name="flashcards_shuffled">Flashcards shuffled.</string>
     <string name="flashcards_order_restored">Flashcards order restored.</string>
+    <string name="flashcards_original_order_already">Flashcards already in their original order.</string>
 
     <string name="text_to_speech_fail">We were unable to set up your device\'s Text To Speech engine.</string>
 
@@ -27,4 +28,14 @@
     </string>
     <string name="shake_to_jump_enabled">Shake to jump enabled.</string>
     <string name="shake_to_jump_disabled">Shake to jump disabled.</string>
+
+    <string name="shuffle_flashcards">Shuffle flashcards</string>
+    <string name="restore_to_original">Restore to original order</string>
+    <string name="more_options">More options</string>
+
+    <string-array name="browse_settings_options">
+        <item>@string/shuffle_flashcards</item>
+        <item>@string/restore_to_original</item>
+        <item>@string/more_options</item>
+    </string-array>
 </resources>

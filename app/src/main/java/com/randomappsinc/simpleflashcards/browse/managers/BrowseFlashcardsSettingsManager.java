@@ -13,9 +13,7 @@ public class BrowseFlashcardsSettingsManager {
         void onDefaultSideChanged(boolean showTermsByDefault);
     }
 
-    public interface ShakeAndShuffleListener {
-        void onShuffleChanged(boolean shuffle);
-
+    public interface ShakeListener {
         void onEnableShakeChanged(boolean enableShake);
     }
 
@@ -36,10 +34,9 @@ public class BrowseFlashcardsSettingsManager {
     }
 
     private boolean showTermsByDefault;
-    private boolean shuffle;
     private boolean enableShake;
     private List<DefaultSideListener> defaultSideListeners = new ArrayList<>();
-    private ShakeAndShuffleListener shakeAndShuffleListener;
+    private ShakeListener shakeListener;
 
     private BrowseFlashcardsSettingsManager() {}
 
@@ -55,14 +52,9 @@ public class BrowseFlashcardsSettingsManager {
             }
         }
 
-        if (this.shuffle != shuffle) {
-            this.shuffle = shuffle;
-            shakeAndShuffleListener.onShuffleChanged(shuffle);
-        }
-
         if (this.enableShake != enableShake) {
             this.enableShake = enableShake;
-            shakeAndShuffleListener.onEnableShakeChanged(enableShake);
+            shakeListener.onEnableShakeChanged(enableShake);
         }
     }
 
@@ -74,19 +66,18 @@ public class BrowseFlashcardsSettingsManager {
         defaultSideListeners.remove(defaultSideListener);
     }
 
-    public void setShakeAndShuffleListener(ShakeAndShuffleListener shakeAndShuffleListener) {
-        this.shakeAndShuffleListener = shakeAndShuffleListener;
+    public void setShakeListener(ShakeListener shakeListener) {
+        this.shakeListener = shakeListener;
     }
 
     public void start(Context context) {
         PreferencesManager preferencesManager = new PreferencesManager(context);
         showTermsByDefault = true;
-        shuffle = false;
         enableShake = preferencesManager.isShakeEnabled();
     }
 
     public void shutdown() {
         defaultSideListeners.clear();
-        shakeAndShuffleListener = null;
+        shakeListener = null;
     }
 }

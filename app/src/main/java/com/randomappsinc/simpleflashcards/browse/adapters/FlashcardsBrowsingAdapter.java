@@ -27,11 +27,13 @@ public class FlashcardsBrowsingAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public void toggleShuffle() {
-        isShuffled = !isShuffled;
-        if (isShuffled) {
-            Collections.shuffle(shuffledFlashcardsIds);
-        }
+    public void shuffle() {
+        isShuffled = true;
+        Collections.shuffle(shuffledFlashcardsIds);
+    }
+
+    public void restoreOrder() {
+        isShuffled = false;
     }
 
     public boolean isShuffled() {
