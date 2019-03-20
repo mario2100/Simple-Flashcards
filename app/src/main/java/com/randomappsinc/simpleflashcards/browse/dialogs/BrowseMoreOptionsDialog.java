@@ -1,18 +1,22 @@
 package com.randomappsinc.simpleflashcards.browse.dialogs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.CheckBox;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 
-public class BrowseMoreOptionsDialog {
+public class BrowseMoreOptionsDialog implements MaterialDialog.SingleButtonCallback {
 
     @BindView(R.id.enable_shake) CheckBox enableShake;
     @BindView(R.id.show_terms_by_default) CheckBox showTerms;
@@ -21,6 +25,7 @@ public class BrowseMoreOptionsDialog {
     private MaterialDialog dialog;
     private Context context;
     private PreferencesManager preferencesManager;
+    private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
 
     public BrowseMoreOptionsDialog(Context context) {
         this.context = context;
@@ -33,6 +38,7 @@ public class BrowseMoreOptionsDialog {
                 .title(R.string.more_options_title)
                 .customView(R.layout.browse_more_options, true)
                 .positiveText(R.string.apply)
+                .onPositive(this)
                 .negativeText(R.string.cancel)
                 .cancelable(false)
                 .build();
@@ -56,6 +62,12 @@ public class BrowseMoreOptionsDialog {
             showTerms.setChecked(false);
             showTerms.setClickable(true);
         }
+    }
+
+    @Override
+    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+        settingsManager.applySettings(showTerms.isChecked(), enableShake.isChecked());
+        UIUtils.showShortToast(R.string.settings_applied, context);
     }
 
     public void show() {

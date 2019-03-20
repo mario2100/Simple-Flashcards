@@ -44,7 +44,7 @@ public class BrowseFlashcardsSettingsManager {
         return showTermsByDefault;
     }
 
-    public void applySettings(boolean showTermsByDefault, boolean shuffle, boolean enableShake) {
+    public void applySettings(boolean showTermsByDefault, boolean enableShake) {
         if (this.showTermsByDefault != showTermsByDefault) {
             this.showTermsByDefault = showTermsByDefault;
             for (DefaultSideListener defaultSideListener : defaultSideListeners) {
