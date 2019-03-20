@@ -74,5 +74,6 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
         listener = null;
         context = null;
         moreOptionsDialog.shutdown();
+        themeManager.unregisterListener(this);
     }
 }

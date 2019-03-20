@@ -23,4 +23,6 @@
     <string name="free_form_input">Free form input</string>
 
     <string name="question_type_needed">Please choose at least 1 question type.</string>
+    <string name="question_number_needed">Please enter in how many questions you want.</string>
+    <string name="time_limit_needed">Please enter in a time limit.</string>
 </resources>

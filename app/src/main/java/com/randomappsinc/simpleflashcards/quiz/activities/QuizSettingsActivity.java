@@ -3,6 +3,7 @@ package com.randomappsinc.simpleflashcards.quiz.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
@@ -187,16 +188,28 @@ public class QuizSettingsActivity extends StandardActivity {
 
         int flashcardSetId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
 
-        // User theoretically could have requested more questions than the # of cards in the set or 0 questions
-        int questionsValue = Integer.parseInt(numQuestions.getText().toString());
+        // User theoretically could have requested more questions than the # of cards in the set or 0/null questions
+        String numQuestionsText = numQuestions.getText().toString();
+        if (TextUtils.isEmpty(numQuestionsText)) {
+            UIUtils.showLongToast(R.string.question_number_needed, this);
+            return;
+        }
+        int questionsValue = Integer.parseInt(numQuestionsText);
         if (questionsValue <= 0) {
             questionsValue = 1;
         } else if (questionsValue > numFlashcards) {
             questionsValue = numFlashcards;
         }
 
-        int numMinutesValue = Integer.valueOf(numMinutes.getText().toString());
-        int finalNumMinutes = noTimeLimit.isChecked() ? 0 : numMinutesValue;
+        int finalNumMinutes = 0;
+        if (!noTimeLimit.isChecked()) {
+            String numMinutesText = numMinutes.getText().toString();
+            if (TextUtils.isEmpty(numMinutesText)) {
+                UIUtils.showLongToast(R.string.time_limit_needed, this);
+                return;
+            }
+            finalNumMinutes = Integer.valueOf(numMinutesText);
+        }
         QuizSettings quizSettings = new QuizSettings(questionsValue, finalNumMinutes, getChosenQuestionTypes());
         finish();
         startActivity(new Intent(
