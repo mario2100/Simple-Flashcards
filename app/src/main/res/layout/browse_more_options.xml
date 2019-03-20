@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="SpUsage">
+
+    <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
+        android:id="@+id/enable_shake"
+        android:text="@string/enable_shake_to_choose"
+        android:layout_marginTop="-4dp"
+        style="@style/checkbox"/>
+
+    <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
+        android:id="@+id/show_terms_by_default"
+        android:text="@string/show_terms_by_default"
+        android:checked="true"
+        android:clickable="false"
+        style="@style/checkbox"/>
+
+    <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
+        android:id="@+id/show_definitions_by_default"
+        android:text="@string/show_definitions_by_default"
+        style="@style/checkbox"/>
+</LinearLayout>

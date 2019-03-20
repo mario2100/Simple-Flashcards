@@ -17,6 +17,7 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
     }
 
     private MaterialDialog optionsDialog;
+    protected BrowseMoreOptionsDialog moreOptionsDialog;
     protected Listener listener;
     private Context context;
     private ThemeManager themeManager = ThemeManager.get();
@@ -24,13 +25,16 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
     public BrowseSettingsDialogsManager(Context context, Listener listener) {
         this.listener = listener;
         this.context = context;
-        createDialog();
+        this.moreOptionsDialog = new BrowseMoreOptionsDialog(context);
+        createDialogs();
         themeManager.registerListener(this);
     }
 
-    private void createDialog() {
+    private void createDialogs() {
+        boolean darkModeEnabled = themeManager.getDarkModeEnabled(context);
         optionsDialog = new MaterialDialog.Builder(context)
-                .theme(themeManager.getDarkModeEnabled(context) ? Theme.DARK : Theme.LIGHT)
+                .theme(darkModeEnabled ? Theme.DARK : Theme.LIGHT)
+                .title(R.string.settings)
                 .items(R.array.browse_settings_options)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
@@ -46,11 +50,15 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
                             case 1:
                                 listener.onRestoreRequested();
                                 break;
+                            case 2:
+                                moreOptionsDialog.show();
+                                break;
                         }
                     }
                 })
                 .negativeText(R.string.cancel)
                 .build();
+        moreOptionsDialog.createDialog(darkModeEnabled);
     }
 
     public void showOptions() {
@@ -59,11 +67,12 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
 
     @Override
     public void onThemeChanged(boolean darkModeEnabled) {
-        createDialog();
+        createDialogs();
     }
 
     public void shutdown() {
         listener = null;
         context = null;
+        moreOptionsDialog.shutdown();
     }
 }

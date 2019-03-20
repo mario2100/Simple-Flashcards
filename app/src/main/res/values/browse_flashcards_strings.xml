@@ -17,18 +17,6 @@
     <string name="t">T</string>
     <string name="d">D</string>
 
-    <string name="now_terms_default">Now showing terms by default.</string>
-    <string name="now_definitions_default">Now showing definitions by default.</string>
-
-    <string name="shake_it">Shake It!</string>
-    <string name="shake_now_supported">
-        Want to spice it up? Simply shake your phone to jump to a random flashcard!
-        Don\'t like this feature? No problem!
-        You can turn it off and on anytime by clicking the {ion-radio-waves} button at the top of the page!
-    </string>
-    <string name="shake_to_jump_enabled">Shake to jump enabled.</string>
-    <string name="shake_to_jump_disabled">Shake to jump disabled.</string>
-
     <string name="shuffle_flashcards">Shuffle flashcards</string>
     <string name="restore_to_original">Restore to original order</string>
     <string name="more_options">More options</string>
@@ -38,4 +26,11 @@
         <item>@string/restore_to_original</item>
         <item>@string/more_options</item>
     </string-array>
+
+    <string name="more_options_title">More Options</string>
+    <string name="enable_shake_to_choose">Enable shake to choose</string>
+    <string name="show_terms_by_default">Show terms by default</string>
+    <string name="show_definitions_by_default">Show definitions by default</string>
+
+    <string name="apply">Apply</string>
 </resources>

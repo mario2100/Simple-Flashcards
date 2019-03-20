@@ -1,7 +1,6 @@
 <com.randomappsinc.simpleflashcards.theme.ThemedCoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,8 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:gravity="center_horizontal"
-            android:textSize="17sp"
-            android:textColor="@color/dark_gray"/>
+            android:textSize="17sp"/>
 
         <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
             android:id="@+id/no_flashcards"

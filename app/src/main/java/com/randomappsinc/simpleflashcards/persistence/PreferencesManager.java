@@ -10,7 +10,6 @@ public class PreferencesManager {
     private static final String FIRST_TIME_USER = "firstTimeUser";
     private static final String NUM_OPENS_KEY = "numOpens";
     private static final String NEARBY_NAME = "nearbyName";
-    private static final String SHAKE_IS_NEW = "shakeIsNew";
     private static final String ENABLE_SHAKE = "enableShake";
     private static final String SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS = "shouldShowFlashcardSetInstructions";
     private static final String SHOULD_TEACH_IMPORT_FLASHCARDS = "shouldTeachImportFlashcards";
@@ -86,12 +85,6 @@ public class PreferencesManager {
 
     public void setNearbyName(String newName) {
         prefs.edit().putString(NEARBY_NAME, newName).apply();
-    }
-
-    public boolean shouldShowShakeAdvice() {
-        boolean shouldShowShake = prefs.getBoolean(SHAKE_IS_NEW, true);
-        prefs.edit().putBoolean(SHAKE_IS_NEW, false).apply();
-        return shouldShowShake;
     }
 
     public boolean isShakeEnabled() {

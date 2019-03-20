@@ -18,7 +18,6 @@ import com.randomappsinc.simpleflashcards.common.managers.TextToSpeechManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
-import com.randomappsinc.simpleflashcards.utils.DialogUtil;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
@@ -76,19 +75,10 @@ public class BrowseFlashcardsActivity extends StandardActivity
 
         browseSettingsDialogsManager = new BrowseSettingsDialogsManager(this, this);
         settingsManager.start(this);
-        settingsManager.addDefaultSideListener(defaultSideListener);
         settingsManager.setShakeListener(this);
 
         random = new Random();
         shakeDetector = new ShakeDetector(this);
-        if (preferencesManager.shouldShowShakeAdvice()) {
-            DialogUtil.createDialogWithIconTextBody(
-                    this,
-                    R.string.shake_now_supported,
-                    R.string.shake_it,
-                    android.R.string.ok,
-                    null).show();
-        }
     }
 
     @Override
@@ -137,18 +127,6 @@ public class BrowseFlashcardsActivity extends StandardActivity
         }
     }
 
-    public void onShuffleChanged() {
-        flashcardsBrowsingAdapter.shuffle();
-        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
-        flashcardsPager.setCurrentItem(0);
-        flashcardsSlider.setProgress(0);
-        UIUtils.showShortToast(
-                flashcardsBrowsingAdapter.isShuffled()
-                        ? R.string.flashcards_shuffled
-                        : R.string.flashcards_order_restored,
-                this);
-    }
-
     @Override
     public void onShuffleRequested() {
         flashcardsBrowsingAdapter.shuffle();
@@ -176,11 +154,9 @@ public class BrowseFlashcardsActivity extends StandardActivity
         if (enableShake) {
             shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
             preferencesManager.setShakeEnabled(true);
-            UIUtils.showShortToast(R.string.shake_to_jump_enabled, this);
         } else {
             shakeDetector.stop();
             preferencesManager.setShakeEnabled(false);
-            UIUtils.showShortToast(R.string.shake_to_jump_disabled, this);
         }
     }
 
@@ -195,17 +171,6 @@ public class BrowseFlashcardsActivity extends StandardActivity
         textToSpeechManager.stopSpeaking();
         flashcardsSlider.setProgress(position);
     }
-
-    private final BrowseFlashcardsSettingsManager.DefaultSideListener defaultSideListener =
-            new BrowseFlashcardsSettingsManager.DefaultSideListener() {
-                @Override
-                public void onDefaultSideChanged(boolean showTermsByDefault) {
-                    UIUtils.showShortToast(showTermsByDefault
-                            ? R.string.now_terms_default
-                            : R.string.now_definitions_default,
-                            BrowseFlashcardsActivity.this);
-                }
-            };
 
     public void speak(String text) {
         textToSpeechManager.speak(text);

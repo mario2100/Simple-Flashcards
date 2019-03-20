@@ -94,12 +94,12 @@
                 android:text="@string/no_time_limit"
                 android:checked="true"
                 android:clickable="false"
-                style="@style/quiz_settings_checkbox"/>
+                style="@style/checkbox"/>
 
             <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
                 android:id="@+id/set_time_limit"
                 android:text="@string/set_a_time_limit"
-                style="@style/quiz_settings_checkbox"/>
+                style="@style/checkbox"/>
 
             <LinearLayout
                 android:id="@+id/focus_sink_minutes"
@@ -167,13 +167,13 @@
                 android:id="@+id/multiple_choice_toggle"
                 android:text="@string/multiple_choice"
                 android:checked="true"
-                style="@style/quiz_settings_checkbox"/>
+                style="@style/checkbox"/>
 
             <com.randomappsinc.simpleflashcards.theme.ThemedCheckBox
                 android:id="@+id/free_form_input_toggle"
                 android:text="@string/free_form_input"
                 android:checked="true"
-                style="@style/quiz_settings_checkbox"/>
+                style="@style/checkbox"/>
         </LinearLayout>
     </ScrollView>
 
