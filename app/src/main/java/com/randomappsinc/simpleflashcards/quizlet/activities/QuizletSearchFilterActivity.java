@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.quizlet.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 

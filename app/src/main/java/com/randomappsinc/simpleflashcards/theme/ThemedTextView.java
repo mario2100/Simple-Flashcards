@@ -1,9 +1,9 @@
 package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatTextView;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 import com.randomappsinc.simpleflashcards.R;

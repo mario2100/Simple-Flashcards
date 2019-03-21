@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.utils;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 

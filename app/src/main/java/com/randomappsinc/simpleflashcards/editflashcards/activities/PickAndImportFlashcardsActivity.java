@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.editflashcards.activities;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;

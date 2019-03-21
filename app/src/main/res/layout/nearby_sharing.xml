@@ -114,13 +114,13 @@
             <include layout="@layout/nearby_device_skeleton_cell"/>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/devices_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:clipToPadding="false"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>
 </com.randomappsinc.simpleflashcards.theme.ThemedLinearLayout>

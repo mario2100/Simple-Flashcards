@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.home.views;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;

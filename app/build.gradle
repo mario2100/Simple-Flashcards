@@ -8,8 +8,8 @@ android {
         applicationId "com.randomappsinc.simpleflashcards"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 272
-        versionName "2.7.5"
+        versionCode 273
+        versionName "2.7.6"
     }
     buildTypes {
         release {
@@ -27,16 +27,20 @@ android {
         disable 'GoogleAppIndexingWarning'
         baseline file("lint-baseline.xml")
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
+    implementation 'com.google.android.material:material:1.1.0-alpha04'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation ('com.joanzapata.iconify:android-iconify-ionicons:2.2.2') {
         exclude group: 'com.android.support'
     }

@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.quizlet.api.callbacks;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.randomappsinc.simpleflashcards.quizlet.api.ApiConstants;
 import com.randomappsinc.simpleflashcards.quizlet.api.QuizletSearchManager;

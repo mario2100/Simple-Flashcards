@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.quiz.managers;
 
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.randomappsinc.simpleflashcards.quiz.constants.TimerState;
 import com.randomappsinc.simpleflashcards.utils.TimeUtils;

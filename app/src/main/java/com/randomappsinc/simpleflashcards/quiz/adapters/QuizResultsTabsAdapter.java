@@ -1,8 +1,8 @@
 package com.randomappsinc.simpleflashcards.quiz.adapters;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.randomappsinc.simpleflashcards.quiz.fragments.QuizResultsFragment;
 import com.randomappsinc.simpleflashcards.quiz.models.Problem;

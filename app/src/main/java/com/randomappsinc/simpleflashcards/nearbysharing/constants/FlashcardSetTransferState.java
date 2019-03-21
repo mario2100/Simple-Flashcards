@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.constants;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 @IntDef({
         FlashcardSetTransferState.NOT_YET_SENT,

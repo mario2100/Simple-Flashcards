@@ -2,7 +2,7 @@ package com.randomappsinc.simpleflashcards.quiz.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;

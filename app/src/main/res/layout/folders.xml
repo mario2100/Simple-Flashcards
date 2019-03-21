@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingBottom="88dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <com.randomappsinc.simpleflashcards.theme.ThemedListFade
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         </FrameLayout>
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_folder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

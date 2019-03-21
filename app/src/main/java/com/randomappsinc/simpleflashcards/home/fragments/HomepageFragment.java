@@ -5,11 +5,11 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -93,7 +93,6 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
         addFlashcardSet.setImageDrawable(new IconDrawable(getContext(), IoniconsIcons.ion_android_add)
                 .colorRes(R.color.white)
                 .actionBarSize());
-
         return rootView;
     }
 

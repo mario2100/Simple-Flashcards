@@ -1,8 +1,8 @@
 package com.randomappsinc.simpleflashcards.browse.adapters;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.simpleflashcards.browse.fragments.BrowseFlashcardFragment;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;

@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.browse.dialogs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.CheckBox;
 
 import com.afollestad.materialdialogs.DialogAction;

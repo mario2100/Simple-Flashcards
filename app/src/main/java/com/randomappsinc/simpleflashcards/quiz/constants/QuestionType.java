@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.quiz.constants;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 @IntDef({
         QuestionType.MULTIPLE_CHOICE,

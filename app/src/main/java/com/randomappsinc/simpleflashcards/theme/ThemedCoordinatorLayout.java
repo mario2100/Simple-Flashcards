@@ -1,8 +1,8 @@
 package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.content.ContextCompat;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.randomappsinc.simpleflashcards.R;

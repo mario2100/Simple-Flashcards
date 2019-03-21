@@ -3,8 +3,12 @@ package com.randomappsinc.simpleflashcards.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
+import androidx.annotation.StringRes;
+import com.google.android.material.snackbar.Snackbar;
+
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -32,14 +36,18 @@ public class UIUtils {
     }
 
     public static void showSnackbar(View parent, String message, int length) {
+        SpannableStringBuilder spanBuilder = new SpannableStringBuilder(message);
+        spanBuilder.setSpan(
+                new ForegroundColorSpan(Color.WHITE),
+                0,
+                message.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         Snackbar snackbar = Snackbar.make(parent, message, length);
         View rootView = snackbar.getView();
         snackbar.getView().setBackgroundColor(parent
                 .getContext()
                 .getResources()
                 .getColor(R.color.app_blue));
-        TextView tv = rootView.findViewById(android.support.design.R.id.snackbar_text);
-        tv.setTextColor(Color.WHITE);
         snackbar.show();
     }
 

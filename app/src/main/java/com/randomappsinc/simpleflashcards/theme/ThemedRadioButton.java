@@ -2,9 +2,9 @@ package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.CompoundButtonCompat;
-import android.support.v7.widget.AppCompatRadioButton;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.CompoundButtonCompat;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
 
 import com.randomappsinc.simpleflashcards.R;

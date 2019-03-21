@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.utils;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.randomappsinc.simpleflashcards.common.Constants;

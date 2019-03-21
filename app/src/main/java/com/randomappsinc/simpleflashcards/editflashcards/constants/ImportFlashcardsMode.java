@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.editflashcards.constants;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 /** Constants representing the different ways you can import flashcards on the edit set page */
 @IntDef({
