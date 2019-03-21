@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.browse.dialogs;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.widget.CheckBox;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -12,6 +11,7 @@ import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettin
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;

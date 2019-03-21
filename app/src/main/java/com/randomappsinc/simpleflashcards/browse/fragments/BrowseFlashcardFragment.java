@@ -5,11 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.ViewCompat;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +27,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -74,7 +75,7 @@ public class BrowseFlashcardFragment extends Fragment {
                 false);
         unbinder = ButterKnife.bind(this, rootView);
 
-        settingsManager.addDefaultSideListener(defaultSideListener);
+        settingsManager.addDefaultSideListener(flashcardListener);
         isShowingTerm = settingsManager.getShowTermsByDefault();
 
         int flashcardId = getArguments().getInt(Constants.FLASHCARD_ID_KEY);
@@ -163,6 +164,7 @@ public class BrowseFlashcardFragment extends Fragment {
             content.setText(contentText);
             content.setVisibility(View.VISIBLE);
         }
+        content.setTextSize(TypedValue.COMPLEX_UNIT_SP, settingsManager.getTextSize());
 
         setUpImageView();
     }
@@ -174,12 +176,7 @@ public class BrowseFlashcardFragment extends Fragment {
             if (ViewCompat.isLaidOut(cardImage)) {
                 loadImage(imageUrl);
             } else {
-                ViewUtils.runOnPreDraw(cardImage, new Runnable() {
-                    @Override
-                    public void run() {
-                        loadImage(imageUrl);
-                    }
-                });
+                ViewUtils.runOnPreDraw(cardImage, () -> loadImage(imageUrl));
             }
         } else {
             cardImage.setVisibility(View.GONE);
@@ -196,12 +193,17 @@ public class BrowseFlashcardFragment extends Fragment {
         }
     }
 
-    private final BrowseFlashcardsSettingsManager.DefaultSideListener defaultSideListener =
-            new BrowseFlashcardsSettingsManager.DefaultSideListener() {
+    private final BrowseFlashcardsSettingsManager.FlashcardListener flashcardListener =
+            new BrowseFlashcardsSettingsManager.FlashcardListener() {
                 @Override
                 public void onDefaultSideChanged(boolean showTermsByDefault) {
                     isShowingTerm = showTermsByDefault;
                     loadFlashcardIntoView();
+                }
+
+                @Override
+                public void onTextSizeChanged(int textSize) {
+                    content.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
                 }
             };
 
@@ -244,7 +246,7 @@ public class BrowseFlashcardFragment extends Fragment {
     };
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         loadFlashcardIntoView();
     }
@@ -252,7 +254,7 @@ public class BrowseFlashcardFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        settingsManager.removeDefaultSideListener(defaultSideListener);
+        settingsManager.removeDefaultSideListener(flashcardListener);
         unbinder.unbind();
     }
 }

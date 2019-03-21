@@ -9,8 +9,10 @@ import java.util.List;
 
 public class BrowseFlashcardsSettingsManager {
 
-    public interface DefaultSideListener {
+    public interface FlashcardListener {
         void onDefaultSideChanged(boolean showTermsByDefault);
+
+        void onTextSizeChanged(int textSize);
     }
 
     public interface ShakeListener {
@@ -33,9 +35,10 @@ public class BrowseFlashcardsSettingsManager {
         return instance;
     }
 
+    private int textSize;
     private boolean showTermsByDefault;
     private boolean enableShake;
-    private List<DefaultSideListener> defaultSideListeners = new ArrayList<>();
+    private List<FlashcardListener> flashcardListeners = new ArrayList<>();
     private ShakeListener shakeListener;
 
     private BrowseFlashcardsSettingsManager() {}
@@ -44,11 +47,24 @@ public class BrowseFlashcardsSettingsManager {
         return showTermsByDefault;
     }
 
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void changeTextSize(int newTextSize) {
+        if (textSize != newTextSize) {
+            textSize = newTextSize;
+            for (FlashcardListener flashcardListener : flashcardListeners) {
+                flashcardListener.onTextSizeChanged(textSize);
+            }
+        }
+    }
+
     public void applySettings(boolean showTermsByDefault, boolean enableShake) {
         if (this.showTermsByDefault != showTermsByDefault) {
             this.showTermsByDefault = showTermsByDefault;
-            for (DefaultSideListener defaultSideListener : defaultSideListeners) {
-                defaultSideListener.onDefaultSideChanged(showTermsByDefault);
+            for (FlashcardListener flashcardListener : flashcardListeners) {
+                flashcardListener.onDefaultSideChanged(showTermsByDefault);
             }
         }
 
@@ -58,12 +74,12 @@ public class BrowseFlashcardsSettingsManager {
         }
     }
 
-    public void addDefaultSideListener(DefaultSideListener defaultSideListener) {
-        defaultSideListeners.add(defaultSideListener);
+    public void addDefaultSideListener(FlashcardListener flashcardListener) {
+        flashcardListeners.add(flashcardListener);
     }
 
-    public void removeDefaultSideListener(DefaultSideListener defaultSideListener) {
-        defaultSideListeners.remove(defaultSideListener);
+    public void removeDefaultSideListener(FlashcardListener flashcardListener) {
+        flashcardListeners.remove(flashcardListener);
     }
 
     public void setShakeListener(ShakeListener shakeListener) {
@@ -72,12 +88,13 @@ public class BrowseFlashcardsSettingsManager {
 
     public void start(Context context) {
         PreferencesManager preferencesManager = new PreferencesManager(context);
+        textSize = preferencesManager.getBrowseTextSize();
         showTermsByDefault = true;
         enableShake = preferencesManager.isShakeEnabled();
     }
 
     public void shutdown() {
-        defaultSideListeners.clear();
+        flashcardListeners.clear();
         shakeListener = null;
     }
 }

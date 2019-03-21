@@ -17,11 +17,13 @@
     <string name="t">T</string>
     <string name="d">D</string>
 
+    <string name="set_text_size">Set text size</string>
     <string name="shuffle_flashcards">Shuffle flashcards</string>
     <string name="restore_to_original">Restore to original order</string>
     <string name="more_options">More options</string>
 
     <string-array name="browse_settings_options">
+        <item>@string/set_text_size</item>
         <item>@string/shuffle_flashcards</item>
         <item>@string/restore_to_original</item>
         <item>@string/more_options</item>
@@ -34,4 +36,7 @@
 
     <string name="apply">Apply</string>
     <string name="settings_applied">Settings applied.</string>
+
+    <string name="set_text_size_title">Set Text Size</string>
+    <string name="sample_text">Hi</string>
 </resources>

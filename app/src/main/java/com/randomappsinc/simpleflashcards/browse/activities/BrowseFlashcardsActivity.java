@@ -3,8 +3,6 @@ package com.randomappsinc.simpleflashcards.browse.activities;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -23,6 +21,8 @@ import com.squareup.seismic.ShakeDetector;
 
 import java.util.Random;
 
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

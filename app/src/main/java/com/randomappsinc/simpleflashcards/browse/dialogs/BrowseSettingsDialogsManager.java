@@ -17,6 +17,7 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
     }
 
     private MaterialDialog optionsDialog;
+    protected SetTextSizeDialog setTextSizeDialog;
     protected BrowseMoreOptionsDialog moreOptionsDialog;
     protected Listener listener;
     private Context context;
@@ -25,6 +26,7 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
     public BrowseSettingsDialogsManager(Context context, Listener listener) {
         this.listener = listener;
         this.context = context;
+        this.setTextSizeDialog = new SetTextSizeDialog(context);
         this.moreOptionsDialog = new BrowseMoreOptionsDialog(context);
         createDialogs();
         themeManager.registerListener(this);
@@ -36,28 +38,25 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
                 .theme(darkModeEnabled ? Theme.DARK : Theme.LIGHT)
                 .title(R.string.settings)
                 .items(R.array.browse_settings_options)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(
-                            MaterialDialog dialog,
-                            View itemView,
-                            int position,
-                            CharSequence text) {
-                        switch (position) {
-                            case 0:
-                                listener.onShuffleRequested();
-                                break;
-                            case 1:
-                                listener.onRestoreRequested();
-                                break;
-                            case 2:
-                                moreOptionsDialog.show();
-                                break;
-                        }
+                .itemsCallback((MaterialDialog dialog, View itemView, int position, CharSequence text) -> {
+                    switch (position) {
+                        case 0:
+                            setTextSizeDialog.show();
+                            break;
+                        case 1:
+                            listener.onShuffleRequested();
+                            break;
+                        case 2:
+                            listener.onRestoreRequested();
+                            break;
+                        case 3:
+                            moreOptionsDialog.show();
+                            break;
                     }
                 })
                 .negativeText(R.string.cancel)
                 .build();
+        setTextSizeDialog.createDialog(darkModeEnabled);
         moreOptionsDialog.createDialog(darkModeEnabled);
     }
 
@@ -74,6 +73,7 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
         listener = null;
         context = null;
         moreOptionsDialog.shutdown();
+        setTextSizeDialog.shutdown();
         themeManager.unregisterListener(this);
     }
 }

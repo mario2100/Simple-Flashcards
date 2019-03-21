@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 
 public class PreferencesManager {
 
+    private static final int DEFAULT_BROWSE_TEXT_SIZE_SP = 24;
+
     private static final String FIRST_TIME_USER = "firstTimeUser";
     private static final String NUM_OPENS_KEY = "numOpens";
     private static final String NEARBY_NAME = "nearbyName";
@@ -31,6 +33,8 @@ public class PreferencesManager {
 
     private static final String DARK_MODE_ENABLED = "darkModeEnabled";
     private static final String HAS_SEEN_DARK_MODE_DIALOG = "hasSeenDarkModeDialog";
+
+    private static final String BROWSE_TEXT_SIZE = "browseTextSize";
 
     private SharedPreferences prefs;
 
@@ -148,5 +152,13 @@ public class PreferencesManager {
         boolean shouldTeachImport = prefs.getBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, true);
         prefs.edit().putBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, false).apply();
         return shouldTeachImport;
+    }
+
+    public int getBrowseTextSize() {
+        return prefs.getInt(BROWSE_TEXT_SIZE, DEFAULT_BROWSE_TEXT_SIZE_SP);
+    }
+
+    public void setBrowseTextSize(int newSizeSp) {
+        prefs.edit().putInt(BROWSE_TEXT_SIZE, newSizeSp).apply();
     }
 }
