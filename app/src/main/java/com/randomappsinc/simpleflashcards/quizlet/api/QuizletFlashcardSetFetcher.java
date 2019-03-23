@@ -1,9 +1,9 @@
 package com.randomappsinc.simpleflashcards.quizlet.api;
 
+import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcardSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcardSet;
 
 /** Utility class to fetch an entire Quizlet flashcard set, so UI pieces don't need to do any networking **/
 public class QuizletFlashcardSetFetcher {

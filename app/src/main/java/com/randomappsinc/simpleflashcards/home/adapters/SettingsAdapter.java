@@ -1,8 +1,6 @@
 package com.randomappsinc.simpleflashcards.home.adapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

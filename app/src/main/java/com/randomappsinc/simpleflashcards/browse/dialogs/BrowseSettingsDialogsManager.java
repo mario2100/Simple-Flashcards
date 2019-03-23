@@ -11,6 +11,8 @@ import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
 
     public interface Listener {
+        void onTextColorChangeRequested();
+
         void onShuffleRequested();
 
         void onRestoreRequested();
@@ -44,12 +46,15 @@ public class BrowseSettingsDialogsManager implements ThemeManager.Listener {
                             setTextSizeDialog.show();
                             break;
                         case 1:
-                            listener.onShuffleRequested();
+                            listener.onTextColorChangeRequested();
                             break;
                         case 2:
-                            listener.onRestoreRequested();
+                            listener.onShuffleRequested();
                             break;
                         case 3:
+                            listener.onRestoreRequested();
+                            break;
+                        case 4:
                             moreOptionsDialog.show();
                             break;
                     }

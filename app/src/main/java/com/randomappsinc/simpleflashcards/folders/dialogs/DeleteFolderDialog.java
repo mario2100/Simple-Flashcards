@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.folders.dialogs;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -9,6 +8,8 @@ import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+
+import androidx.annotation.NonNull;
 
 public class DeleteFolderDialog implements ThemeManager.Listener {
 

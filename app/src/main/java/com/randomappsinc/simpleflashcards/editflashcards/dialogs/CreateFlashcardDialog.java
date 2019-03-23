@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.editflashcards.dialogs;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,6 +13,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

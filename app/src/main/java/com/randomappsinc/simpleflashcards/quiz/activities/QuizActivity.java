@@ -3,8 +3,6 @@ package com.randomappsinc.simpleflashcards.quiz.activities;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +33,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;

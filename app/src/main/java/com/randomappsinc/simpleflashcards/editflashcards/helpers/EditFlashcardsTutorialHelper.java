@@ -1,13 +1,14 @@
 package com.randomappsinc.simpleflashcards.editflashcards.helpers;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.utils.DialogUtil;
+
+import androidx.annotation.NonNull;
 
 public class EditFlashcardsTutorialHelper {
 

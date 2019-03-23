@@ -1,8 +1,6 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.managers;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -10,6 +8,9 @@ import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class NearbyNameManager implements ThemeManager.Listener {
 

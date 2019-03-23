@@ -1,8 +1,5 @@
 package com.randomappsinc.simpleflashcards.persistence;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
@@ -16,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import io.realm.Case;
 import io.realm.DynamicRealm;
 import io.realm.Realm;

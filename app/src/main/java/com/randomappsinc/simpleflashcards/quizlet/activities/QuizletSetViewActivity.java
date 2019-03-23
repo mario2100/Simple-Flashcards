@@ -2,8 +2,6 @@ package com.randomappsinc.simpleflashcards.quizlet.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +17,8 @@ import com.randomappsinc.simpleflashcards.quizlet.api.QuizletFlashcardSetFetcher
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcard;
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcardSet;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -3,11 +3,12 @@ package com.randomappsinc.simpleflashcards.common.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.randomappsinc.simpleflashcards.R;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
 

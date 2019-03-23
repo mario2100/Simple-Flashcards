@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.utils;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 
@@ -9,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Scanner;
+
+import androidx.annotation.Nullable;
 
 public class FileUtils {
 

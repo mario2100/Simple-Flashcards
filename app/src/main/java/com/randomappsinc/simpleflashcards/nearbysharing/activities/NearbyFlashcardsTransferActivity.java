@@ -1,10 +1,8 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.activities;
 
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
@@ -13,6 +11,8 @@ import com.randomappsinc.simpleflashcards.nearbysharing.adapters.NearbyFlashcard
 import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectionsManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;

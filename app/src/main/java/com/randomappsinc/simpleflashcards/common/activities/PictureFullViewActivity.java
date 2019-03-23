@@ -2,7 +2,6 @@ package com.randomappsinc.simpleflashcards.common.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

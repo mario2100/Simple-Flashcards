@@ -1,14 +1,14 @@
 package com.randomappsinc.simpleflashcards.quiz.adapters;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-
 import com.randomappsinc.simpleflashcards.quiz.fragments.QuizResultsFragment;
 import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 public class QuizResultsTabsAdapter extends FragmentPagerAdapter {
 

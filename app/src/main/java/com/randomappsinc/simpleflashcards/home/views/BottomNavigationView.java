@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.home.views;
 
 import android.content.Context;
-import androidx.annotation.IdRes;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
+import androidx.annotation.IdRes;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;

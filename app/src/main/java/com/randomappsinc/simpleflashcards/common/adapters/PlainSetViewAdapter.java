@@ -1,7 +1,5 @@
 package com.randomappsinc.simpleflashcards.common.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;

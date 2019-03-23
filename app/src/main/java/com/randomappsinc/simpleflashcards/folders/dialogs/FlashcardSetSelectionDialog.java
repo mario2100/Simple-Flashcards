@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.folders.dialogs;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -13,6 +12,8 @@ import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /** Dialog to let user choose flashcard sets to put into a folder */
 public class FlashcardSetSelectionDialog implements MultiFlashcardSetSelectionAdapter.Listener, ThemeManager.Listener {

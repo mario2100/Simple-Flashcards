@@ -1,11 +1,12 @@
 package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.randomappsinc.simpleflashcards.R;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 
 public class ThemedCoordinatorLayout extends CoordinatorLayout implements ThemeManager.Listener {
 

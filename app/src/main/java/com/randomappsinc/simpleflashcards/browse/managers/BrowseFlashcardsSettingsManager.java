@@ -13,6 +13,8 @@ public class BrowseFlashcardsSettingsManager {
         void onDefaultSideChanged(boolean showTermsByDefault);
 
         void onTextSizeChanged(int textSize);
+
+        void onTextColorChanged(int textColor);
     }
 
     public interface ShakeListener {
@@ -36,6 +38,7 @@ public class BrowseFlashcardsSettingsManager {
     }
 
     private int textSize;
+    private int textColor;
     private boolean showTermsByDefault;
     private boolean enableShake;
     private List<FlashcardListener> flashcardListeners = new ArrayList<>();
@@ -51,11 +54,24 @@ public class BrowseFlashcardsSettingsManager {
         return textSize;
     }
 
+    public int getTextColor() {
+        return textColor;
+    }
+
     public void changeTextSize(int newTextSize) {
         if (textSize != newTextSize) {
             textSize = newTextSize;
             for (FlashcardListener flashcardListener : flashcardListeners) {
                 flashcardListener.onTextSizeChanged(textSize);
+            }
+        }
+    }
+
+    public void changeTextColor(int newTextColor) {
+        if (textColor != newTextColor) {
+            textColor = newTextColor;
+            for (FlashcardListener flashcardListener : flashcardListeners) {
+                flashcardListener.onTextColorChanged(textColor);
             }
         }
     }
@@ -89,6 +105,7 @@ public class BrowseFlashcardsSettingsManager {
     public void start(Context context) {
         PreferencesManager preferencesManager = new PreferencesManager(context);
         textSize = preferencesManager.getBrowseTextSize();
+        textColor = preferencesManager.getBrowseTextColor();
         showTermsByDefault = true;
         enableShake = preferencesManager.isShakeEnabled();
     }

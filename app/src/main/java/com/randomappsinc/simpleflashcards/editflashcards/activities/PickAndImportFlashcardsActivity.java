@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.editflashcards.activities;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import java.util.List;
 import java.util.Set;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

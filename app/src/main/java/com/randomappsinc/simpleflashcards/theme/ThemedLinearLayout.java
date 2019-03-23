@@ -1,11 +1,12 @@
 package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import com.randomappsinc.simpleflashcards.R;
+
+import androidx.core.content.ContextCompat;
 
 public class ThemedLinearLayout extends LinearLayout implements ThemeManager.Listener {
 

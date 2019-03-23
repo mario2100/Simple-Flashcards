@@ -1,6 +1,5 @@
 package com.randomappsinc.simpleflashcards.utils;
 
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.randomappsinc.simpleflashcards.common.Constants;
@@ -15,6 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import io.realm.RealmList;
 
 public class JSONUtils {

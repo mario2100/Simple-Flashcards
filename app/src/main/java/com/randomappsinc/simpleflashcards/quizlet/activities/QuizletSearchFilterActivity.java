@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.quizlet.activities;
 
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 
@@ -12,6 +11,7 @@ import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.quizlet.api.QuizletSearchManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
+import androidx.appcompat.app.ActionBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

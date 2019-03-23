@@ -2,12 +2,13 @@ package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.CompoundButtonCompat;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
 import com.randomappsinc.simpleflashcards.R;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.CompoundButtonCompat;
 
 public class ThemedCheckBox extends AppCompatCheckBox implements ThemeManager.Listener {
 

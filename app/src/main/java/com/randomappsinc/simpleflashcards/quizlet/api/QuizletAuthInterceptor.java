@@ -1,9 +1,8 @@
 package com.randomappsinc.simpleflashcards.quizlet.api;
 
-import androidx.annotation.NonNull;
-
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;

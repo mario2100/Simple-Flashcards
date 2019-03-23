@@ -1,7 +1,6 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.dialogs;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +13,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

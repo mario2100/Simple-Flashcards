@@ -3,8 +3,6 @@ package com.randomappsinc.simpleflashcards.nearbysharing.activities;
 import android.Manifest.permission;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -21,6 +19,8 @@ import com.randomappsinc.simpleflashcards.nearbysharing.models.NearbyDevice;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

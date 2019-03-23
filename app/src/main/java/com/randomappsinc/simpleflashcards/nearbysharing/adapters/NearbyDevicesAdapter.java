@@ -1,7 +1,5 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +12,8 @@ import com.randomappsinc.simpleflashcards.nearbysharing.models.NearbyDevice;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,11 +1,12 @@
 package com.randomappsinc.simpleflashcards.theme;
 
 import android.content.Context;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.AppCompatEditText;
 import android.util.AttributeSet;
 
 import com.randomappsinc.simpleflashcards.R;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 public class ThemedEditText extends AppCompatEditText implements ThemeManager.Listener {
 

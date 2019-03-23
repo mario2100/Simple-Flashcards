@@ -3,6 +3,7 @@ package com.randomappsinc.simpleflashcards.persistence;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.Nullable;
 
 public class PreferencesManager {
@@ -35,6 +36,7 @@ public class PreferencesManager {
     private static final String HAS_SEEN_DARK_MODE_DIALOG = "hasSeenDarkModeDialog";
 
     private static final String BROWSE_TEXT_SIZE = "browseTextSize";
+    private static final String BROWSE_TEXT_COLOR = "browseTextColor";
 
     private SharedPreferences prefs;
 
@@ -160,5 +162,13 @@ public class PreferencesManager {
 
     public void setBrowseTextSize(int newSizeSp) {
         prefs.edit().putInt(BROWSE_TEXT_SIZE, newSizeSp).apply();
+    }
+
+    public int getBrowseTextColor() {
+        return prefs.getInt(BROWSE_TEXT_COLOR, -1);
+    }
+
+    public void setBrowseTextColor(int newColor) {
+        prefs.edit().putInt(BROWSE_TEXT_COLOR, newColor).apply();
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.afollestad.materialdialogs.Theme;
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.browse.adapters.FlashcardsBrowsingAdapter;
 import com.randomappsinc.simpleflashcards.browse.dialogs.BrowseSettingsDialogsManager;
@@ -21,6 +23,7 @@ import com.squareup.seismic.ShakeDetector;
 
 import java.util.Random;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
@@ -31,7 +34,8 @@ import butterknife.OnPageChange;
 public class BrowseFlashcardsActivity extends StandardActivity
         implements ShakeDetector.Listener,
         BrowseFlashcardsSettingsManager.ShakeListener,
-        BrowseSettingsDialogsManager.Listener {
+        BrowseSettingsDialogsManager.Listener,
+        ColorChooserDialog.ColorCallback {
 
     @BindView(R.id.browse_parent) View parent;
     @BindView(R.id.flashcards_pager) ViewPager flashcardsPager;
@@ -40,6 +44,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
     private FlashcardsBrowsingAdapter flashcardsBrowsingAdapter;
     private TextToSpeechManager textToSpeechManager;
     private BrowseSettingsDialogsManager browseSettingsDialogsManager;
+    private ColorChooserDialog colorChooserDialog;
     private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
     private PreferencesManager preferencesManager;
     private Random random;
@@ -79,11 +84,26 @@ public class BrowseFlashcardsActivity extends StandardActivity
 
         random = new Random();
         shakeDetector = new ShakeDetector(this);
+
+        createColorChooserDialog();
+    }
+
+    private void createColorChooserDialog() {
+        colorChooserDialog = new ColorChooserDialog.Builder(this, R.string.set_text_color_title)
+                .theme(preferencesManager.getDarkModeEnabled() ? Theme.DARK : Theme.LIGHT)
+                .dynamicButtonColor(false)
+                .build();
     }
 
     @Override
     protected void setActionBarColors() {
         // We don't have a toolbar/status bar, so we make this no-op
+    }
+
+    @Override
+    public void onThemeChanged(boolean darkModeEnabled) {
+        super.onThemeChanged(darkModeEnabled);
+        createColorChooserDialog();
     }
 
     private final SeekBar.OnSeekBarChangeListener flashcardsSliderListener =
@@ -112,7 +132,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
     };
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         if (preferencesManager.isShakeEnabled()) {
             shakeDetector.stop();
         }
@@ -125,6 +145,11 @@ public class BrowseFlashcardsActivity extends StandardActivity
         if (preferencesManager.isShakeEnabled()) {
             shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
         }
+    }
+
+    @Override
+    public void onTextColorChangeRequested() {
+        colorChooserDialog.show(this);
     }
 
     @Override
@@ -179,6 +204,15 @@ public class BrowseFlashcardsActivity extends StandardActivity
     public void stopSpeaking() {
         textToSpeechManager.stopSpeaking();
     }
+
+    @Override
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, int selectedColor) {
+        preferencesManager.setBrowseTextColor(selectedColor);
+        settingsManager.changeTextColor(selectedColor);
+    }
+
+    @Override
+    public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {}
 
     @OnClick(R.id.settings)
     public void onSettingsClick() {
