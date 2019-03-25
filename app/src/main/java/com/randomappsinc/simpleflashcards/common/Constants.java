@@ -29,4 +29,6 @@ public class Constants {
     public static final String SET_PREVIEW_KEY = "setPreview";
 
     public static final String QUIZLET_URL = "quizlet.com";
+
+    public static final int UNSET_COLOR = -1;
 }

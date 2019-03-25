@@ -165,7 +165,11 @@ public class BrowseFlashcardFragment extends Fragment {
             content.setVisibility(View.VISIBLE);
         }
         content.setTextSize(TypedValue.COMPLEX_UNIT_SP, settingsManager.getTextSize());
-        content.setTextColor(settingsManager.getTextColor());
+
+        int textColor = settingsManager.getTextColor();
+        if (textColor != Constants.UNSET_COLOR) {
+            content.setTextColor(settingsManager.getTextColor());
+        }
 
         setUpImageView();
     }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.randomappsinc.simpleflashcards.common.Constants;
+
 import androidx.annotation.Nullable;
 
 public class PreferencesManager {
@@ -165,7 +167,7 @@ public class PreferencesManager {
     }
 
     public int getBrowseTextColor() {
-        return prefs.getInt(BROWSE_TEXT_COLOR, -1);
+        return prefs.getInt(BROWSE_TEXT_COLOR, Constants.UNSET_COLOR);
     }
 
     public void setBrowseTextColor(int newColor) {
