@@ -50,10 +50,14 @@ public class Quiz {
         }
     }
 
-    public Quiz(FlashcardSet flashcardSet, int numQuestions, List<Integer> questionTypes) {
+    public Quiz(FlashcardSet flashcardSet, QuizSettings quizSettings) {
         problems = new ArrayList<>();
         List<Flashcard> flashcards = flashcardSet.getFlashcards();
         numOptions = Math.min(flashcards.size(), Problem.NORMAL_NUM_ANSWER_OPTIONS);
+
+        int numQuestions = quizSettings.getNumQuestions();
+        List<Integer> questionTypes = quizSettings.getQuestionTypes();
+        boolean useTermsAsQuestions = quizSettings.useTermsAsQuestions();
 
         // Indexes of the flashcards we are generating questions for
         List<Integer> indexes = RandUtils.getProblemIndexes(flashcards.size(), numQuestions);
@@ -66,10 +70,10 @@ public class Quiz {
             int questionTypeIndex = random.nextInt(questionTypes.size());
             switch (questionTypes.get(questionTypeIndex)) {
                 case QuestionType.MULTIPLE_CHOICE:
-                    problem.setAsMultipleChoiceQuestion(flashcard, flashcards);
+                    problem.setAsMultipleChoiceQuestion(flashcard, flashcards, useTermsAsQuestions);
                     break;
                 case QuestionType.FREE_FORM_INPUT:
-                    problem.setAsFreeFormInputQuestion(flashcard);
+                    problem.setAsFreeFormInputQuestion(flashcard, useTermsAsQuestions);
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported question type");

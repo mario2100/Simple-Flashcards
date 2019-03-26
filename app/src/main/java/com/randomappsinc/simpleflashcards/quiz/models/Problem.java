@@ -32,19 +32,22 @@ public class Problem implements Parcelable {
         this.questionNumber = questionNumber;
     }
 
-    public void setAsMultipleChoiceQuestion(Flashcard flashcard, List<Flashcard> flashcards) {
+    public void setAsMultipleChoiceQuestion(
+            Flashcard flashcard,
+            List<Flashcard> flashcards,
+            boolean useTermAsQuestion) {
         questionType = QuestionType.MULTIPLE_CHOICE;
-        question = flashcard.getTerm();
-        questionImageUrl = flashcard.getTermImageUrl();
-        answer = flashcard.getDefinition();
+        question = useTermAsQuestion ? flashcard.getTerm() : flashcard.getDefinition();
+        questionImageUrl = useTermAsQuestion ? flashcard.getTermImageUrl() : flashcard.getDefinitionImageUrl();
+        answer = useTermAsQuestion ? flashcard.getDefinition() : flashcard.getTerm();
 
-        // Remove duplicates from answer pool since flashcards may have identical definitions
+        // Remove duplicates from answer pool since flashcards may have identical definitions/terms
         Set<String> optionsSet = new HashSet<>();
         for (Flashcard currentCard : flashcards) {
-            optionsSet.add(currentCard.getDefinition());
+            optionsSet.add(useTermAsQuestion ? currentCard.getDefinition() : currentCard.getTerm());
         }
         // Remove the answer from the options set, since we're going to inject it by itself
-        optionsSet.remove(flashcard.getDefinition());
+        optionsSet.remove(useTermAsQuestion ? flashcard.getDefinition() : flashcard.getTerm());
         List<String> wrongOptionsList = new ArrayList<>(optionsSet);
 
         // Shuffle wrong options so we don't see similar orders every time
@@ -54,8 +57,8 @@ public class Problem implements Parcelable {
         int numOptions = Math.min(NORMAL_NUM_ANSWER_OPTIONS, wrongOptionsList.size() + 1);
         // Create answer options
         List<String> options = new ArrayList<>(numOptions);
-        // Add flashcard definition as answer
-        options.add(flashcard.getDefinition());
+        // Add answer
+        options.add(useTermAsQuestion ? flashcard.getDefinition() : flashcard.getTerm());
         // Start at 1 because we already have the answer
         for (int i = 1; i < numOptions; i++) {
             options.add(wrongOptionsList.get(i - 1));
@@ -66,11 +69,11 @@ public class Problem implements Parcelable {
         this.options = options;
     }
 
-    public void setAsFreeFormInputQuestion(Flashcard flashcard) {
+    public void setAsFreeFormInputQuestion(Flashcard flashcard, boolean useTermAsQuestion) {
         questionType = QuestionType.FREE_FORM_INPUT;
-        question = flashcard.getTerm();
-        questionImageUrl = flashcard.getTermImageUrl();
-        answer = flashcard.getDefinition();
+        question = useTermAsQuestion ? flashcard.getTerm() : flashcard.getDefinition();
+        questionImageUrl = useTermAsQuestion ? flashcard.getTermImageUrl() : flashcard.getDefinitionImageUrl();
+        answer = useTermAsQuestion ? flashcard.getDefinition() : flashcard.getTerm();
     }
 
     public @QuestionType int getQuestionType() {

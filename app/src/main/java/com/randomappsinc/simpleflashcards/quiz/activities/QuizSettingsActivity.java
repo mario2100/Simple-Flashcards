@@ -43,6 +43,8 @@ public class QuizSettingsActivity extends StandardActivity {
     // Question types
     @BindView(R.id.multiple_choice_toggle) CheckBox multipleChoiceToggle;
     @BindView(R.id.free_form_input_toggle) CheckBox freeFormInputToggle;
+    @BindView(R.id.terms_as_questions) CheckBox termsAsQuestionsToggle;
+    @BindView(R.id.definitions_as_questions) CheckBox definitionsAsQuestionsToggle;
 
     private int numFlashcards;
 
@@ -164,6 +166,24 @@ public class QuizSettingsActivity extends StandardActivity {
         }
     }
 
+    @OnCheckedChanged(R.id.terms_as_questions)
+    public void termsAsQuestionsSelected(boolean isChecked) {
+        if (isChecked) {
+            termsAsQuestionsToggle.setClickable(false);
+            definitionsAsQuestionsToggle.setChecked(false);
+            definitionsAsQuestionsToggle.setClickable(true);
+        }
+    }
+
+    @OnCheckedChanged(R.id.definitions_as_questions)
+    public void definitionsAsQuestionsSelected(boolean isChecked) {
+        if (isChecked) {
+            definitionsAsQuestionsToggle.setClickable(false);
+            termsAsQuestionsToggle.setChecked(false);
+            termsAsQuestionsToggle.setClickable(true);
+        }
+    }
+
     private boolean needsQuestionType() {
         return !multipleChoiceToggle.isChecked() && !freeFormInputToggle.isChecked();
     }
@@ -210,7 +230,11 @@ public class QuizSettingsActivity extends StandardActivity {
             }
             finalNumMinutes = Integer.valueOf(numMinutesText);
         }
-        QuizSettings quizSettings = new QuizSettings(questionsValue, finalNumMinutes, getChosenQuestionTypes());
+        QuizSettings quizSettings = new QuizSettings(
+                questionsValue,
+                finalNumMinutes,
+                getChosenQuestionTypes(),
+                termsAsQuestionsToggle.isChecked());
         finish();
         startActivity(new Intent(
                 this, QuizActivity.class)

@@ -88,7 +88,7 @@ public class QuizActivity extends StandardActivity implements QuitQuizDialog.Lis
 
         quitQuizDialog = new QuitQuizDialog(this, this);
 
-        quiz = new Quiz(flashcardSet, quizSettings.getNumQuestions(), quizSettings.getQuestionTypes());
+        quiz = new Quiz(flashcardSet, quizSettings);
         int numOptions = quiz.getNumOptions();
         if (numOptions >= 3) {
             optionButtons.get(2).setVisibility(View.VISIBLE);
@@ -394,7 +394,7 @@ public class QuizActivity extends StandardActivity implements QuitQuizDialog.Lis
 
     @OnClick(R.id.retake)
     public void retake() {
-        quiz = new Quiz(flashcardSet, quizSettings.getNumQuestions(), quizSettings.getQuestionTypes());
+        quiz = new Quiz(flashcardSet, quizSettings);
         if (timerManager != null) {
             timerManager.resetAndStart();
         }
