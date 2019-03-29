@@ -374,6 +374,7 @@ public class DatabaseManager {
             flashcardCopy.setTermImageUrl(flashcard.getTermImageUrl());
             flashcardCopy.setDefinition(flashcard.getDefinition());
             flashcardCopy.setDefinitionImageUrl(flashcard.getDefinitionImageUrl());
+            flashcardCopy.setLearned(flashcard.isLearned());
             copies.add(flashcardCopy);
         }
         return copies;
@@ -729,6 +730,19 @@ public class DatabaseManager {
                     nextCardId++;
                 }
             }
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
+
+    public void setLearnedStatus(Flashcard flashcard, boolean learned) {
+        try {
+            realm.beginTransaction();
+            Flashcard flashcardDO = realm.where(Flashcard.class)
+                    .equalTo("id", flashcard.getId())
+                    .findFirst();
+            flashcardDO.setLearned(learned);
             realm.commitTransaction();
         } catch (Exception e) {
             realm.cancelTransaction();

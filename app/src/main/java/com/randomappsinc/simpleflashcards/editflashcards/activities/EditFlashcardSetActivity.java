@@ -315,6 +315,11 @@ public class EditFlashcardSetActivity extends StandardActivity
             };
 
     @Override
+    public void onLearnedStatusChanged(Flashcard flashcard, boolean learned) {
+        databaseManager.setLearnedStatus(flashcard, learned);
+    }
+
+    @Override
     public void onEditTerm(Flashcard flashcard) {
         currentlySelectedFlashcardId = flashcard.getId();
         editFlashcardTermDialog.show(flashcard);

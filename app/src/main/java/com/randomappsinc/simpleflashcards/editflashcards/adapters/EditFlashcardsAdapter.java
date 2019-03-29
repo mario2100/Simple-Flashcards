@@ -28,6 +28,8 @@ import butterknife.OnClick;
 public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAdapter.FlashcardViewHolder> {
 
     public interface Listener {
+        void onLearnedStatusChanged(Flashcard flashcard, boolean learned);
+
         void onEditTerm(Flashcard flashcard);
 
         void onEditDefinition(Flashcard flashcard);
@@ -231,6 +233,15 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
                         .centerCrop()
                         .into(definitionImage);
             }
+        }
+
+        @OnClick(R.id.learned_toggle)
+        public void toggleLearnedStatus() {
+            Flashcard flashcard = filteredFlashcards.get(getAdapterPosition());
+            boolean newLearnedStatus = !flashcard.isLearned();
+            learnedToggle.setLearned(newLearnedStatus);
+            flashcard.setLearned(newLearnedStatus);
+            listener.onLearnedStatusChanged(flashcard, newLearnedStatus);
         }
 
         @OnClick(R.id.term_text)
