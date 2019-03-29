@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.squareup.picasso.Picasso;
 
@@ -171,7 +172,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
 
     public class FlashcardViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.position_info) TextView positionInfo;
+        @BindView(R.id.learned_toggle) ThemedLearnedToggle learnedToggle;
         @BindView(R.id.term_text) ThemedTextView termText;
         @BindView(R.id.term_image) ImageView termImage;
         @BindView(R.id.add_term_image) View addTermImage;
@@ -186,10 +187,8 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
 
         void loadFlashcard(int position) {
             Flashcard flashcard = filteredFlashcards.get(position);
-            positionInfo.setText(positionInfo.getContext().getString(
-                    R.string.flashcard_x_of_y,
-                    position + 1,
-                    getItemCount()));
+
+            learnedToggle.setLearned(flashcard.isLearned());
 
             String term = flashcard.getTerm();
             if (TextUtils.isEmpty(term)) {

@@ -31,7 +31,7 @@ public class DatabaseManager {
         void onDatabaseUpdated();
     }
 
-    private static final int CURRENT_REALM_VERSION = 6;
+    private static final int CURRENT_REALM_VERSION = 7;
 
     private static DatabaseManager instance;
 
@@ -166,6 +166,17 @@ public class DatabaseManager {
                 RealmObjectSchema cardSchema = schema.get("Flashcard");
                 if (cardSchema != null) {
                     cardSchema.addField("definitionImageUrl", String.class);
+                } else {
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
+                }
+                oldVersion++;
+            }
+
+            // Add ability to mark flashcards as learned
+            if (oldVersion == 6) {
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
+                if (cardSchema != null) {
+                    cardSchema.addField("learned", boolean.class);
                 } else {
                     throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }

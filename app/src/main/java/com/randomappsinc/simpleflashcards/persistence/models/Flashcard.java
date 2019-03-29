@@ -9,6 +9,7 @@ public class Flashcard extends RealmObject {
     private String definition;
     private String termImageUrl;
     private String definitionImageUrl;
+    private boolean learned;
 
     public int getId() {
         return id;
@@ -48,5 +49,13 @@ public class Flashcard extends RealmObject {
 
     public void setDefinitionImageUrl(String definitionImageUrl) {
         this.definitionImageUrl = definitionImageUrl;
+    }
+
+    public boolean isLearned() {
+        return learned;
+    }
+
+    public void setLearned(boolean learned) {
+        this.learned = learned;
     }
 }

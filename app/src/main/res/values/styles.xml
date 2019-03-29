@@ -31,7 +31,7 @@
     </style>
 
     <style name="rounded_button" parent="button">
-        <item name="android:background">@drawable/rounded_button_background</item>
+        <item name="android:background">@drawable/rounded_blue_rectangle</item>
     </style>
 
     <style name="flashcard_card">

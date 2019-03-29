@@ -20,13 +20,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                    android:id="@+id/position_info"
+                <com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle
+                    android:id="@+id/learned_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
                     android:layout_marginLeft="8dp"
-                    android:textSize="13dp"/>
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:textSize="15dp"
+                    android:text="@string/not_learned"/>
 
                 <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
                     android:id="@+id/delete_flashcard"

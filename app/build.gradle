@@ -8,8 +8,8 @@ android {
         applicationId "com.randomappsinc.simpleflashcards"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 277
-        versionName "2.7.10"
+        versionCode 278
+        versionName "2.7.11"
     }
     buildTypes {
         release {

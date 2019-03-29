@@ -112,4 +112,7 @@
     </string>
 
     <string name="add">Add</string>
+
+    <string name="learned">Learned {ion-checkmark}</string>
+    <string name="not_learned">Not learned</string>
 </resources>
