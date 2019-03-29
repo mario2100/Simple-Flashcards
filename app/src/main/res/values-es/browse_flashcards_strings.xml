@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="study_mode">Study mode</string>
+    <string name="term_underlined"><u>Term</u></string>
+    <string name="definition_underlined"><u>Definition</u></string>
+
+    <string name="speak_icon">{ion-ios-volume-high}</string>
+    <string name="back_arrow_icon">{ion-android-arrow-back}</string>
+    <string name="flip_icon">{ion-refresh}</string>
+
+    <string name="flashcards_shuffled">Flashcards shuffled.</string>
+    <string name="flashcards_order_restored">Flashcards order restored.</string>
+    <string name="flashcards_original_order_already">Flashcards already in their original order.</string>
+
+    <string name="text_to_speech_fail">We were unable to set up your device\'s Text To Speech engine.</string>
+
+    <string name="t">T</string>
+    <string name="d">D</string>
+
+    <string name="set_text_size">Set text size</string>
+    <string name="set_text_color">Set text color</string>
+    <string name="shuffle_flashcards">Shuffle flashcards</string>
+    <string name="restore_to_original">Restore to original order</string>
+    <string name="more_options">More options</string>
+
+    <string-array name="browse_settings_options">
+        <item>@string/set_text_size</item>
+        <item>@string/set_text_color</item>
+        <item>@string/shuffle_flashcards</item>
+        <item>@string/restore_to_original</item>
+        <item>@string/more_options</item>
+    </string-array>
+
+    <string name="more_options_title">More Options</string>
+    <string name="enable_shake_to_choose">Enable shake to choose</string>
+    <string name="show_terms_by_default">Show terms by default</string>
+    <string name="show_definitions_by_default">Show definitions by default</string>
+
+    <string name="apply">Apply</string>
+    <string name="settings_applied">Settings applied.</string>
+
+    <string name="set_text_size_title">Set Text Size</string>
+    <string name="sample_text">Hi</string>
+    <string name="set_text_color_title">Set Text Color</string>
+</resources>

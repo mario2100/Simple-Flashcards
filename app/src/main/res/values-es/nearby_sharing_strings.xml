@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nearby_sharing">Nearby Sharing</string>
+    <string name="share_with_nearby">Share flashcards with nearby users</string>
+    <string name="nearby_icon">{ion-android-locate}</string>
+    <string name="folder_icon">{ion-android-folder-open}</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="permissions_explanation">
+        In order for nearby sharing to work, we need access to your location to find nearby users
+        and to your device\'s storage so we can read and write flashcard set files.
+    </string>
+    <string name="tap_to_connect">
+        Other nearby users looking to share will show up below.
+        Simply tap to connect and start sharing!
+    </string>
+
+    <string name="set_nearby_name_title">Set Nearby Name</string>
+    <string name="nearby_name_explanation">
+        Your nearby name is how you appear to other Simple Flashcards Plus users
+        when using the nearby sharing feature.
+    </string>
+    <string name="name_setting_needed">
+        You need to set a nearby name so other Simple Flashcards Plus users
+        know who you are when you try connecting with them.
+    </string>
+    <string name="nearby_name">Nearby name</string>
+    <string name="person_icon">{ion-android-person}</string>
+
+    <string name="unknown_device_type">Unknown device type</string>
+
+    <string name="advertising_fail">
+        We failed to broadcast your presence to nearby users. Please reload this page.
+    </string>
+    <string name="discovery_fail">
+        We failed to start scanning for nearby users. Please reload this page.
+    </string>
+    <string name="connection_request_fail">
+        We failed to request a connection to that device. Please try again.
+    </string>
+
+    <string name="requesting_connection">Requesting connection&#8230;</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+
+    <string name="x_would_like_to_connect">%s would like to connect with you</string>
+    <string name="connecting_to_x">Connecting to %s</string>
+    <string name="connection_rejected">The other device rejected the connection request.</string>
+
+    <string name="auth_token_instructions">
+        Make sure the token below matches the one shown on the other device.
+    </string>
+    <string name="connection_successful">
+        Connection successful!
+    </string>
+    <string name="connection_confirmation_failed">
+        We failed to establish a connection between the 2 devices. Please try again.
+    </string>
+    <string name="waiting_for_accept">Waiting for the other user to accept the connection&#8230;</string>
+
+    <string name="connected_to">Connected to %s</string>
+    <string name="disconnected_from">Disconnected from %s</string>
+
+    <string-array name="nearby_flashcards_tabs">
+        <item>Send</item>
+        <item>Received</item>
+    </string-array>
+
+    <string name="no_flashcards_for_sharing">You have no flashcard sets to share.</string>
+    <string name="no_flashcards_received">You haven\'t received any flashcard sets yet from %s.</string>
+
+    <string name="send">Send</string>
+    <string name="sending">Sending</string>
+    <string name="sent">Sent</string>
+
+    <string name="failed_to_send_set">We failed to send your flashcard set: %s.</string>
+    <string name="received_set">Received: %s</string>
+</resources>

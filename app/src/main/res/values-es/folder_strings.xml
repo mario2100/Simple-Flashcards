@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="folders">Folders</string>
+    <string name="create_folder">Create Folder</string>
+    <string name="folder_name">Folder name</string>
+    <string name="no_folders_text">
+        Use the {ion-android-add-circle} button below
+        to create your first folder and start organizing your flashcards!
+    </string>
+    <string name="no_folders_from_search">
+        You do not have any folders that match your search.
+    </string>
+
+    <string name="one_flashcard_set">1 flashcard set</string>
+    <string name="x_flashcard_sets">%d flashcard sets</string>
+
+    <string name="folder_delete_title">Confirm Folder Deletion</string>
+    <string name="folder_delete_body">
+        Are you sure you want to delete your folder %s?
+    </string>
+
+    <string name="no_sets_in_folder_text">
+        Use the {ion-android-add-circle} button below
+        to start adding flashcard sets into this folder!
+    </string>
+    <string name="add_flashcard_sets">Add Flashcard Sets</string>
+    <string name="flashcard_set_added">Flashcard set added.</string>
+    <string name="flashcard_sets_added">Flashcard sets added.</string>
+
+    <string name="remove">Remove</string>
+
+    <string name="no_sets_to_add">Every flashcard set you have is already in this folder.</string>
+
+    <string name="rename_folder">Rename folder</string>
+    <string name="rename_folder_title">Rename Folder</string>
+</resources>

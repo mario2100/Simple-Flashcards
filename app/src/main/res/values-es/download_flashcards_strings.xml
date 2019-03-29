@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download_flashcard_sets">Download flashcard sets</string>
+    <string name="download_flashcard_sets_title">Download Flashcard Sets</string>
+
+    <string name="quizlet_search_empty_state">
+        Start typing in the search bar to browse millions of flashcard sets from across the Internet!
+    </string>
+    <string name="this_uses_quizlet">This uses Quizlet.</string>
+    <string name="created_on_template">Created on %s</string>
+    <string name="last_updated_template">Last updated %s</string>
+    <string name="no_quizlet_results">
+        We were unable to find any flashcard sets matching your criteria.
+    </string>
+
+    <string name="images_icon">{ion-images}</string>
+    <string name="has_images">Has Images</string>
+    <string name="download">Download</string>
+    <string name="saved_to_library">Saved To Library</string>
+
+    <string name="library_icon">{ion-ios-bookmarks}</string>
+    <string name="in_library">In library</string>
+</resources>
