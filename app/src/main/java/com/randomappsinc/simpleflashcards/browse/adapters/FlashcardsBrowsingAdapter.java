@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -40,13 +41,11 @@ public class FlashcardsBrowsingAdapter extends FragmentStatePagerAdapter {
         return isShuffled;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         List<Integer> flashcardIds = isShuffled ? shuffledFlashcardsIds : originalFlashcardIds;
-        return BrowseFlashcardFragment.create(
-                flashcardIds.get(position),
-                position + 1,
-                flashcardIds.size());
+        return BrowseFlashcardFragment.create(flashcardIds.get(position));
     }
 
     @Override

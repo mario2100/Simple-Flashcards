@@ -15,23 +15,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.randomappsinc.simpleflashcards.theme.ThemedSubtitleTextView
-            android:id="@+id/position_info"
+        <com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle
+            android:id="@+id/learned_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:textSize="15dp"/>
-
-        <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
-            android:id="@+id/side_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_centerHorizontal="true"
-            android:textSize="24dp"/>
+            android:textSize="19dp"/>
 
         <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
             android:id="@+id/speak"
@@ -58,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/flip_icon"
-            android:layout_below="@id/side_header"
+            android:layout_below="@id/learned_toggle"
             android:padding="@dimen/browse_card_content_padding"/>
     </com.randomappsinc.simpleflashcards.theme.ThemedFlashcardForBrowsing>
 </FrameLayout>

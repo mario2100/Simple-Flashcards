@@ -22,10 +22,9 @@ import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle;
 import com.randomappsinc.simpleflashcards.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
-
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
@@ -39,19 +38,16 @@ import butterknife.Unbinder;
 
 public class BrowseFlashcardFragment extends Fragment {
 
-    public static BrowseFlashcardFragment create(int flashcardId, int flashcardPosition, int setSize) {
+    public static BrowseFlashcardFragment create(int flashcardId) {
         BrowseFlashcardFragment flashcardFragment = new BrowseFlashcardFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.FLASHCARD_ID_KEY, flashcardId);
-        bundle.putInt(Constants.FLASHCARD_POSITION_KEY, flashcardPosition);
-        bundle.putInt(Constants.FLASHCARD_SET_SIZE_KEY, setSize);
         flashcardFragment.setArguments(bundle);
         return flashcardFragment;
     }
 
     @BindView(R.id.flashcard_container) View flashcardContainer;
-    @BindView(R.id.position_info) TextView positionInfo;
-    @BindView(R.id.side_header) TextView sideHeader;
+    @BindView(R.id.learned_toggle) ThemedLearnedToggle learnedToggle;
     @BindView(R.id.speak) View speak;
     @BindView(R.id.flip_icon) View flipIcon;
     @BindView(R.id.content_container) ViewGroup contentContainer;
@@ -64,6 +60,7 @@ public class BrowseFlashcardFragment extends Fragment {
 
     protected Flashcard flashcard;
     protected boolean isShowingTerm;
+    private DatabaseManager databaseManager = DatabaseManager.get();
     private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
     private Unbinder unbinder;
 
@@ -79,18 +76,21 @@ public class BrowseFlashcardFragment extends Fragment {
         isShowingTerm = settingsManager.getShowTermsByDefault();
 
         int flashcardId = getArguments().getInt(Constants.FLASHCARD_ID_KEY);
-        flashcard = DatabaseManager.get().getFlashcard(flashcardId);
+        flashcard = databaseManager.getFlashcard(flashcardId);
 
-        int cardPosition = getArguments().getInt(Constants.FLASHCARD_POSITION_KEY);
-        int setSize = getArguments().getInt(Constants.FLASHCARD_SET_SIZE_KEY);
-
-        String positionTemplate = "%d/%d";
-        String positionText = String.format(Locale.US, positionTemplate, cardPosition, setSize);
-        positionInfo.setText(positionText);
+        learnedToggle.setLearned(flashcard.isLearned());
 
         loadFlashcardIntoView();
 
         return rootView;
+    }
+
+    @OnClick(R.id.learned_toggle)
+    public void toggleLearnedStatus() {
+        boolean newLearnedStatus = !flashcard.isLearned();
+        learnedToggle.setLearned(newLearnedStatus);
+        databaseManager.setLearnedStatus(flashcard, newLearnedStatus);
+        flashcard = databaseManager.getFlashcard(flashcard.getId());
     }
 
     @OnClick(R.id.flashcard_container)
@@ -107,8 +107,7 @@ public class BrowseFlashcardFragment extends Fragment {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         isShowingTerm = !isShowingTerm;
-                        positionInfo.setVisibility(View.GONE);
-                        sideHeader.setVisibility(View.GONE);
+                        learnedToggle.setVisibility(View.GONE);
                         speak.setVisibility(View.GONE);
                         content.setVisibility(View.GONE);
                         cardImage.setVisibility(View.GONE);
@@ -118,9 +117,8 @@ public class BrowseFlashcardFragment extends Fragment {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         flashcardContainer.setRotationY(0);
-                        positionInfo.setVisibility(View.VISIBLE);
+                        learnedToggle.setVisibility(View.VISIBLE);
                         loadFlashcardIntoView();
-                        sideHeader.setVisibility(View.VISIBLE);
                         speak.setVisibility(View.VISIBLE);
                         flipIcon.setVisibility(View.VISIBLE);
                         flashcardContainer.setEnabled(true);
@@ -137,8 +135,6 @@ public class BrowseFlashcardFragment extends Fragment {
     }
 
     protected void loadFlashcardIntoView() {
-        sideHeader.setText(isShowingTerm ? R.string.term_underlined : R.string.definition_underlined);
-
         // Load proper layout for card content based on orientation
         contentContainer.removeAllViews();
         int orientation = getActivity().getResources().getConfiguration().orientation;
