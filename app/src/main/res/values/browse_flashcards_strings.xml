@@ -30,6 +30,9 @@
     </string-array>
 
     <string name="more_options_title">More Options</string>
+    <string name="do_not_show_learned">
+        Do not show learned flashcards (flashcards will be removed as you mark them as learned)
+    </string>
     <string name="enable_shake_to_choose">Enable shake to choose</string>
     <string name="show_terms_by_default">Show terms by default</string>
     <string name="show_definitions_by_default">Show definitions by default</string>

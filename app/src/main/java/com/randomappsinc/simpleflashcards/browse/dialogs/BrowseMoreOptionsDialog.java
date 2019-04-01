@@ -18,6 +18,7 @@ import butterknife.OnCheckedChanged;
 
 public class BrowseMoreOptionsDialog implements MaterialDialog.SingleButtonCallback {
 
+    @BindView(R.id.do_not_show_learned) CheckBox doNotShowLearned;
     @BindView(R.id.enable_shake) CheckBox enableShake;
     @BindView(R.id.show_terms_by_default) CheckBox showTerms;
     @BindView(R.id.show_definitions_by_default) CheckBox showDefinitions;
@@ -66,7 +67,7 @@ public class BrowseMoreOptionsDialog implements MaterialDialog.SingleButtonCallb
 
     @Override
     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-        settingsManager.applySettings(showTerms.isChecked(), enableShake.isChecked());
+        settingsManager.applySettings(showTerms.isChecked(), enableShake.isChecked(), doNotShowLearned.isChecked());
         UIUtils.showShortToast(R.string.settings_applied, context);
     }
 

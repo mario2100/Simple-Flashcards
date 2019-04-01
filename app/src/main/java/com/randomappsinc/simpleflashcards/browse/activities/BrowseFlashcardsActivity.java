@@ -33,7 +33,7 @@ import butterknife.OnPageChange;
 
 public class BrowseFlashcardsActivity extends StandardActivity
         implements ShakeDetector.Listener,
-        BrowseFlashcardsSettingsManager.ShakeListener,
+        BrowseFlashcardsSettingsManager.BrowserListener,
         BrowseSettingsDialogsManager.Listener,
         ColorChooserDialog.ColorCallback {
 
@@ -72,20 +72,20 @@ public class BrowseFlashcardsActivity extends StandardActivity
             flashcardsSlider.setVisibility(View.GONE);
         }
 
-        flashcardsBrowsingAdapter = new FlashcardsBrowsingAdapter(getSupportFragmentManager(), setId);
-        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
-
         flashcardsSlider.setMax(flashcardSet.getFlashcards().size() - 1);
         flashcardsSlider.setOnSeekBarChangeListener(flashcardsSliderListener);
 
         browseSettingsDialogsManager = new BrowseSettingsDialogsManager(this, this);
         settingsManager.start(this);
-        settingsManager.setShakeListener(this);
+        settingsManager.setBrowserListener(this);
 
         random = new Random();
         shakeDetector = new ShakeDetector(this);
 
         createColorChooserDialog();
+
+        flashcardsBrowsingAdapter = new FlashcardsBrowsingAdapter(getSupportFragmentManager(), setId);
+        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
     }
 
     private void createColorChooserDialog() {
@@ -175,13 +175,19 @@ public class BrowseFlashcardsActivity extends StandardActivity
     }
 
     @Override
+    public void onLearnFilterChanged(boolean doNotShowLearned) {
+        flashcardsBrowsingAdapter.setDoNotShowLearned(doNotShowLearned);
+        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
+        flashcardsPager.setCurrentItem(0);
+        flashcardsSlider.setProgress(0);
+    }
+
+    @Override
     public void onEnableShakeChanged(boolean enableShake) {
         if (enableShake) {
             shakeDetector.start((SensorManager) getSystemService(SENSOR_SERVICE));
-            preferencesManager.setShakeEnabled(true);
         } else {
             shakeDetector.stop();
-            preferencesManager.setShakeEnabled(false);
         }
     }
 

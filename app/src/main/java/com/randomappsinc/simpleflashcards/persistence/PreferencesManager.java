@@ -37,6 +37,7 @@ public class PreferencesManager {
     private static final String DARK_MODE_ENABLED = "darkModeEnabled";
     private static final String HAS_SEEN_DARK_MODE_DIALOG = "hasSeenDarkModeDialog";
 
+    private static final String BROWSE_DO_NOT_SHOW_LEARNED = "browseDoNotShowLearned";
     private static final String BROWSE_TEXT_SIZE = "browseTextSize";
     private static final String BROWSE_TEXT_COLOR = "browseTextColor";
 
@@ -156,6 +157,14 @@ public class PreferencesManager {
         boolean shouldTeachImport = prefs.getBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, true);
         prefs.edit().putBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, false).apply();
         return shouldTeachImport;
+    }
+
+    public boolean getBrowseDoNotShowLearned() {
+        return prefs.getBoolean(BROWSE_DO_NOT_SHOW_LEARNED, false);
+    }
+
+    public void setBrowseDoNotShowLearned(boolean doNotShowLearned) {
+        prefs.edit().putBoolean(BROWSE_DO_NOT_SHOW_LEARNED, doNotShowLearned).apply();
     }
 
     public int getBrowseTextSize() {

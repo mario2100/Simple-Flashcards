@@ -17,7 +17,9 @@ public class BrowseFlashcardsSettingsManager {
         void onTextColorChanged(int textColor);
     }
 
-    public interface ShakeListener {
+    public interface BrowserListener {
+        void onLearnFilterChanged(boolean doNotShowLearned);
+
         void onEnableShakeChanged(boolean enableShake);
     }
 
@@ -37,14 +39,20 @@ public class BrowseFlashcardsSettingsManager {
         return instance;
     }
 
+    private PreferencesManager preferencesManager;
     private int textSize;
     private int textColor;
+    private boolean doNotShowLearned;
     private boolean showTermsByDefault;
     private boolean enableShake;
     private List<FlashcardListener> flashcardListeners = new ArrayList<>();
-    private ShakeListener shakeListener;
+    private BrowserListener browserListener;
 
     private BrowseFlashcardsSettingsManager() {}
+
+    public boolean getDoNotShowLearned() {
+        return doNotShowLearned;
+    }
 
     public boolean getShowTermsByDefault() {
         return showTermsByDefault;
@@ -76,7 +84,13 @@ public class BrowseFlashcardsSettingsManager {
         }
     }
 
-    public void applySettings(boolean showTermsByDefault, boolean enableShake) {
+    public void applySettings(boolean showTermsByDefault, boolean enableShake, boolean doNotShowLearned) {
+        if (this.doNotShowLearned != doNotShowLearned) {
+            this.doNotShowLearned = doNotShowLearned;
+            browserListener.onLearnFilterChanged(doNotShowLearned);
+            preferencesManager.setBrowseDoNotShowLearned(doNotShowLearned);
+        }
+
         if (this.showTermsByDefault != showTermsByDefault) {
             this.showTermsByDefault = showTermsByDefault;
             for (FlashcardListener flashcardListener : flashcardListeners) {
@@ -86,7 +100,8 @@ public class BrowseFlashcardsSettingsManager {
 
         if (this.enableShake != enableShake) {
             this.enableShake = enableShake;
-            shakeListener.onEnableShakeChanged(enableShake);
+            browserListener.onEnableShakeChanged(enableShake);
+            preferencesManager.setShakeEnabled(enableShake);
         }
     }
 
@@ -98,20 +113,22 @@ public class BrowseFlashcardsSettingsManager {
         flashcardListeners.remove(flashcardListener);
     }
 
-    public void setShakeListener(ShakeListener shakeListener) {
-        this.shakeListener = shakeListener;
+    public void setBrowserListener(BrowserListener browserListener) {
+        this.browserListener = browserListener;
     }
 
     public void start(Context context) {
-        PreferencesManager preferencesManager = new PreferencesManager(context);
+        preferencesManager = new PreferencesManager(context);
         textSize = preferencesManager.getBrowseTextSize();
         textColor = preferencesManager.getBrowseTextColor();
+        doNotShowLearned = preferencesManager.getBrowseDoNotShowLearned();
         showTermsByDefault = true;
         enableShake = preferencesManager.isShakeEnabled();
     }
 
     public void shutdown() {
+        preferencesManager = null;
         flashcardListeners.clear();
-        shakeListener = null;
+        browserListener = null;
     }
 }
