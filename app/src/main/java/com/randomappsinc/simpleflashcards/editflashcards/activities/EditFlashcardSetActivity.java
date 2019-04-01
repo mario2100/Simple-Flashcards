@@ -316,7 +316,7 @@ public class EditFlashcardSetActivity extends StandardActivity
 
     @Override
     public void onLearnedStatusChanged(FlashcardDO flashcard, boolean learned) {
-        databaseManager.setLearnedStatus(flashcard, learned);
+        databaseManager.setLearnedStatus(flashcard.getId(), learned);
     }
 
     @Override

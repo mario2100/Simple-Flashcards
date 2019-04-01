@@ -743,11 +743,11 @@ public class DatabaseManager {
         }
     }
 
-    public void setLearnedStatus(FlashcardDO flashcard, boolean learned) {
+    public void setLearnedStatus(int flashcardId, boolean learned) {
         try {
             realm.beginTransaction();
             FlashcardDO flashcardDO = realm.where(FlashcardDO.class)
-                    .equalTo("id", flashcard.getId())
+                    .equalTo("id", flashcardId)
                     .findFirst();
             flashcardDO.setLearned(learned);
             realm.commitTransaction();

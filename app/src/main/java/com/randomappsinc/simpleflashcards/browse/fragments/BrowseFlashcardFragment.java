@@ -20,13 +20,14 @@ import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActi
 import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
+import com.randomappsinc.simpleflashcards.common.models.Flashcard;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle;
 import com.randomappsinc.simpleflashcards.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Preconditions;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import butterknife.BindInt;
@@ -38,10 +39,10 @@ import butterknife.Unbinder;
 
 public class BrowseFlashcardFragment extends Fragment {
 
-    public static BrowseFlashcardFragment create(int flashcardId) {
+    public static BrowseFlashcardFragment create(Flashcard flashcard) {
         BrowseFlashcardFragment flashcardFragment = new BrowseFlashcardFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constants.FLASHCARD_ID_KEY, flashcardId);
+        bundle.putParcelable(Constants.FLASHCARD_KEY, flashcard);
         flashcardFragment.setArguments(bundle);
         return flashcardFragment;
     }
@@ -58,7 +59,7 @@ public class BrowseFlashcardFragment extends Fragment {
     @BindInt(R.integer.default_anim_length) int flipAnimLength;
     @BindString(R.string.view_all) String viewAll;
 
-    protected FlashcardDO flashcard;
+    protected Flashcard flashcard;
     protected boolean isShowingTerm;
     private DatabaseManager databaseManager = DatabaseManager.get();
     private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
@@ -75,9 +76,10 @@ public class BrowseFlashcardFragment extends Fragment {
         settingsManager.addDefaultSideListener(flashcardListener);
         isShowingTerm = settingsManager.getShowTermsByDefault();
 
-        int flashcardId = getArguments().getInt(Constants.FLASHCARD_ID_KEY);
-        flashcard = databaseManager.getFlashcard(flashcardId);
-
+        Bundle bundle = getArguments();
+        Preconditions.checkNotNull(bundle, "No arguments passed to flashcard browse fragment.");
+        flashcard = getArguments().getParcelable(Constants.FLASHCARD_KEY);
+        Preconditions.checkNotNull(flashcard, "No flashcard passed to flashcard browse fragment.");
         learnedToggle.setLearned(flashcard.isLearned());
 
         loadFlashcardIntoView();
@@ -89,8 +91,8 @@ public class BrowseFlashcardFragment extends Fragment {
     public void toggleLearnedStatus() {
         boolean newLearnedStatus = !flashcard.isLearned();
         learnedToggle.setLearned(newLearnedStatus);
-        databaseManager.setLearnedStatus(flashcard, newLearnedStatus);
-        flashcard = databaseManager.getFlashcard(flashcard.getId());
+        flashcard.setLearned(newLearnedStatus);
+        databaseManager.setLearnedStatus(flashcard.getId(), newLearnedStatus);
     }
 
     @OnClick(R.id.flashcard_container)
