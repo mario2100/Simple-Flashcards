@@ -38,6 +38,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
         ColorChooserDialog.ColorCallback {
 
     @BindView(R.id.browse_parent) View parent;
+    @BindView(R.id.all_flashcards_learned) View allFlashcardsLearned;
     @BindView(R.id.flashcards_pager) ViewPager flashcardsPager;
     @BindView(R.id.flashcards_slider) SeekBar flashcardsSlider;
 
@@ -68,10 +69,6 @@ public class BrowseFlashcardsActivity extends StandardActivity
         FlashcardSetDO flashcardSet = DatabaseManager.get().getFlashcardSet(setId);
         setTitle(flashcardSet.getName());
 
-        if (flashcardSet.getFlashcards().size() < 2) {
-            flashcardsSlider.setVisibility(View.GONE);
-        }
-
         flashcardsSlider.setOnSeekBarChangeListener(flashcardsSliderListener);
 
         browseSettingsDialogsManager = new BrowseSettingsDialogsManager(this, this);
@@ -85,7 +82,26 @@ public class BrowseFlashcardsActivity extends StandardActivity
 
         flashcardsBrowsingAdapter = new FlashcardsBrowsingAdapter(getSupportFragmentManager(), setId);
         flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
-        flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
+        setViews();
+    }
+
+    private void setViews() {
+        int flashcardsCount = flashcardsBrowsingAdapter.getCount();
+        if (flashcardsCount == 0) {
+            flashcardsPager.setVisibility(View.GONE);
+            flashcardsSlider.setVisibility(View.GONE);
+            allFlashcardsLearned.setVisibility(View.VISIBLE);
+        } else {
+            allFlashcardsLearned.setVisibility(View.GONE);
+            flashcardsPager.setVisibility(View.VISIBLE);
+
+            if (flashcardsCount < 2) {
+                flashcardsSlider.setVisibility(View.GONE);
+            } else {
+                flashcardsSlider.setVisibility(View.VISIBLE);
+                flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
+            }
+        }
     }
 
     private void createColorChooserDialog() {
@@ -178,7 +194,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
         if (flashcardsBrowsingAdapter.getDoNotShowLearned()) {
             int currentIndex = flashcardsPager.getCurrentItem();
             flashcardsBrowsingAdapter.removeFlashcard(currentIndex);
-            flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
+            setViews();
             UIUtils.showShortToast(R.string.learned_flashcard_removed, this);
         }
     }
@@ -186,10 +202,12 @@ public class BrowseFlashcardsActivity extends StandardActivity
     @Override
     public void onLearnFilterChanged(boolean doNotShowLearned) {
         flashcardsBrowsingAdapter.setDoNotShowLearned(doNotShowLearned);
-        flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
-        flashcardsPager.setCurrentItem(0);
-        flashcardsSlider.setProgress(0);
-        flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
+        setViews();
+        if (flashcardsBrowsingAdapter.getCount() > 0) {
+            flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
+            flashcardsPager.setCurrentItem(0);
+            flashcardsSlider.setProgress(0);
+        }
     }
 
     @Override

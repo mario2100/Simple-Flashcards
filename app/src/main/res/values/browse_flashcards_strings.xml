@@ -31,7 +31,7 @@
 
     <string name="more_options_title">More Options</string>
     <string name="do_not_show_learned">
-        Do not show learned flashcards (flashcards will be removed as you mark them as learned)
+        Do not show learned flashcards (flashcards will be removed as you learn them)
     </string>
     <string name="enable_shake_to_choose">Enable shake to choose</string>
     <string name="show_terms_by_default">Show terms by default</string>
@@ -45,4 +45,7 @@
     <string name="set_text_color_title">Set Text Color</string>
 
     <string name="learned_flashcard_removed">Learned flashcard removed.</string>
+    <string name="all_flashcards_learned">
+        Congratulations, you have learned all of the flashcards in this set!
+    </string>
 </resources>
