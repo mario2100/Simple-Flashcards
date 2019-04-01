@@ -93,6 +93,11 @@ public class BrowseFlashcardFragment extends Fragment {
         learnedToggle.setLearned(newLearnedStatus);
         flashcard.setLearned(newLearnedStatus);
         databaseManager.setLearnedStatus(flashcard.getId(), newLearnedStatus);
+
+        BrowseFlashcardsActivity activity = (BrowseFlashcardsActivity) getActivity();
+        if (newLearnedStatus && activity != null) {
+            activity.onFlashcardLearned();
+        }
     }
 
     @OnClick(R.id.flashcard_container)

@@ -43,4 +43,6 @@
     <string name="set_text_size_title">Set Text Size</string>
     <string name="sample_text">Hi</string>
     <string name="set_text_color_title">Set Text Color</string>
+
+    <string name="learned_flashcard_removed">Learned flashcard removed.</string>
 </resources>

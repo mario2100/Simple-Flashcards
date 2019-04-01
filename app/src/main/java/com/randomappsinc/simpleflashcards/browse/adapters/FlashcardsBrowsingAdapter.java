@@ -54,6 +54,15 @@ public class FlashcardsBrowsingAdapter extends FragmentStatePagerAdapter {
         return isShuffled;
     }
 
+    public boolean getDoNotShowLearned() {
+        return doNotShowLearned;
+    }
+
+    public void removeFlashcard(int index) {
+        filteredFlashcards.remove(index);
+        notifyDataSetChanged();
+    }
+
     public void setDoNotShowLearned(boolean doNotShowLearned) {
         this.doNotShowLearned = doNotShowLearned;
         filteredFlashcards.clear();
@@ -65,6 +74,11 @@ public class FlashcardsBrowsingAdapter extends FragmentStatePagerAdapter {
                 Collections.shuffle(filteredFlashcards);
             }
         }
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 
     @NonNull

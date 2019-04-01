@@ -72,7 +72,6 @@ public class BrowseFlashcardsActivity extends StandardActivity
             flashcardsSlider.setVisibility(View.GONE);
         }
 
-        flashcardsSlider.setMax(flashcardSet.getFlashcards().size() - 1);
         flashcardsSlider.setOnSeekBarChangeListener(flashcardsSliderListener);
 
         browseSettingsDialogsManager = new BrowseSettingsDialogsManager(this, this);
@@ -86,6 +85,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
 
         flashcardsBrowsingAdapter = new FlashcardsBrowsingAdapter(getSupportFragmentManager(), setId);
         flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
+        flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
     }
 
     private void createColorChooserDialog() {
@@ -174,12 +174,22 @@ public class BrowseFlashcardsActivity extends StandardActivity
         }
     }
 
+    public void onFlashcardLearned() {
+        if (flashcardsBrowsingAdapter.getDoNotShowLearned()) {
+            int currentIndex = flashcardsPager.getCurrentItem();
+            flashcardsBrowsingAdapter.removeFlashcard(currentIndex);
+            flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
+            UIUtils.showShortToast(R.string.learned_flashcard_removed, this);
+        }
+    }
+
     @Override
     public void onLearnFilterChanged(boolean doNotShowLearned) {
         flashcardsBrowsingAdapter.setDoNotShowLearned(doNotShowLearned);
         flashcardsPager.setAdapter(flashcardsBrowsingAdapter);
         flashcardsPager.setCurrentItem(0);
         flashcardsSlider.setProgress(0);
+        flashcardsSlider.setMax(flashcardsBrowsingAdapter.getCount() - 1);
     }
 
     @Override

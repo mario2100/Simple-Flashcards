@@ -44,6 +44,7 @@ public class BrowseMoreOptionsDialog implements MaterialDialog.SingleButtonCallb
                 .cancelable(false)
                 .build();
         ButterKnife.bind(this, dialog.getCustomView());
+        doNotShowLearned.setChecked(preferencesManager.getBrowseDoNotShowLearned());
         enableShake.setChecked(preferencesManager.isShakeEnabled());
     }
 
