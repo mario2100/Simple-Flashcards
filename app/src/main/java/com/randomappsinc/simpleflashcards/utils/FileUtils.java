@@ -2,7 +2,7 @@ package com.randomappsinc.simpleflashcards.utils;
 
 import android.content.Context;
 
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 public class FileUtils {
 
     @Nullable
-    public static File writeFlashcardSetToFile(FlashcardSet flashcardSet, Context context) {
+    public static File writeFlashcardSetToFile(FlashcardSetDO flashcardSet, Context context) {
         String filename = String.valueOf(flashcardSet.getId());
         File file = new File(context.getFilesDir(), filename);
         String fileContents = JSONUtils.serializeFlashcardSet(flashcardSet);

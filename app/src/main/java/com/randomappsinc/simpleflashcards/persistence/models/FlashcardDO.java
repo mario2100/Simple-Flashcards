@@ -2,7 +2,7 @@ package com.randomappsinc.simpleflashcards.persistence.models;
 
 import io.realm.RealmObject;
 
-public class Flashcard extends RealmObject {
+public class FlashcardDO extends RealmObject {
 
     private int id;
     private String term;

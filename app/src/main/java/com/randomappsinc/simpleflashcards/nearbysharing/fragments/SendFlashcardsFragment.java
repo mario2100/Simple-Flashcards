@@ -10,7 +10,7 @@ import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecorati
 import com.randomappsinc.simpleflashcards.nearbysharing.adapters.SendFlashcardsAdapter;
 import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectionsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class SendFlashcardsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        List<FlashcardSet> flashcardSets = DatabaseManager.get().getFlashcardSets("");
+        List<FlashcardSetDO> flashcardSets = DatabaseManager.get().getFlashcardSets("");
         if (flashcardSets.isEmpty()) {
             flashcardSetList.setVisibility(View.GONE);
         } else {
@@ -55,12 +55,12 @@ public class SendFlashcardsFragment extends Fragment {
 
     private final SendFlashcardsAdapter.Listener sendFlashcardsListener = new SendFlashcardsAdapter.Listener() {
         @Override
-        public void onSendFlashcardSet(FlashcardSet flashcardSet) {
+        public void onSendFlashcardSet(FlashcardSetDO flashcardSet) {
             nearbyConnectionsManager.sendFlashcardSet(flashcardSet, getContext());
         }
 
         @Override
-        public void onFlashcardSetTransferFailure(FlashcardSet flashcardSet) {
+        public void onFlashcardSetTransferFailure(FlashcardSetDO flashcardSet) {
             UIUtils.showLongToast(getString(
                     R.string.failed_to_send_set,
                     flashcardSet.getName()), getContext());

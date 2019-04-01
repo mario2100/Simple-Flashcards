@@ -6,7 +6,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 import androidx.annotation.NonNull;
@@ -57,7 +57,7 @@ public class EditFlashcardTermDialog implements ThemeManager.Listener {
         dialog.getInputEditText().setSingleLine(false);
     }
 
-    public void show(Flashcard flashcard) {
+    public void show(FlashcardDO flashcard) {
         dialog.getInputEditText().setText(flashcard.getTerm());
         dialog.show();
     }

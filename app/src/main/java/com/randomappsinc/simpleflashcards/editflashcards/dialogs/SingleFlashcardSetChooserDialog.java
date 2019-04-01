@@ -8,14 +8,14 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.SingleFlashcardSetChooserAdapter;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import androidx.annotation.StringRes;
 
 public class SingleFlashcardSetChooserDialog implements SingleFlashcardSetChooserAdapter.Listener {
 
     public interface Listener {
-        void onFlashcardSetChosen(FlashcardSet flashcardSet);
+        void onFlashcardSetChosen(FlashcardSetDO flashcardSet);
     }
 
     private Context context;
@@ -43,7 +43,7 @@ public class SingleFlashcardSetChooserDialog implements SingleFlashcardSetChoose
     }
 
     @Override
-    public void onFlashcardSetSelected(FlashcardSet flashcardSet) {
+    public void onFlashcardSetSelected(FlashcardSetDO flashcardSet) {
         chooserDialog.dismiss();
         listener.onFlashcardSetChosen(flashcardSet);
     }

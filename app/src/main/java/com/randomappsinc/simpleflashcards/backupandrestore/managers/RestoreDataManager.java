@@ -8,7 +8,7 @@ import android.os.Looper;
 
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.JSONUtils;
 
 import java.io.BufferedReader;
@@ -74,7 +74,7 @@ public class RestoreDataManager {
             backgroundHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    List<FlashcardSet> flashcardSets = JSONUtils.getSetsForDataRestoration(backupFile);
+                    List<FlashcardSetDO> flashcardSets = JSONUtils.getSetsForDataRestoration(backupFile);
                     ArrayList<FlashcardSetPreview> previews = databaseManager.restoreFlashcardSets(flashcardSets);
                     alertOfDataRestorationComplete(previews);
                 }
@@ -108,7 +108,7 @@ public class RestoreDataManager {
                     }
                     inputStream.close();
                     String setsJson = stringBuilder.toString();
-                    List<FlashcardSet> flashcardSets = JSONUtils.deserializeSets(setsJson);
+                    List<FlashcardSetDO> flashcardSets = JSONUtils.deserializeSets(setsJson);
                     ArrayList<FlashcardSetPreview> previews = databaseManager.restoreFlashcardSets(flashcardSets);
                     alertOfDataRestorationComplete(previews);
                 } catch (IOException exception) {

@@ -2,7 +2,7 @@ package com.randomappsinc.simpleflashcards.quizlet.api.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 
 import androidx.annotation.Nullable;
 
@@ -44,8 +44,8 @@ public class QuizletFlashcard {
         return image == null ? null : image.getUrl();
     }
 
-    public Flashcard toFlashcard() {
-        Flashcard flashcard = new Flashcard();
+    public FlashcardDO toFlashcard() {
+        FlashcardDO flashcard = new FlashcardDO();
         flashcard.setTerm(term);
         flashcard.setDefinition(definition);
         flashcard.setTermImageUrl(getImageUrl());

@@ -20,7 +20,7 @@ import com.randomappsinc.simpleflashcards.folders.dialogs.FlashcardSetSelectionD
 import com.randomappsinc.simpleflashcards.folders.dialogs.RenameFolderDialog;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.quiz.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
@@ -92,7 +92,7 @@ public class FolderActivity extends StandardActivity
     }
 
     @Override
-    public void onFlashcardSetsSelected(List<FlashcardSet> flashcardSets) {
+    public void onFlashcardSetsSelected(List<FlashcardSetDO> flashcardSets) {
         databaseManager.addFlashcardSetsIntoFolder(folderId, flashcardSets);
         setAdderDialog.setFlashcardSetList(databaseManager.getFlashcardSetsNotInFolder(folderId));
         updateSetsList();
@@ -102,7 +102,7 @@ public class FolderActivity extends StandardActivity
     }
 
     @Override
-    public void browseFlashcardSet(FlashcardSet flashcardSet) {
+    public void browseFlashcardSet(FlashcardSetDO flashcardSet) {
         if (flashcardSet.getFlashcards().isEmpty()) {
             UIUtils.showLongToast(R.string.no_flashcards_for_browsing, this);
         } else {
@@ -112,7 +112,7 @@ public class FolderActivity extends StandardActivity
     }
 
     @Override
-    public void takeQuiz(FlashcardSet flashcardSet) {
+    public void takeQuiz(FlashcardSetDO flashcardSet) {
         if (flashcardSet.getFlashcards().size() < 2) {
             UIUtils.showLongToast(R.string.not_enough_for_quiz, this);
         } else {
@@ -123,14 +123,14 @@ public class FolderActivity extends StandardActivity
     }
 
     @Override
-    public void editFlashcardSet(FlashcardSet flashcardSet) {
+    public void editFlashcardSet(FlashcardSetDO flashcardSet) {
         startActivity(new Intent(
                 this, EditFlashcardSetActivity.class)
                 .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
     }
 
     @Override
-    public void removeFlashcardSet(FlashcardSet flashcardSet) {
+    public void removeFlashcardSet(FlashcardSetDO flashcardSet) {
         databaseManager.removeFlashcardSetFromFolder(folderId, flashcardSet);
         setsList.setVisibility(setsAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
         noSets.setVisibility(setsAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);

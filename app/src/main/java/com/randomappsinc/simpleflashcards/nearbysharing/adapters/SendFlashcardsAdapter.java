@@ -9,7 +9,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.nearbysharing.constants.FlashcardSetTransferState;
 import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectionsManager;
 import com.randomappsinc.simpleflashcards.nearbysharing.models.FlashcardSetForTransfer;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +24,17 @@ import butterknife.OnClick;
 public class SendFlashcardsAdapter extends RecyclerView.Adapter<SendFlashcardsAdapter.FlashcardSetViewHolder> {
 
     public interface Listener {
-        void onSendFlashcardSet(FlashcardSet flashcardSet);
+        void onSendFlashcardSet(FlashcardSetDO flashcardSet);
 
-        void onFlashcardSetTransferFailure(FlashcardSet flashcardSet);
+        void onFlashcardSetTransferFailure(FlashcardSetDO flashcardSet);
     }
 
     protected Listener listener;
     protected List<FlashcardSetForTransfer> flashcardSets;
 
-    public SendFlashcardsAdapter(List<FlashcardSet> flashcardSetList, Listener listener) {
+    public SendFlashcardsAdapter(List<FlashcardSetDO> flashcardSetList, Listener listener) {
         flashcardSets = new ArrayList<>();
-        for (FlashcardSet original : flashcardSetList) {
+        for (FlashcardSetDO original : flashcardSetList) {
             flashcardSets.add(new FlashcardSetForTransfer(original));
         }
         this.listener = listener;
@@ -98,7 +98,7 @@ public class SendFlashcardsAdapter extends RecyclerView.Adapter<SendFlashcardsAd
 
         void loadFlashcardSet(int position) {
             FlashcardSetForTransfer flashcardSetForTransfer = flashcardSets.get(position);
-            FlashcardSet flashcardSet = flashcardSetForTransfer.getFlashcardSet();
+            FlashcardSetDO flashcardSet = flashcardSetForTransfer.getFlashcardSet();
             setName.setText(flashcardSet.getName());
             int numFlashcards = flashcardSet.getFlashcards().size();
             numFlashcardsText.setText(numFlashcards == 1

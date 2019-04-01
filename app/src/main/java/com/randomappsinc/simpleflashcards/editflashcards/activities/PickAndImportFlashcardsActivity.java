@@ -13,7 +13,7 @@ import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.MultiFlashcardsSelectorAdapter;
 import com.randomappsinc.simpleflashcards.editflashcards.constants.ImportFlashcardsMode;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class PickAndImportFlashcardsActivity extends StandardActivity
         sendingSetId = getIntent().getIntExtra(Constants.SENDING_SET_ID,0);
         importMode = getIntent().getIntExtra(Constants.IMPORT_MODE_KEY, 0);
 
-        List<Flashcard> flashcards = databaseManager.getAllFlashcards(sendingSetId);
+        List<FlashcardDO> flashcards = databaseManager.getAllFlashcards(sendingSetId);
         flashcardsAdapter = new MultiFlashcardsSelectorAdapter(this, flashcards);
         flashcardsList.setAdapter(flashcardsAdapter);
 

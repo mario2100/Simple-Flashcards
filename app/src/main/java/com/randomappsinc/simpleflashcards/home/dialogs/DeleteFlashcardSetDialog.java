@@ -6,7 +6,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 import androidx.annotation.NonNull;
@@ -50,7 +50,7 @@ public class DeleteFlashcardSetDialog implements ThemeManager.Listener {
         createDialog();
     }
 
-    public void show(FlashcardSet flashcardSet) {
+    public void show(FlashcardSetDO flashcardSet) {
         flashcardSetId = flashcardSet.getId();
         String quotedName = "\"" + flashcardSet.getName() + "\"";
         dialog.setContent(context.getString(R.string.flashcard_set_delete_message, quotedName));

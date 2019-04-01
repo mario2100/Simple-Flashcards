@@ -9,7 +9,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.adapters.PlainSetViewAdapter;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -40,7 +40,7 @@ public class PlainSetViewActivity extends StandardActivity {
 
     private final PlainSetViewAdapter.Listener listClickListener = new PlainSetViewAdapter.Listener() {
         @Override
-        public void onImageClicked(Flashcard flashcard) {
+        public void onImageClicked(FlashcardDO flashcard) {
             Intent intent = new Intent(
                     PlainSetViewActivity.this,
                     PictureFullViewActivity.class)

@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.randomappsinc.simpleflashcards.nearbysharing.models.NearbyDevice;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.DeviceUtils;
 import com.randomappsinc.simpleflashcards.utils.FileUtils;
 import com.randomappsinc.simpleflashcards.utils.JSONUtils;
@@ -64,7 +64,7 @@ public class NearbyConnectionsManager {
     }
 
     public interface FlashcardSetReceiptListener {
-        void onFlashcardSetReceived(FlashcardSet flashcardSet);
+        void onFlashcardSetReceived(FlashcardSetDO flashcardSet);
     }
 
     private static NearbyConnectionsManager instance;
@@ -258,7 +258,7 @@ public class NearbyConnectionsManager {
                             return;
                         }
                         File file = payload.asFile().asJavaFile();
-                        FlashcardSet flashcardSet = JSONUtils.deserializeFlashcardSet(
+                        FlashcardSetDO flashcardSet = JSONUtils.deserializeFlashcardSet(
                                 FileUtils.getFileContents(file));
                         if (flashcardSet == null) {
                             return;
@@ -325,7 +325,7 @@ public class NearbyConnectionsManager {
         flashcardSetTransferStatusListener = listener;
     }
 
-    public void sendFlashcardSet(FlashcardSet flashcardSet, Context context) {
+    public void sendFlashcardSet(FlashcardSetDO flashcardSet, Context context) {
         if (connectionsClient == null) {
             return;
         }

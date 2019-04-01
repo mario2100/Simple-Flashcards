@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.squareup.picasso.Picasso;
@@ -28,22 +28,22 @@ import butterknife.OnClick;
 public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAdapter.FlashcardViewHolder> {
 
     public interface Listener {
-        void onLearnedStatusChanged(Flashcard flashcard, boolean learned);
+        void onLearnedStatusChanged(FlashcardDO flashcard, boolean learned);
 
-        void onEditTerm(Flashcard flashcard);
+        void onEditTerm(FlashcardDO flashcard);
 
-        void onEditDefinition(Flashcard flashcard);
+        void onEditDefinition(FlashcardDO flashcard);
 
-        void onDeleteFlashcard(Flashcard flashcard);
+        void onDeleteFlashcard(FlashcardDO flashcard);
 
-        void onImageClicked(Flashcard flashcard, boolean forTerm);
+        void onImageClicked(FlashcardDO flashcard, boolean forTerm);
 
-        void onAddImageClicked(Flashcard flashcard, boolean forTerm);
+        void onAddImageClicked(FlashcardDO flashcard, boolean forTerm);
     }
 
     protected Listener listener;
-    protected List<Flashcard> flashcards;
-    protected List<Flashcard> filteredFlashcards;
+    protected List<FlashcardDO> flashcards;
+    protected List<FlashcardDO> filteredFlashcards;
     private TextView noContent;
     private int setId;
     private TextView numFlashcards;
@@ -70,7 +70,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
             filteredFlashcards.addAll(flashcards);
         } else {
             String lowerCaseQuery = currentQuery.toLowerCase();
-            for (Flashcard flashcard : flashcards) {
+            for (FlashcardDO flashcard : flashcards) {
                 if (flashcard.getTerm().toLowerCase().contains(lowerCaseQuery)
                         || flashcard.getDefinition().toLowerCase().contains(lowerCaseQuery)) {
                     filteredFlashcards.add(flashcard);
@@ -148,7 +148,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
         numFlashcards.setText(numFlashcardsText);
     }
 
-    public Flashcard getCurrentlyChosenFlashcard() {
+    public FlashcardDO getCurrentlyChosenFlashcard() {
         return filteredFlashcards.get(selectedItemPosition);
     }
 
@@ -188,7 +188,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
         }
 
         void loadFlashcard(int position) {
-            Flashcard flashcard = filteredFlashcards.get(position);
+            FlashcardDO flashcard = filteredFlashcards.get(position);
 
             learnedToggle.setLearned(flashcard.isLearned());
 
@@ -237,7 +237,7 @@ public class EditFlashcardsAdapter extends RecyclerView.Adapter<EditFlashcardsAd
 
         @OnClick(R.id.learned_toggle)
         public void toggleLearnedStatus() {
-            Flashcard flashcard = filteredFlashcards.get(getAdapterPosition());
+            FlashcardDO flashcard = filteredFlashcards.get(getAdapterPosition());
             boolean newLearnedStatus = !flashcard.isLearned();
             learnedToggle.setLearned(newLearnedStatus);
             flashcard.setLearned(newLearnedStatus);

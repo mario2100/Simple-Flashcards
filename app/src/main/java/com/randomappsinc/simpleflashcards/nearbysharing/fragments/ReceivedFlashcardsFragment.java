@@ -15,7 +15,7 @@ import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.nearbysharing.adapters.ReceivedFlashcardsAdapter;
 import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectionsManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import androidx.annotation.NonNull;
@@ -59,7 +59,7 @@ public class ReceivedFlashcardsFragment extends Fragment {
     private final NearbyConnectionsManager.FlashcardSetReceiptListener flashcardSetReceiptListener
             = new NearbyConnectionsManager.FlashcardSetReceiptListener() {
         @Override
-        public void onFlashcardSetReceived(FlashcardSet flashcardSet) {
+        public void onFlashcardSetReceived(FlashcardSetDO flashcardSet) {
             receivedFlashcardsAdapter.addFlashcardSet(flashcardSet);
             if (noFlashcards.getVisibility() == View.VISIBLE) {
                 noFlashcards.setVisibility(View.GONE);

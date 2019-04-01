@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.quiz.models;
 
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuizScore;
 import com.randomappsinc.simpleflashcards.utils.RandUtils;
@@ -50,9 +50,9 @@ public class Quiz {
         }
     }
 
-    public Quiz(FlashcardSet flashcardSet, QuizSettings quizSettings) {
+    public Quiz(FlashcardSetDO flashcardSet, QuizSettings quizSettings) {
         problems = new ArrayList<>();
-        List<Flashcard> flashcards = flashcardSet.getFlashcards();
+        List<FlashcardDO> flashcards = flashcardSet.getFlashcards();
         numOptions = Math.min(flashcards.size(), Problem.NORMAL_NUM_ANSWER_OPTIONS);
 
         int numQuestions = quizSettings.getNumQuestions();
@@ -65,7 +65,7 @@ public class Quiz {
         int currentQuestionPosition = 1;
         Random random = new Random();
         for (int index : indexes) {
-            Flashcard flashcard = flashcards.get(index);
+            FlashcardDO flashcard = flashcards.get(index);
             Problem problem = new Problem(currentQuestionPosition);
             int questionTypeIndex = random.nextInt(questionTypes.size());
             switch (questionTypes.get(questionTypeIndex)) {

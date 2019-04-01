@@ -18,7 +18,7 @@ import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuizScore;
 import com.randomappsinc.simpleflashcards.quiz.dialogs.QuitQuizDialog;
@@ -64,7 +64,7 @@ public class QuizActivity extends StandardActivity implements QuitQuizDialog.Lis
     @BindString(R.string.quiz_score_template) String scoreTemplate;
     @BindInt(R.integer.shorter_anim_length) int animationLength;
 
-    private FlashcardSet flashcardSet;
+    private FlashcardSetDO flashcardSet;
     private Quiz quiz;
     private QuitQuizDialog quitQuizDialog;
     private QuizSettings quizSettings;

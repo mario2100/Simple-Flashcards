@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.theme.ThemedCardView;
 import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
@@ -27,20 +27,20 @@ public class HomepageFlashcardSetsAdapter
         implements ThemeManager.Listener {
 
     public interface Listener {
-        void browseFlashcardSet(FlashcardSet flashcardSet);
+        void browseFlashcardSet(FlashcardSetDO flashcardSet);
 
-        void takeQuiz(FlashcardSet flashcardSet);
+        void takeQuiz(FlashcardSetDO flashcardSet);
 
-        void editFlashcardSet(FlashcardSet flashcardSet);
+        void editFlashcardSet(FlashcardSetDO flashcardSet);
 
-        void deleteFlashcardSet(FlashcardSet flashcardSet);
+        void deleteFlashcardSet(FlashcardSetDO flashcardSet);
 
         void onContentUpdated(int numSets);
     }
 
     @NonNull protected Listener listener;
     private Context context;
-    protected List<FlashcardSet> flashcardSets;
+    protected List<FlashcardSetDO> flashcardSets;
     protected int selectedItemIndex = -1;
     private ThemeManager themeManager = ThemeManager.get();
 
@@ -121,7 +121,7 @@ public class HomepageFlashcardSetsAdapter
         }
 
         void loadFlashcardSet(int position) {
-            FlashcardSet flashcardSet = flashcardSets.get(position);
+            FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
             numFlashcards.setText(String.valueOf(flashcardSet.getFlashcards().size()));
             adjustForDarkMode();

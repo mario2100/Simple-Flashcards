@@ -9,14 +9,14 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.editflashcards.constants.ImportFlashcardsMode;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.SingleFlashcardSetChooserDialog;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFlashcardSetChooserDialog.Listener {
 
     public interface Listener {
-        void onSetChosen(FlashcardSet flashcardSet, @ImportFlashcardsMode int importMode);
+        void onSetChosen(FlashcardSetDO flashcardSet, @ImportFlashcardsMode int importMode);
     }
 
     private Context context;
@@ -80,7 +80,7 @@ public class ImportFlashcardsManager implements ThemeManager.Listener, SingleFla
     }
 
     @Override
-    public void onFlashcardSetChosen(FlashcardSet flashcardSet) {
+    public void onFlashcardSetChosen(FlashcardSetDO flashcardSet) {
         listener.onSetChosen(flashcardSet, importMode);
     }
 

@@ -1,6 +1,6 @@
 package com.randomappsinc.simpleflashcards.folders.models;
 
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class Folder {
 
     private int id;
     private String name;
-    private List<FlashcardSet> flashcardSets;
+    private List<FlashcardSetDO> flashcardSets;
 
     public int getId() {
         return id;
@@ -26,11 +26,11 @@ public class Folder {
         this.name = name;
     }
 
-    public List<FlashcardSet> getFlashcardSets() {
+    public List<FlashcardSetDO> getFlashcardSets() {
         return flashcardSets;
     }
 
-    public void setFlashcardSets(List<FlashcardSet> flashcardSets) {
+    public void setFlashcardSets(List<FlashcardSetDO> flashcardSets) {
         this.flashcardSets = flashcardSets;
     }
 }

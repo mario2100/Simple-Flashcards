@@ -17,7 +17,7 @@ import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.common.managers.TextToSpeechManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.seismic.ShakeDetector;
 
@@ -65,7 +65,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
                 : ContextCompat.getColor(this, R.color.theater_black));
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
-        FlashcardSet flashcardSet = DatabaseManager.get().getFlashcardSet(setId);
+        FlashcardSetDO flashcardSet = DatabaseManager.get().getFlashcardSet(setId);
         setTitle(flashcardSet.getName());
 
         if (flashcardSet.getFlashcards().size() < 2) {

@@ -8,7 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,15 +29,15 @@ public class MultiFlashcardSetSelectionAdapter
         void onNumSelectedSetsUpdated(int numSelectedSets);
     }
 
-    protected List<FlashcardSet> flashcardSets = new ArrayList<>();
-    protected Set<FlashcardSet> selectedSets = new HashSet<>();
+    protected List<FlashcardSetDO> flashcardSets = new ArrayList<>();
+    protected Set<FlashcardSetDO> selectedSets = new HashSet<>();
     protected Listener listener;
 
     public MultiFlashcardSetSelectionAdapter(Listener listener) {
         this.listener = listener;
     }
 
-    public void setFlashcardSets(List<FlashcardSet> newSets) {
+    public void setFlashcardSets(List<FlashcardSetDO> newSets) {
         flashcardSets.clear();
         flashcardSets.addAll(newSets);
         selectedSets.clear();
@@ -45,7 +45,7 @@ public class MultiFlashcardSetSelectionAdapter
         listener.onNumSelectedSetsUpdated(selectedSets.size());
     }
 
-    public List<FlashcardSet> getSelectedSets() {
+    public List<FlashcardSetDO> getSelectedSets() {
         return new ArrayList<>(selectedSets);
     }
 
@@ -80,7 +80,7 @@ public class MultiFlashcardSetSelectionAdapter
         }
 
         void loadFlashcardSet(int position) {
-            FlashcardSet flashcardSet = flashcardSets.get(position);
+            FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
             Context context = numFlashcards.getContext();
             numFlashcards.setText(flashcardSet.getFlashcards().size() == 1
@@ -91,7 +91,7 @@ public class MultiFlashcardSetSelectionAdapter
 
         @OnClick(R.id.set_for_folder_parent)
         public void onSetCellClick() {
-            FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
+            FlashcardSetDO flashcardSet = flashcardSets.get(getAdapterPosition());
             if (selectedSets.contains(flashcardSet)) {
                 selectedSets.remove(flashcardSet);
                 setSelectedToggle.setChecked(false);
@@ -104,7 +104,7 @@ public class MultiFlashcardSetSelectionAdapter
 
         @OnClick(R.id.set_selected_toggle)
         public void onSetSelection() {
-            FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
+            FlashcardSetDO flashcardSet = flashcardSets.get(getAdapterPosition());
             if (selectedSets.contains(flashcardSet)) {
                 selectedSets.remove(flashcardSet);
             } else {

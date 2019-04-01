@@ -3,7 +3,7 @@ package com.randomappsinc.simpleflashcards.common.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 /**
  * Used to show added flashcard sets from data restoration or nearby sharing.
@@ -14,7 +14,7 @@ public class FlashcardSetPreview implements Parcelable {
     private String setName;
     private int numCards;
 
-    public FlashcardSetPreview(FlashcardSet flashcardSet) {
+    public FlashcardSetPreview(FlashcardSetDO flashcardSet) {
         this.setId = flashcardSet.getId();
         this.setName = flashcardSet.getName();
         this.numCards = flashcardSet.getFlashcards().size();

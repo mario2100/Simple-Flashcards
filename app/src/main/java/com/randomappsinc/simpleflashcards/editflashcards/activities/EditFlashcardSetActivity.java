@@ -34,8 +34,8 @@ import com.randomappsinc.simpleflashcards.editflashcards.dialogs.FlashcardImageO
 import com.randomappsinc.simpleflashcards.editflashcards.helpers.EditFlashcardsTutorialHelper;
 import com.randomappsinc.simpleflashcards.editflashcards.managers.ImportFlashcardsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
@@ -205,7 +205,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     }
 
     @Override
-    public void onSetChosen(FlashcardSet flashcardSet, int importMode) {
+    public void onSetChosen(FlashcardSetDO flashcardSet, int importMode) {
         Intent intent = new Intent(this, PickAndImportFlashcardsActivity.class)
                 .putExtra(Constants.RECEIVING_SET_ID, setId)
                 .putExtra(Constants.SENDING_SET_ID, flashcardSet.getId())
@@ -315,37 +315,37 @@ public class EditFlashcardSetActivity extends StandardActivity
             };
 
     @Override
-    public void onLearnedStatusChanged(Flashcard flashcard, boolean learned) {
+    public void onLearnedStatusChanged(FlashcardDO flashcard, boolean learned) {
         databaseManager.setLearnedStatus(flashcard, learned);
     }
 
     @Override
-    public void onEditTerm(Flashcard flashcard) {
+    public void onEditTerm(FlashcardDO flashcard) {
         currentlySelectedFlashcardId = flashcard.getId();
         editFlashcardTermDialog.show(flashcard);
     }
 
     @Override
-    public void onEditDefinition(Flashcard flashcard) {
+    public void onEditDefinition(FlashcardDO flashcard) {
         currentlySelectedFlashcardId = flashcard.getId();
         editFlashcardDefinitionDialog.show(flashcard);
     }
 
     @Override
-    public void onDeleteFlashcard(Flashcard flashcard) {
+    public void onDeleteFlashcard(FlashcardDO flashcard) {
         currentlySelectedFlashcardId = flashcard.getId();
         deleteFlashcardDialog.show();
     }
 
     @Override
-    public void onImageClicked(Flashcard flashcard, boolean forTerm) {
+    public void onImageClicked(FlashcardDO flashcard, boolean forTerm) {
         this.forTerm = forTerm;
         currentlySelectedFlashcardId = flashcard.getId();
         flashcardImageOptionsDialog.show();
     }
 
     @Override
-    public void onAddImageClicked(Flashcard flashcard, boolean forTerm) {
+    public void onAddImageClicked(FlashcardDO flashcard, boolean forTerm) {
         this.forTerm = forTerm;
         currentlySelectedFlashcardId = flashcard.getId();
         verifyReadExternalStoragePermission();
@@ -380,7 +380,7 @@ public class EditFlashcardSetActivity extends StandardActivity
 
     @Override
     public void onFullViewRequested() {
-        Flashcard flashcard = adapter.getCurrentlyChosenFlashcard();
+        FlashcardDO flashcard = adapter.getCurrentlyChosenFlashcard();
         Intent intent = new Intent(
                 EditFlashcardSetActivity.this,
                 PictureFullViewActivity.class)

@@ -8,7 +8,7 @@ import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.folders.adapters.MultiFlashcardSetSelectionAdapter;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 public class FlashcardSetSelectionDialog implements MultiFlashcardSetSelectionAdapter.Listener, ThemeManager.Listener {
 
     public interface Listener {
-        void onFlashcardSetsSelected(List<FlashcardSet> flashcardSets);
+        void onFlashcardSetsSelected(List<FlashcardSetDO> flashcardSets);
     }
 
     private MaterialDialog adderDialog;
@@ -62,7 +62,7 @@ public class FlashcardSetSelectionDialog implements MultiFlashcardSetSelectionAd
         adderDialog.getActionButton(DialogAction.POSITIVE).setEnabled(numSelectedSets > 0);
     }
 
-    public void setFlashcardSetList(List<FlashcardSet> flashcardSets) {
+    public void setFlashcardSetList(List<FlashcardSetDO> flashcardSets) {
         setsAdapter.setFlashcardSets(flashcardSets);
     }
 

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +27,13 @@ public class ReceivedFlashcardsAdapter
     }
 
     protected Listener listener;
-    protected List<FlashcardSet> flashcardSets = new ArrayList<>();
+    protected List<FlashcardSetDO> flashcardSets = new ArrayList<>();
 
     public ReceivedFlashcardsAdapter(Listener listener) {
         this.listener = listener;
     }
 
-    public void addFlashcardSet(FlashcardSet flashcardSet) {
+    public void addFlashcardSet(FlashcardSetDO flashcardSet) {
         flashcardSets.add(flashcardSet);
         notifyItemInserted(getItemCount() - 1);
     }
@@ -71,7 +71,7 @@ public class ReceivedFlashcardsAdapter
         }
 
         void loadFlashcardSet(int position) {
-            FlashcardSet flashcardSet = flashcardSets.get(position);
+            FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
             int numFlashcards = flashcardSet.getFlashcards().size();
             numFlashcardsText.setText(numFlashcards == 1
@@ -81,7 +81,7 @@ public class ReceivedFlashcardsAdapter
 
         @OnClick(R.id.set_preview_parent)
         public void onCellClicked() {
-            FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
+            FlashcardSetDO flashcardSet = flashcardSets.get(getAdapterPosition());
             listener.onCellClicked(new FlashcardSetPreview(flashcardSet));
         }
     }

@@ -8,7 +8,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Picasso;
@@ -30,11 +30,11 @@ public class MultiFlashcardsSelectorAdapter
         void onNumSelectedSetsUpdated(int numSelectedFlashcards);
     }
 
-    protected List<Flashcard> flashcards;
+    protected List<FlashcardDO> flashcards;
     protected Set<Integer> selectedFlashcardIds = new HashSet<>();
     protected Listener listener;
 
-    public MultiFlashcardsSelectorAdapter(Listener listener, List<Flashcard> flashcards) {
+    public MultiFlashcardsSelectorAdapter(Listener listener, List<FlashcardDO> flashcards) {
         this.listener = listener;
         this.flashcards = flashcards;
     }
@@ -45,7 +45,7 @@ public class MultiFlashcardsSelectorAdapter
 
     public void selectAll() {
         selectedFlashcardIds.clear();
-        for (Flashcard flashcard : flashcards) {
+        for (FlashcardDO flashcard : flashcards) {
             selectedFlashcardIds.add(flashcard.getId());
         }
         notifyDataSetChanged();
@@ -86,7 +86,7 @@ public class MultiFlashcardsSelectorAdapter
         }
 
         void loadFlashcard(int position) {
-            Flashcard flashcard = flashcards.get(position);
+            FlashcardDO flashcard = flashcards.get(position);
 
             String term = flashcard.getTerm();
             if (TextUtils.isEmpty(term)) {

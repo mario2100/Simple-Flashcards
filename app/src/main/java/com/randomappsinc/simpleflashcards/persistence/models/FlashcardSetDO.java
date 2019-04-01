@@ -6,7 +6,7 @@ import io.realm.RealmResults;
 import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.Required;
 
-public class FlashcardSet extends RealmObject {
+public class FlashcardSetDO extends RealmObject {
 
     private int id;
     private long quizletSetId;
@@ -14,7 +14,7 @@ public class FlashcardSet extends RealmObject {
     @Required
     private String name;
 
-    private RealmList<Flashcard> flashcards;
+    private RealmList<FlashcardDO> flashcards;
 
     @LinkingObjects("flashcardSets")
     private final RealmResults<FolderDO> folders = null;
@@ -43,11 +43,11 @@ public class FlashcardSet extends RealmObject {
         this.name = name;
     }
 
-    public RealmList<Flashcard> getFlashcards() {
+    public RealmList<FlashcardDO> getFlashcards() {
         return flashcards;
     }
 
-    public void setFlashcards(RealmList<Flashcard> flashcards) {
+    public void setFlashcards(RealmList<FlashcardDO> flashcards) {
         this.flashcards = flashcards;
     }
 

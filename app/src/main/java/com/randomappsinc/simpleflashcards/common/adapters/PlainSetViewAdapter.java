@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -25,11 +25,11 @@ import butterknife.OnClick;
 public class PlainSetViewAdapter extends RecyclerView.Adapter<PlainSetViewAdapter.FlashcardViewHolder> {
 
     public interface Listener {
-        void onImageClicked(Flashcard flashcard);
+        void onImageClicked(FlashcardDO flashcard);
     }
 
     protected Listener listener;
-    protected List<Flashcard> flashcards;
+    protected List<FlashcardDO> flashcards;
 
     public PlainSetViewAdapter(Listener listener, FlashcardSetPreview setPreview) {
         this.listener = listener;
@@ -70,7 +70,7 @@ public class PlainSetViewAdapter extends RecyclerView.Adapter<PlainSetViewAdapte
         }
 
         void loadFlashcard(int position) {
-            Flashcard flashcard = flashcards.get(position);
+            FlashcardDO flashcard = flashcards.get(position);
             positionInfo.setText(String.format(flashcardXOfY, position + 1, getItemCount()));
             termText.setText(flashcard.getTerm());
             String imageUrl = flashcard.getTermImageUrl();
@@ -85,7 +85,7 @@ public class PlainSetViewAdapter extends RecyclerView.Adapter<PlainSetViewAdapte
 
         @OnClick(R.id.term_image)
         public void openImageInFullView() {
-            Flashcard flashcard = flashcards.get(getAdapterPosition());
+            FlashcardDO flashcard = flashcards.get(getAdapterPosition());
             if (!TextUtils.isEmpty(flashcard.getTermImageUrl())) {
                 listener.onImageClicked(flashcard);
             }

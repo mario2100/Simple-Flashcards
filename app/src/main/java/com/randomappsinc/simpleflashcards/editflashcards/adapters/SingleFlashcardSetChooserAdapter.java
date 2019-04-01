@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +22,17 @@ public class SingleFlashcardSetChooserAdapter
         extends RecyclerView.Adapter<SingleFlashcardSetChooserAdapter.FlashcardSetViewHolder>{
 
     public interface Listener {
-        void onFlashcardSetSelected(FlashcardSet flashcardSet);
+        void onFlashcardSetSelected(FlashcardSetDO flashcardSet);
     }
 
-    protected List<FlashcardSet> flashcardSets = new ArrayList<>();
+    protected List<FlashcardSetDO> flashcardSets = new ArrayList<>();
     protected Listener listener;
 
     public SingleFlashcardSetChooserAdapter(Listener listener) {
         this.listener = listener;
     }
 
-    public void setFlashcardSets(List<FlashcardSet> newSets) {
+    public void setFlashcardSets(List<FlashcardSetDO> newSets) {
         flashcardSets.clear();
         flashcardSets.addAll(newSets);
         notifyDataSetChanged();
@@ -70,7 +70,7 @@ public class SingleFlashcardSetChooserAdapter
         }
 
         void loadFlashcardSet(int position) {
-            FlashcardSet flashcardSet = flashcardSets.get(position);
+            FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
             Context context = numFlashcards.getContext();
             numFlashcards.setText(flashcardSet.getFlashcards().size() == 1
@@ -80,7 +80,7 @@ public class SingleFlashcardSetChooserAdapter
 
         @OnClick(R.id.set_preview_parent)
         public void onSetCellClick() {
-            FlashcardSet flashcardSet = flashcardSets.get(getAdapterPosition());
+            FlashcardSetDO flashcardSet = flashcardSets.get(getAdapterPosition());
             listener.onFlashcardSetSelected(flashcardSet);
         }
     }

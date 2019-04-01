@@ -3,7 +3,7 @@ package com.randomappsinc.simpleflashcards.quiz.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 
@@ -33,8 +33,8 @@ public class Problem implements Parcelable {
     }
 
     public void setAsMultipleChoiceQuestion(
-            Flashcard flashcard,
-            List<Flashcard> flashcards,
+            FlashcardDO flashcard,
+            List<FlashcardDO> flashcards,
             boolean useTermAsQuestion) {
         questionType = QuestionType.MULTIPLE_CHOICE;
         question = useTermAsQuestion ? flashcard.getTerm() : flashcard.getDefinition();
@@ -43,7 +43,7 @@ public class Problem implements Parcelable {
 
         // Remove duplicates from answer pool since flashcards may have identical definitions/terms
         Set<String> optionsSet = new HashSet<>();
-        for (Flashcard currentCard : flashcards) {
+        for (FlashcardDO currentCard : flashcards) {
             optionsSet.add(useTermAsQuestion ? currentCard.getDefinition() : currentCard.getTerm());
         }
         // Remove the answer from the options set, since we're going to inject it by itself
@@ -69,7 +69,7 @@ public class Problem implements Parcelable {
         this.options = options;
     }
 
-    public void setAsFreeFormInputQuestion(Flashcard flashcard, boolean useTermAsQuestion) {
+    public void setAsFreeFormInputQuestion(FlashcardDO flashcard, boolean useTermAsQuestion) {
         questionType = QuestionType.FREE_FORM_INPUT;
         question = useTermAsQuestion ? flashcard.getTerm() : flashcard.getDefinition();
         questionImageUrl = useTermAsQuestion ? flashcard.getTermImageUrl() : flashcard.getDefinitionImageUrl();

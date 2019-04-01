@@ -29,7 +29,7 @@ import com.randomappsinc.simpleflashcards.home.dialogs.CreateFlashcardSetDialog;
 import com.randomappsinc.simpleflashcards.home.dialogs.DeleteFlashcardSetDialog;
 import com.randomappsinc.simpleflashcards.nearbysharing.activities.NearbySharingActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.quiz.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
@@ -184,7 +184,7 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
     }
 
     @Override
-    public void browseFlashcardSet(FlashcardSet flashcardSet) {
+    public void browseFlashcardSet(FlashcardSetDO flashcardSet) {
         if (flashcardSet.getFlashcards().isEmpty()) {
             UIUtils.showSnackbar(
                     parent,
@@ -199,7 +199,7 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
     }
 
     @Override
-    public void takeQuiz(FlashcardSet flashcardSet) {
+    public void takeQuiz(FlashcardSetDO flashcardSet) {
         if (flashcardSet.getFlashcards().size() < 2) {
             UIUtils.showSnackbar(
                     parent,
@@ -214,7 +214,7 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
     }
 
     @Override
-    public void editFlashcardSet(FlashcardSet flashcardSet) {
+    public void editFlashcardSet(FlashcardSetDO flashcardSet) {
         startActivity(new Intent(
                 getActivity(), EditFlashcardSetActivity.class)
                 .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
@@ -222,7 +222,7 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
     }
 
     @Override
-    public void deleteFlashcardSet(FlashcardSet flashcardSet) {
+    public void deleteFlashcardSet(FlashcardSetDO flashcardSet) {
         deleteFlashcardSetDialog.show(flashcardSet);
     }
 

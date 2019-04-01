@@ -21,7 +21,7 @@ import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettin
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle;
 import com.randomappsinc.simpleflashcards.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
@@ -58,7 +58,7 @@ public class BrowseFlashcardFragment extends Fragment {
     @BindInt(R.integer.default_anim_length) int flipAnimLength;
     @BindString(R.string.view_all) String viewAll;
 
-    protected Flashcard flashcard;
+    protected FlashcardDO flashcard;
     protected boolean isShowingTerm;
     private DatabaseManager databaseManager = DatabaseManager.get();
     private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();

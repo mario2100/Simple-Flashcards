@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,29 +21,29 @@ import butterknife.OnClick;
 public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.FlashcardSetViewHolder> {
 
     public interface Listener {
-        void browseFlashcardSet(FlashcardSet flashcardSet);
+        void browseFlashcardSet(FlashcardSetDO flashcardSet);
 
-        void takeQuiz(FlashcardSet flashcardSet);
+        void takeQuiz(FlashcardSetDO flashcardSet);
 
-        void editFlashcardSet(FlashcardSet flashcardSet);
+        void editFlashcardSet(FlashcardSetDO flashcardSet);
 
-        void removeFlashcardSet(FlashcardSet flashcardSet);
+        void removeFlashcardSet(FlashcardSetDO flashcardSet);
     }
 
     @NonNull protected Listener listener;
-    protected List<FlashcardSet> flashcardSets = new ArrayList<>();
+    protected List<FlashcardSetDO> flashcardSets = new ArrayList<>();
 
     public FolderSetsAdapter(@NonNull Listener listener) {
         this.listener = listener;
     }
 
-    public void setFlashcardSets(List<FlashcardSet> newSets) {
+    public void setFlashcardSets(List<FlashcardSetDO> newSets) {
         flashcardSets.clear();
         flashcardSets.addAll(newSets);
         notifyDataSetChanged();
     }
 
-    public void refreshContent(List<FlashcardSet> freshSets) {
+    public void refreshContent(List<FlashcardSetDO> freshSets) {
         flashcardSets.clear();
         flashcardSets.addAll(freshSets);
         notifyDataSetChanged();
@@ -81,7 +81,7 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
         }
 
         void loadFlashcardSet(int position) {
-            FlashcardSet flashcardSet = flashcardSets.get(position);
+            FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
             numFlashcards.setText(String.valueOf(flashcardSet.getFlashcards().size()));
         }
@@ -104,7 +104,7 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
         @OnClick(R.id.delete_button)
         public void deleteFlashcardSet() {
             int indexToRemove = getAdapterPosition();
-            FlashcardSet removedSet = flashcardSets.get(indexToRemove);
+            FlashcardSetDO removedSet = flashcardSets.get(indexToRemove);
             flashcardSets.remove(indexToRemove);
             notifyItemRemoved(indexToRemove);
             listener.removeFlashcardSet(removedSet);

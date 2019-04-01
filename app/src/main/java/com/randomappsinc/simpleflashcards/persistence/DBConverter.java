@@ -1,7 +1,7 @@
 package com.randomappsinc.simpleflashcards.persistence;
 
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.persistence.models.FolderDO;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class DBConverter {
         folder.setId(folderDO.getId());
         folder.setName(folderDO.getName());
 
-        List<FlashcardSet> flashcardSets = new ArrayList<>(folderDO.getFlashcardSets());
+        List<FlashcardSetDO> flashcardSets = new ArrayList<>(folderDO.getFlashcardSets());
         folder.setFlashcardSets(flashcardSets);
         return folder;
     }

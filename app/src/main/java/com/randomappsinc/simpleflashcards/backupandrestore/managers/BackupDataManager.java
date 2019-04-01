@@ -10,7 +10,7 @@ import android.os.ParcelFileDescriptor;
 import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.JSONUtils;
 
 import java.io.File;
@@ -110,7 +110,7 @@ public class BackupDataManager {
                     File file = new File(backupFolderPath);
                     try {
                         FileOutputStream stream = new FileOutputStream(file);
-                        List<FlashcardSet> flashcardSets = databaseManager.getAllFlashcardSetsOnAnyThread();
+                        List<FlashcardSetDO> flashcardSets = databaseManager.getAllFlashcardSetsOnAnyThread();
                         stream.write(JSONUtils.serializeFlashcardSets(flashcardSets).getBytes());
                         stream.close();
                         preferencesManager.updateLastBackupTime();
@@ -142,7 +142,7 @@ public class BackupDataManager {
                         }
                         FileOutputStream fileOutputStream =
                                 new FileOutputStream(fileDescriptor.getFileDescriptor());
-                        List<FlashcardSet> flashcardSets = databaseManager.getAllFlashcardSetsOnAnyThread();
+                        List<FlashcardSetDO> flashcardSets = databaseManager.getAllFlashcardSetsOnAnyThread();
                         fileOutputStream.write(JSONUtils.serializeFlashcardSets(flashcardSets).getBytes());
                         fileOutputStream.close();
                         fileDescriptor.close();

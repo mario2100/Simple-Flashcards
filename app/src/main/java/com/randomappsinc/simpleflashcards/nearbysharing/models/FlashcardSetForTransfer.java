@@ -1,18 +1,18 @@
 package com.randomappsinc.simpleflashcards.nearbysharing.models;
 
 import com.randomappsinc.simpleflashcards.nearbysharing.constants.FlashcardSetTransferState;
-import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSet;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
 public class FlashcardSetForTransfer {
 
-    private FlashcardSet flashcardSet;
+    private FlashcardSetDO flashcardSet;
     @FlashcardSetTransferState private int transferState = FlashcardSetTransferState.NOT_YET_SENT;
 
-    public FlashcardSetForTransfer(FlashcardSet flashcardSet) {
+    public FlashcardSetForTransfer(FlashcardSetDO flashcardSet) {
         this.flashcardSet = flashcardSet;
     }
 
-    public FlashcardSet getFlashcardSet() {
+    public FlashcardSetDO getFlashcardSet() {
         return flashcardSet;
     }
 

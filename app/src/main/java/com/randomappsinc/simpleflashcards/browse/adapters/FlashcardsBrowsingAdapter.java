@@ -2,7 +2,7 @@ package com.randomappsinc.simpleflashcards.browse.adapters;
 
 import com.randomappsinc.simpleflashcards.browse.fragments.BrowseFlashcardFragment;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
-import com.randomappsinc.simpleflashcards.persistence.models.Flashcard;
+import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,8 +21,8 @@ public class FlashcardsBrowsingAdapter extends FragmentStatePagerAdapter {
 
     public FlashcardsBrowsingAdapter(FragmentManager fragmentManager, int setId) {
         super(fragmentManager);
-        List<Flashcard> flashcards = DatabaseManager.get().getAllFlashcards(setId);
-        for (Flashcard flashcard : flashcards) {
+        List<FlashcardDO> flashcards = DatabaseManager.get().getAllFlashcards(setId);
+        for (FlashcardDO flashcard : flashcards) {
             originalFlashcardIds.add(flashcard.getId());
             shuffledFlashcardsIds.add(flashcard.getId());
         }

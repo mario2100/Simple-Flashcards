@@ -7,7 +7,7 @@ public class FolderDO extends RealmObject {
 
     private int id;
     private String name;
-    private RealmList<FlashcardSet> flashcardSets;
+    private RealmList<FlashcardSetDO> flashcardSets;
 
     public int getId() {
         return id;
@@ -25,11 +25,11 @@ public class FolderDO extends RealmObject {
         this.name = name;
     }
 
-    public RealmList<FlashcardSet> getFlashcardSets() {
+    public RealmList<FlashcardSetDO> getFlashcardSets() {
         return flashcardSets;
     }
 
-    public void setFlashcardSets(RealmList<FlashcardSet> flashcardSets) {
+    public void setFlashcardSets(RealmList<FlashcardSetDO> flashcardSets) {
         this.flashcardSets = flashcardSets;
     }
 }
