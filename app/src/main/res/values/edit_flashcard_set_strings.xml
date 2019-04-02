@@ -90,4 +90,22 @@
         from another flashcard set in your library.
         Simply click the {ion-android-upload} button at the top right of the page to do this!
     </string>
+
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="french">French</string>
+    <string name="japanese">Japanese</string>
+    <string name="portuguese">Portuguese</string>
+    <string-array name="language_options">
+        <item>@string/english</item>
+        <item>@string/spanish</item>
+        <item>@string/french</item>
+        <item>@string/japanese</item>
+        <item>@string/portuguese</item>
+    </string-array>
+
+    <string name="terms">Terms</string>
+    <string name="definitions">Definitions</string>
+
+    <string name="set_languages">Set languages</string>
 </resources>

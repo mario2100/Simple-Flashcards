@@ -31,6 +31,7 @@ import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardDe
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardSetNameDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardTermDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.FlashcardImageOptionsDialog;
+import com.randomappsinc.simpleflashcards.editflashcards.dialogs.SetLanguagesDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.helpers.EditFlashcardsTutorialHelper;
 import com.randomappsinc.simpleflashcards.editflashcards.managers.ImportFlashcardsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
@@ -82,6 +83,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     protected EditFlashcardDefinitionDialog editFlashcardDefinitionDialog;
     protected FlashcardImageOptionsDialog flashcardImageOptionsDialog;
     private EditFlashcardSetNameDialog editFlashcardSetNameDialog;
+    private SetLanguagesDialog setLanguagesDialog;
     protected int currentlySelectedFlashcardId;
     private ImportFlashcardsManager importFlashcardsManager;
 
@@ -111,6 +113,7 @@ public class EditFlashcardSetActivity extends StandardActivity
         flashcardImageOptionsDialog = new FlashcardImageOptionsDialog(this, this);
         editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
                 this, currentSetName, editSetNameListener);
+        setLanguagesDialog = new SetLanguagesDialog(this);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
         importFlashcardsManager = new ImportFlashcardsManager(this, this, setId);
@@ -431,11 +434,13 @@ public class EditFlashcardSetActivity extends StandardActivity
         editFlashcardDefinitionDialog.cleanUp();
         flashcardImageOptionsDialog.cleanUp();
         editFlashcardSetNameDialog.cleanUp();
+        setLanguagesDialog.cleanUp();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_set, menu);
+        UIUtils.loadMenuIcon(menu, R.id.set_languages, IoniconsIcons.ion_android_globe, this);
         UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
         UIUtils.loadMenuIcon(menu, R.id.rename_flashcard_set, IoniconsIcons.ion_edit, this);
         return true;
@@ -444,6 +449,9 @@ public class EditFlashcardSetActivity extends StandardActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.set_languages:
+                setLanguagesDialog.show();
+                return true;
             case R.id.import_flashcards:
                 importFlashcardsManager.startImport();
                 return true;
