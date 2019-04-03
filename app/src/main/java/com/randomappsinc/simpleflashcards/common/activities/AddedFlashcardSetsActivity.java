@@ -6,8 +6,8 @@ import android.os.Bundle;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.adapters.AddedFlashcardSetsAdapter;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 

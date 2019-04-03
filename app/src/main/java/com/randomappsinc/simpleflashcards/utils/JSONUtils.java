@@ -2,7 +2,7 @@ package com.randomappsinc.simpleflashcards.utils;
 
 import android.text.TextUtils;
 
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 

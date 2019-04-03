@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;

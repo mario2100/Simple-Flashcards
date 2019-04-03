@@ -20,7 +20,7 @@ import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
 import com.randomappsinc.simpleflashcards.home.activities.MainActivity;

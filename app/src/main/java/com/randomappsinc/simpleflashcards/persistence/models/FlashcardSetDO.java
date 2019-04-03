@@ -10,6 +10,8 @@ public class FlashcardSetDO extends RealmObject {
 
     private int id;
     private long quizletSetId;
+    private int termsLanguage;
+    private int definitionsLanguage;
 
     @Required
     private String name;
@@ -53,5 +55,21 @@ public class FlashcardSetDO extends RealmObject {
 
     public RealmResults<FolderDO> getFolders() {
         return folders;
+    }
+
+    public int getTermsLanguage() {
+        return termsLanguage;
+    }
+
+    public void setTermsLanguage(int termsLanguage) {
+        this.termsLanguage = termsLanguage;
+    }
+
+    public int getDefinitionsLanguage() {
+        return definitionsLanguage;
+    }
+
+    public void setDefinitionsLanguage(int definitionsLanguage) {
+        this.definitionsLanguage = definitionsLanguage;
     }
 }

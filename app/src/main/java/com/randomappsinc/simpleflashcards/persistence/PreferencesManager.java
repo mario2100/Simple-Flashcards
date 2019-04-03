@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 
 import androidx.annotation.Nullable;
 

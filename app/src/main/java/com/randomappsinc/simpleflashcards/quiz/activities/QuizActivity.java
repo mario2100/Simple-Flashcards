@@ -14,9 +14,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;

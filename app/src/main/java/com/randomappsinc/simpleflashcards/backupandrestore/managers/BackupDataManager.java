@@ -7,7 +7,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;

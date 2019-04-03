@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PlainSetViewActivity;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.nearbysharing.adapters.ReceivedFlashcardsAdapter;

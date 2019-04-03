@@ -21,9 +21,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Language;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.EditFlashcardsAdapter;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.CreateFlashcardDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.DeleteFlashcardDialog;
@@ -54,7 +55,7 @@ import butterknife.OnTextChanged;
 
 public class EditFlashcardSetActivity extends StandardActivity
         implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener,
-        ImportFlashcardsManager.Listener {
+        ImportFlashcardsManager.Listener, SetLanguagesDialog.Listener {
 
     // Intent codes
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
@@ -100,8 +101,8 @@ public class EditFlashcardSetActivity extends StandardActivity
         ButterKnife.bind(this);
 
         setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
-        String currentSetName = databaseManager.getSetName(setId);
-        setTitle(currentSetName);
+        FlashcardSetDO flashcardSet = databaseManager.getFlashcardSet(setId);
+        setTitle(flashcardSet.getName());
         addFlashcard.setImageDrawable(
                 new IconDrawable(this, IoniconsIcons.ion_android_add)
                         .colorRes(R.color.white));
@@ -112,8 +113,8 @@ public class EditFlashcardSetActivity extends StandardActivity
                 this, flashcardDefinitionEditListener);
         flashcardImageOptionsDialog = new FlashcardImageOptionsDialog(this, this);
         editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
-                this, currentSetName, editSetNameListener);
-        setLanguagesDialog = new SetLanguagesDialog(this);
+                this, flashcardSet.getName(), editSetNameListener);
+        setLanguagesDialog = new SetLanguagesDialog(this, flashcardSet, this);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
         importFlashcardsManager = new ImportFlashcardsManager(this, this, setId);
@@ -136,6 +137,11 @@ public class EditFlashcardSetActivity extends StandardActivity
     // Stop the EditText cursor from blinking
     protected void takeAwayFocusFromSearch() {
         focusSink.requestFocus();
+    }
+
+    @Override
+    public void onLanguagesSelected(@Language int termsLanguage, @Language int definitionsLanguage) {
+        databaseManager.updateSetLanguages(setId, termsLanguage, definitionsLanguage);
     }
 
     @OnTextChanged(value = R.id.search_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)

@@ -1,5 +1,6 @@
 package com.randomappsinc.simpleflashcards.persistence;
 
+import com.randomappsinc.simpleflashcards.common.constants.Language;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
@@ -31,7 +32,7 @@ public class DatabaseManager {
         void onDatabaseUpdated();
     }
 
-    private static final int CURRENT_REALM_VERSION = 8;
+    private static final int CURRENT_REALM_VERSION = 9;
 
     private static DatabaseManager instance;
 
@@ -187,6 +188,18 @@ public class DatabaseManager {
             if (oldVersion == 7) {
                 schema.rename("FlashcardSet", "FlashcardSetDO");
                 schema.rename("Flashcard", "FlashcardDO");
+                oldVersion++;
+            }
+
+            // Add terms and definitions language setting support
+            if (oldVersion == 8) {
+                RealmObjectSchema setSchema = schema.get("FlashcardSetDO");
+                if (setSchema != null) {
+                    setSchema.addField("termsLanguage", int.class);
+                    setSchema.addField("definitionsLanguage", int.class);
+                } else {
+                    throw new IllegalStateException("FlashcardSetDO schema doesn't exist.");
+                }
             }
         }
     };
@@ -385,19 +398,6 @@ public class DatabaseManager {
             copies.add(flashcardCopy);
         }
         return copies;
-    }
-
-    public String getSetName(int setId) {
-        return realm.where(FlashcardSetDO.class)
-                .equalTo("id", setId)
-                .findFirst()
-                .getName();
-    }
-
-    public FlashcardDO getFlashcard(int cardId) {
-        return realm.where(FlashcardDO.class)
-                .equalTo("id", cardId)
-                .findFirst();
     }
 
     public FlashcardSetDO getFlashcardSet(int setId) {
@@ -750,6 +750,20 @@ public class DatabaseManager {
                     .equalTo("id", flashcardId)
                     .findFirst();
             flashcardDO.setLearned(learned);
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
+
+    public void updateSetLanguages(int setId, @Language int termsLanguage, @Language int definitionsLanguage) {
+        try {
+            realm.beginTransaction();
+            FlashcardSetDO flashcardSetDO = realm.where(FlashcardSetDO.class)
+                    .equalTo("id", setId)
+                    .findFirst();
+            flashcardSetDO.setTermsLanguage(termsLanguage);
+            flashcardSetDO.setDefinitionsLanguage(definitionsLanguage);
             realm.commitTransaction();
         } catch (Exception e) {
             realm.cancelTransaction();

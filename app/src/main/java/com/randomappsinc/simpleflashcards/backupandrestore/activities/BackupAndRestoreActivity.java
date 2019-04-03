@@ -8,8 +8,8 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.adapters.BackupAndRestoreTabsAdapter;
 import com.randomappsinc.simpleflashcards.backupandrestore.managers.BackupDataManager;
 import com.randomappsinc.simpleflashcards.backupandrestore.managers.RestoreDataManager;
-import com.randomappsinc.simpleflashcards.common.Constants;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 
 import java.io.File;

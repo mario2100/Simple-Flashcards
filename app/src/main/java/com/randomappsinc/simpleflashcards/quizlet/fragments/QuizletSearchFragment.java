@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.quizlet.activities.QuizletSearchFilterActivity;
 import com.randomappsinc.simpleflashcards.quizlet.activities.QuizletSetViewActivity;
 import com.randomappsinc.simpleflashcards.quizlet.adapters.QuizletSearchResultsAdapter;

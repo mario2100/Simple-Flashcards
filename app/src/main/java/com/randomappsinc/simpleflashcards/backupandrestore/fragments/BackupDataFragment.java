@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.managers.BackupDataManager;
-import com.randomappsinc.simpleflashcards.common.Constants;
+import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.TimeUtils;
