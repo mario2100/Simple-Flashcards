@@ -22,7 +22,7 @@ public class ThemedSpinnerTextView extends AppCompatTextView implements ThemeMan
         normalModeTextColor = ContextCompat.getColor(context, R.color.dark_gray);
         darkModeTextColor = ContextCompat.getColor(context, R.color.white);
         normalModeBackgroundColor = ContextCompat.getColor(context, R.color.white);
-        darkModeBackgroundColor = ContextCompat.getColor(context, R.color.dark_mode_black);
+        darkModeBackgroundColor = ContextCompat.getColor(context, R.color.dialog_dark_background);
         setColors();
     }
 

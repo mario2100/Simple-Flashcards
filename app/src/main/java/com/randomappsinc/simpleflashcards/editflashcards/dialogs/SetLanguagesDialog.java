@@ -30,7 +30,7 @@ public class SetLanguagesDialog implements ThemeManager.Listener {
     }
 
     public void createDialog(boolean darkModeEnabled) {
-        int darkModeBackground = ContextCompat.getColor(context, R.color.dark_mode_black);
+        int darkModeBackground = ContextCompat.getColor(context, R.color.dialog_dark_background);
         int white = ContextCompat.getColor(context, R.color.white);
         dialog = new MaterialDialog.Builder(context)
                 .theme(darkModeEnabled ? Theme.DARK : Theme.LIGHT)
