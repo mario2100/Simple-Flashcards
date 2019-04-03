@@ -92,7 +92,7 @@ public class DatabaseManager {
 
             // Remove flashcard positioning
             if (oldVersion == 0) {
-                RealmObjectSchema setSchema = schema.get("FlashcardSetDO");
+                RealmObjectSchema setSchema = schema.get("FlashcardSet");
                 if (setSchema != null) {
                     setSchema.removePrimaryKey();
                     setSchema.removeField("position");
@@ -102,17 +102,17 @@ public class DatabaseManager {
 
             // Add IDs to objects
             if (oldVersion == 1) {
-                RealmObjectSchema setSchema = schema.get("FlashcardSetDO");
+                RealmObjectSchema setSchema = schema.get("FlashcardSet");
                 if (setSchema != null) {
                     setSchema.addField("id", int.class);
                 } else {
-                    throw new IllegalStateException("FlashcardSetDO schema doesn't exist.");
+                    throw new IllegalStateException("FlashcardSet schema doesn't exist.");
                 }
-                RealmObjectSchema cardSchema = schema.get("FlashcardDO");
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
                 if (cardSchema != null) {
                     cardSchema.addField("id", int.class);
                 } else {
-                    throw new IllegalStateException("FlashcardDO schema doesn't exist.");
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }
                 idMigrationNeeded = true;
                 oldVersion++;
@@ -120,29 +120,29 @@ public class DatabaseManager {
 
             // Rename "question" and "answer" to "term" and "definition"
             if (oldVersion == 2) {
-                RealmObjectSchema cardSchema = schema.get("FlashcardDO");
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
                 if (cardSchema != null) {
                     cardSchema.renameField("question", "term");
                     cardSchema.renameField("answer", "definition");
                 } else {
-                    throw new IllegalStateException("FlashcardDO schema doesn't exist.");
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }
                 oldVersion++;
             }
 
             // Rename "question" and "answer" to "term" and "definition"
             if (oldVersion == 3) {
-                RealmObjectSchema setSchema = schema.get("FlashcardSetDO");
+                RealmObjectSchema setSchema = schema.get("FlashcardSet");
                 if (setSchema != null) {
                     setSchema.addField("quizletSetId", long.class);
                 } else {
-                    throw new IllegalStateException("FlashcardSetDO schema doesn't exist.");
+                    throw new IllegalStateException("FlashcardSet schema doesn't exist.");
                 }
-                RealmObjectSchema cardSchema = schema.get("FlashcardDO");
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
                 if (cardSchema != null) {
                     cardSchema.addField("termImageUrl", String.class);
                 } else {
-                    throw new IllegalStateException("FlashcardDO schema doesn't exist.");
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }
                 oldVersion++;
             }
@@ -152,33 +152,33 @@ public class DatabaseManager {
                 RealmObjectSchema folderSchema = schema.create("FolderDO")
                         .addField("id", int.class)
                         .addField("name", String.class);
-                RealmObjectSchema setSchema = schema.get("FlashcardSetDO");
+                RealmObjectSchema setSchema = schema.get("FlashcardSet");
                 if (setSchema != null) {
                     folderSchema.addRealmListField("flashcardSets", setSchema);
                 } else {
-                    throw new IllegalStateException("FlashcardSetDO doesn't exist.");
+                    throw new IllegalStateException("FlashcardSet doesn't exist.");
                 }
                 oldVersion++;
             }
 
             // Add image support for definition
             if (oldVersion == 5) {
-                RealmObjectSchema cardSchema = schema.get("FlashcardDO");
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
                 if (cardSchema != null) {
                     cardSchema.addField("definitionImageUrl", String.class);
                 } else {
-                    throw new IllegalStateException("FlashcardDO schema doesn't exist.");
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }
                 oldVersion++;
             }
 
             // Add ability to mark flashcards as learned
             if (oldVersion == 6) {
-                RealmObjectSchema cardSchema = schema.get("FlashcardDO");
+                RealmObjectSchema cardSchema = schema.get("Flashcard");
                 if (cardSchema != null) {
                     cardSchema.addField("learned", boolean.class);
                 } else {
-                    throw new IllegalStateException("FlashcardDO schema doesn't exist.");
+                    throw new IllegalStateException("Flashcard schema doesn't exist.");
                 }
                 oldVersion++;
             }
