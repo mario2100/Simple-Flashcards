@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="RtlHardcoded"
+    >
+
+    <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <Spinner
+            android:id="@+id/term_language_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <com.randomappsinc.simpleflashcards.theme.ThemedDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="-10dp"
+            android:layout_below="@id/term_language_options"
+            android:layout_alignLeft="@id/term_language_options"
+            android:layout_alignRight="@id/term_language_options"
+            />
+    </RelativeLayout>
+
+    <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/definitions"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <Spinner
+            android:id="@+id/definition_language_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <com.randomappsinc.simpleflashcards.theme.ThemedDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="-10dp"
+            android:layout_below="@id/definition_language_options"
+            android:layout_alignLeft="@id/definition_language_options"
+            android:layout_alignRight="@id/definition_language_options"
+            />
+    </RelativeLayout>
+</LinearLayout>

@@ -4,6 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/set_languages"
+        android:title="@string/set_languages"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/import_flashcards"
         android:title="@string/import_flashcards"
         app:showAsAction="ifRoom"/>
