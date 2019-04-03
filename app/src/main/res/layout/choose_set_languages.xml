@@ -8,7 +8,7 @@
     tools:ignore="RtlHardcoded"
     >
 
-    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+    <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/terms"
@@ -38,7 +38,7 @@
             />
     </RelativeLayout>
 
-    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+    <com.randomappsinc.simpleflashcards.theme.ThemedTitleTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
