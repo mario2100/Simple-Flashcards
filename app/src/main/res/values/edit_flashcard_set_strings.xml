@@ -108,5 +108,6 @@
     <string name="definitions">Definitions</string>
 
     <string name="set_languages">Set languages</string>
+    <string name="set_languages_title">Set Languages</string>
     <string name="language_settings_applied">Language settings applied.</string>
 </resources>

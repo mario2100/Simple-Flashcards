@@ -52,7 +52,7 @@ public class SetLanguagesDialog implements ThemeManager.Listener {
         dialog = new MaterialDialog.Builder(context)
                 .theme(darkModeEnabled ? Theme.DARK : Theme.LIGHT)
                 .backgroundColor(darkModeEnabled ? darkModeBackground : white)
-                .title(R.string.more_options_title)
+                .title(R.string.set_languages_title)
                 .customView(R.layout.choose_set_languages, true)
                 .positiveText(R.string.apply)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {

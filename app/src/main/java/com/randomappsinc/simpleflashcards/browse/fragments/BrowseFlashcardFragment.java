@@ -228,7 +228,7 @@ public class BrowseFlashcardFragment extends Fragment {
     private void speak(String text) {
         BrowseFlashcardsActivity activity = (BrowseFlashcardsActivity) getActivity();
         if (activity != null) {
-            activity.speak(text);
+            activity.speak(text, isShowingTerm);
         }
     }
 

@@ -42,6 +42,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
     @BindView(R.id.flashcards_pager) ViewPager flashcardsPager;
     @BindView(R.id.flashcards_slider) SeekBar flashcardsSlider;
 
+    private FlashcardSetDO flashcardSet;
     private FlashcardsBrowsingAdapter flashcardsBrowsingAdapter;
     private TextToSpeechManager textToSpeechManager;
     private BrowseSettingsDialogsManager browseSettingsDialogsManager;
@@ -66,7 +67,7 @@ public class BrowseFlashcardsActivity extends StandardActivity
                 : ContextCompat.getColor(this, R.color.theater_black));
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
-        FlashcardSetDO flashcardSet = DatabaseManager.get().getFlashcardSet(setId);
+        flashcardSet = DatabaseManager.get().getFlashcardSet(setId);
         setTitle(flashcardSet.getName());
 
         flashcardsSlider.setOnSeekBarChangeListener(flashcardsSliderListener);
@@ -231,8 +232,8 @@ public class BrowseFlashcardsActivity extends StandardActivity
         flashcardsSlider.setProgress(position);
     }
 
-    public void speak(String text) {
-        textToSpeechManager.speak(text);
+    public void speak(String text, boolean isTerm) {
+        textToSpeechManager.speak(text, isTerm ? flashcardSet.getTermsLanguage() : flashcardSet.getDefinitionsLanguage());
     }
 
     public void stopSpeaking() {
