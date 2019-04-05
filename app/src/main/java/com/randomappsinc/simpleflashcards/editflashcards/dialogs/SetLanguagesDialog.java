@@ -100,6 +100,22 @@ public class SetLanguagesDialog implements ThemeManager.Listener {
                 return 3;
             case Language.PORTUGUESE:
                 return 4;
+            case Language.CHINESE:
+                return 5;
+            case Language.GERMAN:
+                return 6;
+            case Language.ITALIAN:
+                return 7;
+            case Language.KOREAN:
+                return 8;
+            case Language.HINDI:
+                return 9;
+            case Language.ARABIC:
+                return 10;
+            case Language.BENGALI:
+                return 11;
+            case Language.RUSSIAN:
+                return 12;
             default:
                 throw new IllegalArgumentException("Unsupported language!");
         }
@@ -117,6 +133,22 @@ public class SetLanguagesDialog implements ThemeManager.Listener {
                 return Language.JAPANESE;
             case 4:
                 return Language.PORTUGUESE;
+            case 5:
+                return Language.CHINESE;
+            case 6:
+                return Language.GERMAN;
+            case 7:
+                return Language.ITALIAN;
+            case 8:
+                return Language.KOREAN;
+            case 9:
+                return Language.HINDI;
+            case 10:
+                return Language.ARABIC;
+            case 11:
+                return Language.BENGALI;
+            case 12:
+                return Language.RUSSIAN;
             default:
                 throw new IllegalArgumentException("Unsupported index!");
         }

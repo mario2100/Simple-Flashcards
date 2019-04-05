@@ -77,6 +77,22 @@ public class TextToSpeechManager implements TextToSpeech.OnInitListener {
                 return new Locale("ja");
             case Language.PORTUGUESE:
                 return new Locale("pt");
+            case Language.CHINESE:
+                return new Locale("zh");
+            case Language.GERMAN:
+                return new Locale("de");
+            case Language.ITALIAN:
+                return new Locale("it");
+            case Language.KOREAN:
+                return new Locale("ko");
+            case Language.HINDI:
+                return new Locale("hi");
+            case Language.ARABIC:
+                return new Locale("ar");
+            case Language.BENGALI:
+                return new Locale("bn");
+            case Language.RUSSIAN:
+                return new Locale("ru");
             default:
                 return Locale.getDefault();
         }

@@ -41,8 +41,7 @@ public class UIUtils {
                 0,
                 message.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        Snackbar snackbar = Snackbar.make(parent, message, length);
-        View rootView = snackbar.getView();
+        Snackbar snackbar = Snackbar.make(parent, spanBuilder, length);
         snackbar.getView().setBackgroundColor(parent
                 .getContext()
                 .getResources()
