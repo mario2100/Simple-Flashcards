@@ -87,8 +87,6 @@ public class TextToSpeechManager implements TextToSpeech.OnInitListener {
                 return new Locale("ko");
             case Language.HINDI:
                 return new Locale("hi");
-            case Language.ARABIC:
-                return new Locale("ar");
             case Language.BENGALI:
                 return new Locale("bn");
             case Language.RUSSIAN:

@@ -13,7 +13,6 @@ import androidx.annotation.IntDef;
         Language.ITALIAN,
         Language.KOREAN,
         Language.HINDI,
-        Language.ARABIC,
         Language.BENGALI,
         Language.RUSSIAN
 })
@@ -28,7 +27,6 @@ public @interface Language {
     int ITALIAN = 7;
     int KOREAN = 8;
     int HINDI = 9;
-    int ARABIC = 10;
-    int BENGALI = 11;
-    int RUSSIAN = 12;
+    int BENGALI = 10;
+    int RUSSIAN = 11;
 }

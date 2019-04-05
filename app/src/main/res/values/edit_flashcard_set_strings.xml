@@ -101,7 +101,6 @@
     <string name="italian">Italian</string>
     <string name="korean">Korean</string>
     <string name="hindi">Hindi</string>
-    <string name="arabic">Arabic</string>
     <string name="bengali">Bengali</string>
     <string name="russian">Russian</string>
     <string-array name="language_options">
@@ -115,7 +114,6 @@
         <item>@string/italian</item>
         <item>@string/korean</item>
         <item>@string/hindi</item>
-        <item>@string/arabic</item>
         <item>@string/bengali</item>
         <item>@string/russian</item>
     </string-array>
