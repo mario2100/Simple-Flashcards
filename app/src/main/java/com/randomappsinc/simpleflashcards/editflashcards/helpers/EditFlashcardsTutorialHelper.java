@@ -2,44 +2,52 @@ package com.randomappsinc.simpleflashcards.editflashcards.helpers;
 
 import android.content.Context;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.utils.DialogUtil;
-
-import androidx.annotation.NonNull;
 
 public class EditFlashcardsTutorialHelper {
 
     public static void teach(final Context context) {
         PreferencesManager preferencesManager = new PreferencesManager(context);
-        final boolean shouldTeachImport = preferencesManager.showTeachImportFlashcards();
         if (preferencesManager.shouldShowRenameFlashcardSetInstructions()) {
             DialogUtil.createDialogWithIconTextBody(
                     context,
                     R.string.rename_set_instructions,
                     R.string.rename_set_instructions_title,
                     android.R.string.ok,
-                    new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            showImportFlashcardsDialog(context);
-                        }
-                    })
+                    (dialog, which) -> maybeShowImportFlashcardsDialog(context))
                     .show();
-        } else if (shouldTeachImport) {
-            showImportFlashcardsDialog(context);
+        } else {
+            maybeShowImportFlashcardsDialog(context);
         }
     }
 
-    protected static void showImportFlashcardsDialog(Context context) {
-        DialogUtil.createDialogWithIconTextBody(
-                context,
-                R.string.import_flashcards_instructions,
-                R.string.import_flashcards_instructions_title,
-                android.R.string.ok,
-                null)
-                .show();
+    protected static void maybeShowImportFlashcardsDialog(Context context) {
+        PreferencesManager preferencesManager = new PreferencesManager(context);
+        if (preferencesManager.shouldShowTeachImportFlashcards()) {
+            DialogUtil.createDialogWithIconTextBody(
+                    context,
+                    R.string.import_flashcards_instructions,
+                    R.string.import_flashcards_instructions_title,
+                    android.R.string.ok,
+                    (dialog, which) -> maybeShowLanguageSettingDialog(context))
+                    .show();
+        } else {
+            maybeShowLanguageSettingDialog(context);
+        }
+    }
+
+    protected static void maybeShowLanguageSettingDialog(Context context) {
+        PreferencesManager preferencesManager = new PreferencesManager(context);
+        if (preferencesManager.shouldTeachLanguageSetting()) {
+            DialogUtil.createDialogWithIconTextBody(
+                    context,
+                    R.string.language_setting_instructions,
+                    R.string.language_setting_instructions_title,
+                    android.R.string.ok,
+                    null)
+                    .show();
+        }
     }
 }

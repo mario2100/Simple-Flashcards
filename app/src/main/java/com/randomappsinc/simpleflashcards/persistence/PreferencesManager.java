@@ -18,6 +18,7 @@ public class PreferencesManager {
     private static final String ENABLE_SHAKE = "enableShake";
     private static final String SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS = "shouldShowFlashcardSetInstructions";
     private static final String SHOULD_TEACH_IMPORT_FLASHCARDS = "shouldTeachImportFlashcards";
+    private static final String SHOULD_TEACH_LANGUAGE_SETTING = "shouldTeachLanguageSetting";
 
     // Pre-Kitkat (19), we work with file paths
     private static final String BACKUP_FILE_PATH = "backupFilePath";
@@ -153,9 +154,15 @@ public class PreferencesManager {
         prefs.edit().putBoolean(HAS_SEEN_DARK_MODE_DIALOG, true).apply();
     }
 
-    public boolean showTeachImportFlashcards() {
-        boolean shouldTeachImport = prefs.getBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, true);
+    public boolean shouldShowTeachImportFlashcards() {
+        boolean shouldTeachLanguageSetting = prefs.getBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, true);
         prefs.edit().putBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, false).apply();
+        return shouldTeachLanguageSetting;
+    }
+
+    public boolean shouldTeachLanguageSetting() {
+        boolean shouldTeachImport = prefs.getBoolean(SHOULD_TEACH_LANGUAGE_SETTING, true);
+        prefs.edit().putBoolean(SHOULD_TEACH_LANGUAGE_SETTING, false).apply();
         return shouldTeachImport;
     }
 

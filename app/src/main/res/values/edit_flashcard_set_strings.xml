@@ -91,6 +91,13 @@
         Simply click the {ion-android-upload} button at the top right of the page to do this!
     </string>
 
+    <string name="language_setting_instructions_title">Learning a Foreign Language?</string>
+    <string name="language_setting_instructions">
+        If you\'re using this flashcard set to learn a foreign language, tap on the {ion-android-globe} button
+        at the top right of the page to set the proper language for the terms/definitions. This will enable the
+        app to speak the non-English words in this flashcard set properly in browse mode.
+    </string>
+
     <string name="english">English</string>
     <string name="spanish">Spanish</string>
     <string name="french">French</string>
