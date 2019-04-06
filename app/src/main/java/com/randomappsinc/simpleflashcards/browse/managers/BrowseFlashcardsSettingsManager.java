@@ -15,6 +15,8 @@ public class BrowseFlashcardsSettingsManager {
         void onTextSizeChanged(int textSize);
 
         void onTextColorChanged(int textColor);
+
+        void refresh();
     }
 
     public interface BrowserListener {
@@ -85,16 +87,27 @@ public class BrowseFlashcardsSettingsManager {
     }
 
     public void applySettings(boolean showTermsByDefault, boolean enableShake, boolean doNotShowLearned) {
+        // If this is true, we shouldn't alert the terms/definitions listeners because they will redraw
+        // themselves when the entire flashcards list is refreshed
+        boolean setRefreshed = false;
+
         if (this.doNotShowLearned != doNotShowLearned) {
             this.doNotShowLearned = doNotShowLearned;
             browserListener.onLearnFilterChanged(doNotShowLearned);
             preferencesManager.setBrowseDoNotShowLearned(doNotShowLearned);
+            setRefreshed = true;
         }
 
         if (this.showTermsByDefault != showTermsByDefault) {
             this.showTermsByDefault = showTermsByDefault;
-            for (FlashcardListener flashcardListener : flashcardListeners) {
-                flashcardListener.onDefaultSideChanged(showTermsByDefault);
+            if (!setRefreshed) {
+                for (FlashcardListener flashcardListener : flashcardListeners) {
+                    flashcardListener.onDefaultSideChanged(showTermsByDefault);
+                }
+            } else {
+                for (FlashcardListener flashcardListener : flashcardListeners) {
+                    flashcardListener.refresh();
+                }
             }
         }
 

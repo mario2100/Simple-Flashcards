@@ -62,7 +62,7 @@ public class BrowseFlashcardFragment extends Fragment {
     protected Flashcard flashcard;
     protected boolean isShowingTerm;
     private DatabaseManager databaseManager = DatabaseManager.get();
-    private BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
+    protected BrowseFlashcardsSettingsManager settingsManager = BrowseFlashcardsSettingsManager.get();
     private Unbinder unbinder;
 
     @Override
@@ -160,13 +160,7 @@ public class BrowseFlashcardFragment extends Fragment {
         cardImage = contentView.findViewById(R.id.card_image);
         cardImage.setOnClickListener(imageClickListener);
 
-        String contentText = isShowingTerm ? flashcard.getTerm() : flashcard.getDefinition();
-        if (TextUtils.isEmpty(contentText)) {
-            content.setVisibility(View.GONE);
-        } else {
-            content.setText(contentText);
-            content.setVisibility(View.VISIBLE);
-        }
+        setUpText();
         content.setTextSize(TypedValue.COMPLEX_UNIT_SP, settingsManager.getTextSize());
 
         int textColor = settingsManager.getTextColor();
@@ -177,7 +171,17 @@ public class BrowseFlashcardFragment extends Fragment {
         setUpImageView();
     }
 
-    private void setUpImageView() {
+    protected void setUpText() {
+        String contentText = isShowingTerm ? flashcard.getTerm() : flashcard.getDefinition();
+        if (TextUtils.isEmpty(contentText)) {
+            content.setVisibility(View.GONE);
+        } else {
+            content.setText(contentText);
+            content.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void setUpImageView() {
         final String imageUrl = isShowingTerm ? flashcard.getTermImageUrl() : flashcard.getDefinitionImageUrl();
         if (!TextUtils.isEmpty(imageUrl)) {
             cardImage.setVisibility(View.VISIBLE);
@@ -192,8 +196,7 @@ public class BrowseFlashcardFragment extends Fragment {
     }
 
     protected void loadImage(String imageUrl) {
-        // TODO: Figure out how cardImage can be null when this method is invoked from runOnPreDraw
-        if (cardImage != null) {
+        if (cardImage != null && cardImage.getHeight() > 0) {
             Picasso.get()
                     .load(imageUrl)
                     .resize(0, cardImage.getHeight())
@@ -217,6 +220,13 @@ public class BrowseFlashcardFragment extends Fragment {
                 @Override
                 public void onTextColorChanged(int textColor) {
                     content.setTextColor(textColor);
+                }
+
+                @Override
+                public void refresh() {
+                    isShowingTerm = settingsManager.getShowTermsByDefault();
+                    setUpText();
+                    setUpImageView();
                 }
             };
 
