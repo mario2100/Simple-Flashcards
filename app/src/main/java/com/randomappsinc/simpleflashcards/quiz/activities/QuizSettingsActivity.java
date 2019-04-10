@@ -90,61 +90,64 @@ public class QuizSettingsActivity extends StandardActivity {
 
     @OnClick(R.id.minus_5_questions)
     public void remove5Questions() {
-        int current = Integer.valueOf(numQuestions.getText().toString());
-        current = Math.max(1, current - 5);
-        numQuestions.setText(String.valueOf(current));
+        changeNumQuestions(-5);
     }
 
     @OnClick(R.id.minus_1_question)
     public void remove1Question() {
-        int current = Integer.valueOf(numQuestions.getText().toString());
-        current = Math.max(1, current - 1);
-        numQuestions.setText(String.valueOf(current));
+        changeNumQuestions(-1);
     }
 
     @OnClick(R.id.plus_one_question)
     public void add1Question() {
-        int current = Integer.valueOf(numQuestions.getText().toString());
-        current = Math.min(numFlashcards, current + 1);
-        numQuestions.setText(String.valueOf(current));
+        changeNumQuestions(1);
     }
 
     @OnClick(R.id.plus_5_questions)
     public void add5Questions() {
-        int current = Integer.valueOf(numQuestions.getText().toString());
-        current = Math.min(numFlashcards, current + 5);
-        numQuestions.setText(String.valueOf(current));
+        changeNumQuestions(5);
+    }
+
+    private void changeNumQuestions(int differential) {
+        String numQuestionsText = numQuestions.getText().toString();
+        int currentQuestions = numQuestionsText.isEmpty() ? 0 : Integer.valueOf(numQuestionsText);
+        int updatedValue = differential > 0
+                ? Math.min(numFlashcards, currentQuestions + differential)
+                : Math.max(1, currentQuestions + differential);
+        String updatedText = String.valueOf(updatedValue);
+        numQuestions.setText(updatedText);
+        numQuestions.setSelection(updatedText.length());
     }
 
     @OnClick(R.id.minus_5_minutes)
     public void remove5Minutes() {
-        int current = Integer.valueOf(numMinutes.getText().toString());
-        current = Math.max(1, current - 5);
-        numMinutes.setText(String.valueOf(current));
-        setTimeLimit.setChecked(true);
+        changeNumMinutes(-5);
     }
 
     @OnClick(R.id.minus_1_minute)
     public void remove1Minute() {
-        int current = Integer.valueOf(numMinutes.getText().toString());
-        current = Math.max(1, current - 1);
-        numMinutes.setText(String.valueOf(current));
-        setTimeLimit.setChecked(true);
+        changeNumMinutes(-1);
     }
 
     @OnClick(R.id.plus_one_minute)
     public void add1Minute() {
-        int current = Integer.valueOf(numMinutes.getText().toString());
-        current = Math.min(999, current + 1);
-        numMinutes.setText(String.valueOf(current));
-        setTimeLimit.setChecked(true);
+        changeNumMinutes(1);
     }
 
     @OnClick(R.id.plus_5_minutes)
     public void add5Minutes() {
-        int current = Integer.valueOf(numMinutes.getText().toString());
-        current = Math.min(999, current + 5);
-        numMinutes.setText(String.valueOf(current));
+        changeNumMinutes(5);
+    }
+
+    private void changeNumMinutes(int differential) {
+        String numMinutesText = numMinutes.getText().toString();
+        int currentMinutes = numMinutesText.isEmpty() ? 0 : Integer.valueOf(numMinutesText);
+        int updatedValue = differential > 0
+                ? Math.min(999, currentMinutes + differential)
+                : Math.max(1, currentMinutes + differential);
+        String updatedText = String.valueOf(updatedValue);
+        numMinutes.setText(updatedText);
+        numMinutes.setSelection(updatedText.length());
         setTimeLimit.setChecked(true);
     }
 
