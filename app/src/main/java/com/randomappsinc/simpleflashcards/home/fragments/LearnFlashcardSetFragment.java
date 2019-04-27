@@ -7,13 +7,17 @@ import android.view.ViewGroup;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
+import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
+import com.randomappsinc.simpleflashcards.home.adapters.FlashcardSetOptionsAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class LearnFlashcardSetFragment extends Fragment {
+public class LearnFlashcardSetFragment extends Fragment implements FlashcardSetOptionsAdapter.ItemSelectionListener {
 
     public static LearnFlashcardSetFragment getInstance(int setId) {
         LearnFlashcardSetFragment fragment = new LearnFlashcardSetFragment();
@@ -22,6 +26,8 @@ public class LearnFlashcardSetFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    @BindView(R.id.learn_set_options) RecyclerView learnSetOptions;
 
     private Unbinder unbinder;
 
@@ -33,6 +39,22 @@ public class LearnFlashcardSetFragment extends Fragment {
                 false);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        learnSetOptions.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        learnSetOptions.setAdapter(new FlashcardSetOptionsAdapter(
+                getActivity(),
+                this,
+                R.array.flashcard_set_learning_options,
+                R.array.flashcard_set_learning_icons));
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 
     @Override

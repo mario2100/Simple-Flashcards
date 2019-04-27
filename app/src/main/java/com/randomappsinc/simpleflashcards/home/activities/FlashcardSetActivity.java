@@ -48,6 +48,7 @@ public class FlashcardSetActivity extends StandardActivity {
 
     private void refreshView() {
         FlashcardSetDO flashcardSetDO = databaseManager.getFlashcardSet(setId);
+        setTitle(flashcardSetDO.getName());
         setName.setText(flashcardSetDO.getName());
         int numFlashcards = flashcardSetDO.getFlashcards().size();
         if (numFlashcards == 1) {

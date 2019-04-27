@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.randomappsinc.simpleflashcards">
+    package="com.randomappsinc.simpleflashcards"
+    >
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -18,112 +19,132 @@
         android:name=".utils.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        >
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.randomappsinc.simpleflashcards.provider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            >
 
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths"
+                />
         </provider>
 
         <activity
             android:name=".home.activities.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            >
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity
             android:name=".home.activities.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            />
 
         <activity
             android:name=".editflashcards.activities.EditFlashcardSetActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".browse.activities.BrowseFlashcardsActivity"
             android:theme="@style/AppTheme.StudyMode"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".quiz.activities.QuizActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".quiz.activities.QuizResultsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/quiz_results"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".quizlet.activities.QuizletSetViewActivity"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".common.activities.PictureFullViewActivity"
             android:theme="@style/AppTheme.PictureFullView"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".nearbysharing.activities.NearbySharingActivity"
             android:label="@string/nearby_sharing"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".nearbysharing.activities.NearbyFlashcardsTransferActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".quiz.activities.QuizSettingsActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/quiz_settings"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".quizlet.activities.QuizletSearchFilterActivity"
             android:label="@string/filter"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".backupandrestore.activities.BackupAndRestoreActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/backup_and_restore_title"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".common.activities.AddedFlashcardSetsActivity"
             android:label="@string/added_flashcard_sets"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".common.activities.PlainSetViewActivity"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".folders.activities.FolderActivity"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".editflashcards.activities.PickAndImportFlashcardsActivity"
             android:label=" "
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
 
         <activity
             android:name=".home.activities.FlashcardSetActivity"
-            android:label="@string/flashcard_set"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            />
     </application>
 </manifest>

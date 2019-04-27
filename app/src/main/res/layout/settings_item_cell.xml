@@ -34,6 +34,5 @@
         android:layout_toLeftOf="@id/toggle"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:textSize="18dp"
-        android:textColor="@color/dark_gray"/>
+        android:textSize="18dp"/>
 </RelativeLayout>

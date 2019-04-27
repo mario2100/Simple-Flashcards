@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="flashcard_set">Flashcard Set</string>
     <string name="learn">Learn</string>
     <string-array name="flashcard_set_option_categories">
         <item>@string/learn</item>
         <item>@string/edit</item>
+    </string-array>
+
+    <string-array name="flashcard_set_learning_options">
+        <item>Browse flashcards</item>
+        <item>Take a quiz</item>
+    </string-array>
+
+    <string-array name="flashcard_set_learning_icons">
+        <item>@string/eye_icon</item>
+        <item>@string/list_icon</item>
+    </string-array>
+
+    <string-array name="flashcard_set_edit_options">
+        <item>Edit flashcards</item>
+        <item>Import flashcards</item>
+        <item>Set languages</item>
+        <item>Rename flashcard set</item>
+        <item>Delete flashcard set</item>
+    </string-array>
+
+    <string name="upload_icon">{ion-android-upload}</string>
+    <string name="world_icon">{ion-android-globe}</string>
+    <string-array name="flashcard_set_edit_icons">
+        <item>@string/card_icon</item>
+        <item>@string/upload_icon</item>
+        <item>@string/world_icon</item>
+        <item>@string/edit_icon</item>
+        <item>@string/delete_icon</item>
     </string-array>
 </resources>
