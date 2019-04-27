@@ -1,147 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/set_cell_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="8dp"
     android:foreground="?android:attr/selectableItemBackground"
-    tools:ignore="SpUsage, RtlHardcoded">
+    >
 
-    <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
-        android:id="@+id/card_icon"
-        android:layout_alignParentRight="true"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center"
-        android:text="@string/card_icon"
-        android:textSize="16dp"/>
+    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+        android:id="@+id/flashcard_set_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="21sp"
+        />
 
     <com.randomappsinc.simpleflashcards.theme.ThemedTextView
         android:id="@+id/num_flashcards"
         android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_toLeftOf="@id/card_icon"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:gravity="center_vertical"
-        android:textSize="13dp"/>
-
-    <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-        android:id="@+id/set_name"
-        android:textSize="27dp"
-        android:layout_toLeftOf="@+id/num_flashcards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:id="@+id/first_row_buttons"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/set_name"
-        android:orientation="horizontal">
-
-        <com.randomappsinc.simpleflashcards.theme.ThemedCardView
-            android:id="@+id/browse_button"
-            android:layout_marginRight="3dp"
-            style="@style/set_action_card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:orientation="horizontal">
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
-                    android:id="@+id/eye_icon"
-                    android:text="@string/eye_icon"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-2dp"
-                    style="@style/set_action_icon"/>
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                    android:id="@+id/browse_text"
-                    android:text="@string/browse"
-                    style="@style/set_action_text"/>
-            </LinearLayout>
-        </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
-
-        <com.randomappsinc.simpleflashcards.theme.ThemedCardView
-            android:id="@+id/quiz_button"
-            android:layout_marginLeft="3dp"
-            style="@style/set_action_card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:orientation="horizontal">
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
-                    android:id="@+id/quiz_icon"
-                    android:text="@string/list_icon"
-                    style="@style/set_action_icon"/>
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                    android:id="@+id/quiz_text"
-                    android:text="@string/quiz"
-                    android:paddingBottom="4dp"
-                    style="@style/set_action_text"/>
-            </LinearLayout>
-        </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/first_row_buttons"
-        android:layout_marginTop="3dp"
-        android:orientation="horizontal">
-
-        <com.randomappsinc.simpleflashcards.theme.ThemedCardView
-            android:id="@+id/edit_button"
-            android:layout_marginRight="3dp"
-            style="@style/set_action_card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:orientation="horizontal">
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
-                    android:id="@+id/edit_icon"
-                    android:text="@string/edit_icon"
-                    android:layout_height="wrap_content"
-                    style="@style/set_action_icon"/>
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                    android:id="@+id/edit_text"
-                    android:text="@string/edit"
-                    style="@style/set_action_text"/>
-            </LinearLayout>
-        </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
-
-        <com.randomappsinc.simpleflashcards.theme.ThemedCardView
-            android:id="@+id/delete_button"
-            android:layout_marginLeft="3dp"
-            style="@style/set_action_card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:orientation="horizontal">
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedIconTextView
-                    android:id="@+id/delete_icon"
-                    android:text="@string/delete_icon"
-                    style="@style/set_action_icon"/>
-
-                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
-                    android:id="@+id/delete_button_text"
-                    android:text="@string/delete"
-                    android:paddingBottom="4dp"
-                    style="@style/set_action_text"/>
-            </LinearLayout>
-        </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
-    </LinearLayout>
-</RelativeLayout>
+        android:textSize="15sp"
+        />
+</LinearLayout>

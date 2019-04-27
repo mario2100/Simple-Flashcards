@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class EditFlashcardSetActivity extends StandardActivity
+public class EditFlashcardsActivity extends StandardActivity
         implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener {
 
     // Intent codes
@@ -109,7 +109,7 @@ public class EditFlashcardSetActivity extends StandardActivity
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    UIUtils.closeKeyboard(EditFlashcardSetActivity.this);
+                    UIUtils.closeKeyboard(EditFlashcardsActivity.this);
                     takeAwayFocusFromSearch();
                 }
             }
@@ -354,7 +354,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     public void onFullViewRequested() {
         FlashcardDO flashcard = adapter.getCurrentlyChosenFlashcard();
         Intent intent = new Intent(
-                EditFlashcardSetActivity.this,
+                EditFlashcardsActivity.this,
                 PictureFullViewActivity.class)
                 .putExtra(Constants.IMAGE_URL_KEY, forTerm
                         ? flashcard.getTermImageUrl()

@@ -10,18 +10,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
-import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
 import com.randomappsinc.simpleflashcards.folders.adapters.FolderSetsAdapter;
 import com.randomappsinc.simpleflashcards.folders.dialogs.FlashcardSetSelectionDialog;
 import com.randomappsinc.simpleflashcards.folders.dialogs.RenameFolderDialog;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
+import com.randomappsinc.simpleflashcards.home.activities.FlashcardSetActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
-import com.randomappsinc.simpleflashcards.quiz.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
@@ -102,31 +100,10 @@ public class FolderActivity extends StandardActivity
     }
 
     @Override
-    public void browseFlashcardSet(FlashcardSetDO flashcardSet) {
-        if (flashcardSet.getFlashcards().isEmpty()) {
-            UIUtils.showLongToast(R.string.no_flashcards_for_browsing, this);
-        } else {
-            startActivity(new Intent(this, BrowseFlashcardsActivity.class)
-                    .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
-        }
-    }
-
-    @Override
-    public void takeQuiz(FlashcardSetDO flashcardSet) {
-        if (flashcardSet.getFlashcards().size() < 2) {
-            UIUtils.showLongToast(R.string.not_enough_for_quiz, this);
-        } else {
-            startActivity(new Intent(this, QuizSettingsActivity.class)
-                    .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
-        }
-    }
-
-    @Override
-    public void editFlashcardSet(FlashcardSetDO flashcardSet) {
-        startActivity(new Intent(
-                this, EditFlashcardSetActivity.class)
-                .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
+    public void onFlashcardSetClicked(FlashcardSetDO flashcardSetDO) {
+        Intent intent = new Intent(this, FlashcardSetActivity.class);
+        intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSetDO.getId());
+        startActivity(intent);
     }
 
     @Override

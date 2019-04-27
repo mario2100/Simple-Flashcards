@@ -53,7 +53,7 @@
             />
 
         <activity
-            android:name=".editflashcards.activities.EditFlashcardSetActivity"
+            android:name=".editflashcards.activities.EditFlashcardsActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:configChanges="orientation|screenSize"
             />

@@ -3,10 +3,10 @@ package com.randomappsinc.simpleflashcards.folders.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
+import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,9 @@ import butterknife.OnClick;
 public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.FlashcardSetViewHolder> {
 
     public interface Listener {
-        void browseFlashcardSet(FlashcardSetDO flashcardSet);
+        void onFlashcardSetClicked(FlashcardSetDO flashcardSetDO);
 
-        void takeQuiz(FlashcardSetDO flashcardSet);
-
-        void editFlashcardSet(FlashcardSetDO flashcardSet);
-
-        void removeFlashcardSet(FlashcardSetDO flashcardSet);
+        void removeFlashcardSet(FlashcardSetDO flashcardSetDO);
     }
 
     @NonNull protected Listener listener;
@@ -70,44 +66,29 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
     }
 
     public class FlashcardSetViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.set_name) TextView setName;
-        @BindView(R.id.num_flashcards) TextView numFlashcards;
-        @BindView(R.id.delete_button_text) TextView deleteButtonText;
+
+        @BindView(R.id.flashcard_set_name) ThemedTextView setName;
+        @BindView(R.id.num_flashcards) ThemedTextView numFlashcardsText;
 
         FlashcardSetViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            deleteButtonText.setText(R.string.remove);
         }
 
         void loadFlashcardSet(int position) {
             FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
-            numFlashcards.setText(String.valueOf(flashcardSet.getFlashcards().size()));
+            int numFlashcards = flashcardSet.getFlashcards().size();
+            if (numFlashcards == 1) {
+                numFlashcardsText.setText(R.string.one_flashcard);
+            } else {
+                numFlashcardsText.setText(setName.getContext().getString(R.string.x_flashcards, numFlashcards));
+            }
         }
 
-        @OnClick(R.id.browse_button)
-        public void browseFlashcards() {
-            listener.browseFlashcardSet(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.quiz_button)
-        public void takeQuiz() {
-            listener.takeQuiz(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.edit_button)
-        public void editFlashcardSet() {
-            listener.editFlashcardSet(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.delete_button)
-        public void deleteFlashcardSet() {
-            int indexToRemove = getAdapterPosition();
-            FlashcardSetDO removedSet = flashcardSets.get(indexToRemove);
-            flashcardSets.remove(indexToRemove);
-            notifyItemRemoved(indexToRemove);
-            listener.removeFlashcardSet(removedSet);
+        @OnClick(R.id.set_cell_parent)
+        public void onSetClicked() {
+            listener.onFlashcardSetClicked(flashcardSets.get(getAdapterPosition()));
         }
     }
 }

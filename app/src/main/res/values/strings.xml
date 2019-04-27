@@ -56,10 +56,7 @@
         which is why all of our apps are free and every new user puts a smile on our faces.
     </string>
 
-    <string name="browse">Browse</string>
-    <string name="quiz">Quiz</string>
     <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
 
     <string name="search_icon">{ion-android-search}</string>
     <string name="clear_icon">{ion-android-close}</string>

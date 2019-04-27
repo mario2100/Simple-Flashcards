@@ -10,7 +10,7 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.constants.Language;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
-import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
+import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.editflashcards.activities.PickAndImportFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardSetNameDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.SetLanguagesDialog;
@@ -83,7 +83,7 @@ public class EditFlashcardSetFragment extends Fragment
         switch (position) {
             case 0:
                 startActivity(new Intent(
-                        getActivity(), EditFlashcardSetActivity.class)
+                        getActivity(), EditFlashcardsActivity.class)
                         .putExtra(Constants.FLASHCARD_SET_ID_KEY, setId));
                 getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
                 break;

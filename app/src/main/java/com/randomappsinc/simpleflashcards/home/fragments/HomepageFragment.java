@@ -14,24 +14,20 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
-import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
-import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
+import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.home.activities.FlashcardSetActivity;
 import com.randomappsinc.simpleflashcards.home.activities.MainActivity;
 import com.randomappsinc.simpleflashcards.home.adapters.HomepageFlashcardSetsAdapter;
 import com.randomappsinc.simpleflashcards.home.dialogs.CreateFlashcardSetDialog;
-import com.randomappsinc.simpleflashcards.home.dialogs.DeleteFlashcardSetDialog;
 import com.randomappsinc.simpleflashcards.nearbysharing.activities.NearbySharingActivity;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
-import com.randomappsinc.simpleflashcards.quiz.activities.QuizSettingsActivity;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
@@ -47,8 +43,8 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
-public class HomepageFragment extends Fragment implements HomepageFlashcardSetsAdapter.Listener,
-        DeleteFlashcardSetDialog.Listener, CreateFlashcardSetDialog.Listener {
+public class HomepageFragment extends Fragment
+        implements HomepageFlashcardSetsAdapter.Listener, CreateFlashcardSetDialog.Listener {
 
     public static HomepageFragment newInstance() {
         return new HomepageFragment();
@@ -73,7 +69,6 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
 
     protected HomepageFlashcardSetsAdapter adapter;
     private CreateFlashcardSetDialog createFlashcardSetDialog;
-    private DeleteFlashcardSetDialog deleteFlashcardSetDialog;
     private DatabaseManager databaseManager = DatabaseManager.get();
     private Unbinder unbinder;
 
@@ -102,7 +97,6 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
         super.onActivityCreated(savedInstanceState);
 
         createFlashcardSetDialog = new CreateFlashcardSetDialog(getActivity(), this);
-        deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
 
         adapter = new HomepageFlashcardSetsAdapter(this, getActivity());
         sets.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
@@ -178,7 +172,7 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
     public void onFlashcardSetCreated(String newSetName) {
         int newSetId = databaseManager.createFlashcardSet(newSetName);
         adapter.refreshContent(setSearch.getText().toString());
-        Intent intent = new Intent(getActivity(), EditFlashcardSetActivity.class);
+        Intent intent = new Intent(getActivity(), EditFlashcardsActivity.class);
         intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, newSetId);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
@@ -190,55 +184,6 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
         intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSetDO.getId());
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-    }
-
-    @Override
-    public void browseFlashcardSet(FlashcardSetDO flashcardSet) {
-        if (flashcardSet.getFlashcards().isEmpty()) {
-            UIUtils.showSnackbar(
-                    parent,
-                    getString(R.string.no_flashcards_for_browsing),
-                    Snackbar.LENGTH_LONG);
-        } else {
-            startActivity(new Intent(
-                    getActivity(), BrowseFlashcardsActivity.class)
-                    .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
-            getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-        }
-    }
-
-    @Override
-    public void takeQuiz(FlashcardSetDO flashcardSet) {
-        if (flashcardSet.getFlashcards().size() < 2) {
-            UIUtils.showSnackbar(
-                    parent,
-                    getString(R.string.not_enough_for_quiz),
-                    Snackbar.LENGTH_LONG);
-        } else {
-            startActivity(new Intent(
-                    getActivity(), QuizSettingsActivity.class)
-                    .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
-            getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
-        }
-    }
-
-    @Override
-    public void editFlashcardSet(FlashcardSetDO flashcardSet) {
-        startActivity(new Intent(
-                getActivity(), EditFlashcardSetActivity.class)
-                .putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSet.getId()));
-        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
-    }
-
-    @Override
-    public void deleteFlashcardSet(FlashcardSetDO flashcardSet) {
-        deleteFlashcardSetDialog.show(flashcardSet);
-    }
-
-    @Override
-    public void onFlashcardSetDeleted(int flashcardSetId) {
-        databaseManager.deleteFlashcardSet(flashcardSetId);
-        adapter.onFlashcardSetDeleted();
     }
 
     @Override
@@ -309,12 +254,11 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
         super.onDestroyView();
         adapter.cleanup();
         createFlashcardSetDialog.cleanUp();
-        deleteFlashcardSetDialog.cleanUp();
         unbinder.unbind();
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.filter).setVisible(false);
     }

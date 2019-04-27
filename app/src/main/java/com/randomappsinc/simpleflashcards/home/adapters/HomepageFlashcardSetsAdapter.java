@@ -9,8 +9,6 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
-import com.randomappsinc.simpleflashcards.theme.ThemedCardView;
-import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 
 import java.util.ArrayList;
@@ -27,14 +25,6 @@ public class HomepageFlashcardSetsAdapter
         implements ThemeManager.Listener {
 
     public interface Listener {
-        void browseFlashcardSet(FlashcardSetDO flashcardSet);
-
-        void takeQuiz(FlashcardSetDO flashcardSet);
-
-        void editFlashcardSet(FlashcardSetDO flashcardSet);
-
-        void deleteFlashcardSet(FlashcardSetDO flashcardSet);
-
         void onContentUpdated(int numSets);
 
         void onFlashcardSetClicked(FlashcardSetDO flashcardSetDO);
@@ -43,7 +33,6 @@ public class HomepageFlashcardSetsAdapter
     @NonNull protected Listener listener;
     private Context context;
     protected List<FlashcardSetDO> flashcardSets;
-    protected int selectedItemIndex = -1;
     private ThemeManager themeManager = ThemeManager.get();
 
     public HomepageFlashcardSetsAdapter(@NonNull Listener listener, Context context) {
@@ -69,16 +58,6 @@ public class HomepageFlashcardSetsAdapter
         listener.onContentUpdated(getItemCount());
     }
 
-    public void onFlashcardSetDeleted() {
-        if (selectedItemIndex < 0) {
-            return;
-        }
-        flashcardSets.remove(selectedItemIndex);
-        notifyItemRemoved(selectedItemIndex);
-        selectedItemIndex = -1;
-        listener.onContentUpdated(getItemCount());
-    }
-
     @NonNull
     @Override
     public FlashcardSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -101,21 +80,8 @@ public class HomepageFlashcardSetsAdapter
 
     public class FlashcardSetViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.card_icon) ThemedIconTextView cardIcon;
-        @BindView(R.id.num_flashcards) ThemedTextView numFlashcards;
-        @BindView(R.id.set_name) ThemedTextView setName;
-        @BindView(R.id.browse_button) ThemedCardView browseButton;
-        @BindView(R.id.eye_icon) ThemedIconTextView eyeIcon;
-        @BindView(R.id.browse_text) ThemedTextView browseText;
-        @BindView(R.id.quiz_button) ThemedCardView quizButton;
-        @BindView(R.id.quiz_icon) ThemedIconTextView quizIcon;
-        @BindView(R.id.quiz_text) ThemedTextView quizText;
-        @BindView(R.id.edit_button) ThemedCardView editButton;
-        @BindView(R.id.edit_icon) ThemedIconTextView editIcon;
-        @BindView(R.id.edit_text) ThemedTextView editText;
-        @BindView(R.id.delete_button) ThemedCardView deleteButton;
-        @BindView(R.id.delete_icon) ThemedIconTextView deleteIcon;
-        @BindView(R.id.delete_button_text) ThemedTextView deleteText;
+        @BindView(R.id.flashcard_set_name) ThemedTextView setName;
+        @BindView(R.id.num_flashcards) ThemedTextView numFlashcardsText;
 
         FlashcardSetViewHolder(View view) {
             super(view);
@@ -125,52 +91,23 @@ public class HomepageFlashcardSetsAdapter
         void loadFlashcardSet(int position) {
             FlashcardSetDO flashcardSet = flashcardSets.get(position);
             setName.setText(flashcardSet.getName());
-            numFlashcards.setText(String.valueOf(flashcardSet.getFlashcards().size()));
+            int numFlashcards = flashcardSet.getFlashcards().size();
+            if (numFlashcards == 1) {
+                numFlashcardsText.setText(R.string.one_flashcard);
+            } else {
+                numFlashcardsText.setText(setName.getContext().getString(R.string.x_flashcards, numFlashcards));
+            }
             adjustForDarkMode();
         }
 
         void adjustForDarkMode() {
-            cardIcon.setProperColors();
-            numFlashcards.setProperTextColor();
             setName.setProperTextColor();
-            browseButton.setProperColors();
-            eyeIcon.setProperColors();
-            browseText.setProperTextColor();
-            quizButton.setProperColors();
-            quizIcon.setProperColors();
-            quizText.setProperTextColor();
-            editButton.setProperColors();
-            editIcon.setProperColors();
-            editText.setProperTextColor();
-            deleteButton.setProperColors();
-            deleteIcon.setProperColors();
-            deleteText.setProperTextColor();
+            numFlashcardsText.setProperTextColor();
         }
 
         @OnClick(R.id.set_cell_parent)
         public void onSetClicked() {
             listener.onFlashcardSetClicked(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.browse_button)
-        public void browseFlashcards() {
-            listener.browseFlashcardSet(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.quiz_button)
-        public void takeQuiz() {
-            listener.takeQuiz(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.edit_button)
-        public void editFlashcardSet() {
-            listener.editFlashcardSet(flashcardSets.get(getAdapterPosition()));
-        }
-
-        @OnClick(R.id.delete_button)
-        public void deleteFlashcardSet() {
-            selectedItemIndex = getAdapterPosition();
-            listener.deleteFlashcardSet(flashcardSets.get(getAdapterPosition()));
         }
     }
 }
