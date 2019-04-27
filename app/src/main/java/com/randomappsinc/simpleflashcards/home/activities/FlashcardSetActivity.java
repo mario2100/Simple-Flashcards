@@ -1,5 +1,6 @@
 package com.randomappsinc.simpleflashcards.home.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FlashcardSetActivity extends StandardActivity {
+
+    public static final int IMPORT_CODE = 5;
 
     @BindView(R.id.flashcard_set_name) TextView setName;
     @BindView(R.id.num_flashcards) TextView numCardsText;
@@ -46,7 +49,7 @@ public class FlashcardSetActivity extends StandardActivity {
         refreshView();
     }
 
-    private void refreshView() {
+    public void refreshView() {
         FlashcardSetDO flashcardSetDO = databaseManager.getFlashcardSet(setId);
         setTitle(flashcardSetDO.getName());
         setName.setText(flashcardSetDO.getName());
@@ -57,4 +60,17 @@ public class FlashcardSetActivity extends StandardActivity {
             numCardsText.setText(getString(R.string.x_flashcards, numFlashcards));
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        switch (requestCode) {
+            case IMPORT_CODE:
+                if (resultCode == RESULT_OK) {
+                    refreshView();
+                }
+                break;
+        }
+    }
+
 }

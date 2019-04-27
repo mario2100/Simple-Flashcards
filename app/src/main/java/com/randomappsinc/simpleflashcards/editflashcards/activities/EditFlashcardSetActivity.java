@@ -225,6 +225,7 @@ public class EditFlashcardSetActivity extends StandardActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
         switch (requestCode) {
             case SEARCH_SPEECH_REQUEST_CODE:
                 if (resultCode != RESULT_OK) {

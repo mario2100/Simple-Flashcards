@@ -33,4 +33,6 @@
         <item>@string/edit_icon</item>
         <item>@string/delete_icon</item>
     </string-array>
+
+    <string name="flashcard_set_deleted">Flashcard set deleted.</string>
 </resources>
