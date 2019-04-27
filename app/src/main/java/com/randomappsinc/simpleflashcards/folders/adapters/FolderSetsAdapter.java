@@ -49,7 +49,7 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
     @Override
     public FlashcardSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.flashcard_set_cell,
+                R.layout.folder_set_cell,
                 parent,
                 false);
         return new FlashcardSetViewHolder(itemView);
@@ -89,6 +89,14 @@ public class FolderSetsAdapter extends RecyclerView.Adapter<FolderSetsAdapter.Fl
         @OnClick(R.id.set_cell_parent)
         public void onSetClicked() {
             listener.onFlashcardSetClicked(flashcardSets.get(getAdapterPosition()));
+        }
+
+        @OnClick(R.id.remove)
+        public void onSetRemoved() {
+            FlashcardSetDO flashcardSetDO = flashcardSets.get(getAdapterPosition());
+            flashcardSets.remove(getAdapterPosition());
+            notifyItemRemoved(getAdapterPosition());
+            listener.removeFlashcardSet(flashcardSetDO);
         }
     }
 }
