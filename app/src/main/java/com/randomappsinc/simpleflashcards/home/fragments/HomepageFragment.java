@@ -23,6 +23,7 @@ import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActi
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.editflashcards.activities.EditFlashcardSetActivity;
+import com.randomappsinc.simpleflashcards.home.activities.FlashcardSetActivity;
 import com.randomappsinc.simpleflashcards.home.activities.MainActivity;
 import com.randomappsinc.simpleflashcards.home.adapters.HomepageFlashcardSetsAdapter;
 import com.randomappsinc.simpleflashcards.home.dialogs.CreateFlashcardSetDialog;
@@ -179,6 +180,14 @@ public class HomepageFragment extends Fragment implements HomepageFlashcardSetsA
         adapter.refreshContent(setSearch.getText().toString());
         Intent intent = new Intent(getActivity(), EditFlashcardSetActivity.class);
         intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, newSetId);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+    }
+
+    @Override
+    public void onFlashcardSetClicked(FlashcardSetDO flashcardSetDO) {
+        Intent intent = new Intent(getActivity(), FlashcardSetActivity.class);
+        intent.putExtra(Constants.FLASHCARD_SET_ID_KEY, flashcardSetDO.getId());
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
     }

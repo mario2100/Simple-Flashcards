@@ -36,6 +36,8 @@ public class HomepageFlashcardSetsAdapter
         void deleteFlashcardSet(FlashcardSetDO flashcardSet);
 
         void onContentUpdated(int numSets);
+
+        void onFlashcardSetClicked(FlashcardSetDO flashcardSetDO);
     }
 
     @NonNull protected Listener listener;
@@ -143,6 +145,11 @@ public class HomepageFlashcardSetsAdapter
             deleteButton.setProperColors();
             deleteIcon.setProperColors();
             deleteText.setProperTextColor();
+        }
+
+        @OnClick(R.id.set_cell_parent)
+        public void onSetClicked() {
+            listener.onFlashcardSetClicked(flashcardSets.get(getAdapterPosition()));
         }
 
         @OnClick(R.id.browse_button)

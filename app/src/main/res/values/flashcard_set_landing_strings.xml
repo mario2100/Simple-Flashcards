@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flashcard_set">Flashcard Set</string>
+    <string name="learn">Learn</string>
+    <string-array name="flashcard_set_option_categories">
+        <item>@string/learn</item>
+        <item>@string/edit</item>
+    </string-array>
+</resources>

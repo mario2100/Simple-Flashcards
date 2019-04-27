@@ -1,0 +1,45 @@
+package com.randomappsinc.simpleflashcards.home.adapters;
+
+import com.randomappsinc.simpleflashcards.home.fragments.EditFlashcardSetFragment;
+import com.randomappsinc.simpleflashcards.home.fragments.LearnFlashcardSetFragment;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+
+public class FlashcardSetOptionTabsAdapter extends FragmentPagerAdapter {
+
+    private String[] optionTabs;
+    private int setId;
+
+    public FlashcardSetOptionTabsAdapter(FragmentManager fragmentManager, String[] tabNames, int setId) {
+        super(fragmentManager);
+        this.optionTabs = tabNames;
+        this.setId = setId;
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                return LearnFlashcardSetFragment.getInstance(setId);
+            case 1:
+                return EditFlashcardSetFragment.getInstance(setId);
+            default:
+                throw new IllegalStateException("Unsupported index for set options: " + position);
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return optionTabs.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return optionTabs[position];
+    }
+}
+

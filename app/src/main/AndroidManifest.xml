@@ -120,5 +120,10 @@
             android:name=".editflashcards.activities.PickAndImportFlashcardsActivity"
             android:label=" "
             android:configChanges="orientation|screenSize"/>
+
+        <activity
+            android:name=".home.activities.FlashcardSetActivity"
+            android:label="@string/flashcard_set"
+            android:configChanges="orientation|screenSize"/>
     </application>
 </manifest>
