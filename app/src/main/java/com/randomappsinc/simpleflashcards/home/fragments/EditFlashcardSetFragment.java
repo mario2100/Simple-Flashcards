@@ -122,9 +122,7 @@ public class EditFlashcardSetFragment extends Fragment
     public void onFlashcardSetRename(String newSetName) {
         databaseManager.renameSet(setId, newSetName);
         ((FlashcardSetActivity) getActivity()).refreshView();
-        UIUtils.showShortToast(
-                R.string.flashcard_set_renamed,
-                getContext());
+        UIUtils.showShortToast(R.string.flashcard_set_renamed, getContext());
     }
 
     @Override

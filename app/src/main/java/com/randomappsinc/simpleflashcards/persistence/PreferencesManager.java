@@ -16,9 +16,6 @@ public class PreferencesManager {
     private static final String NUM_OPENS_KEY = "numOpens";
     private static final String NEARBY_NAME = "nearbyName";
     private static final String ENABLE_SHAKE = "enableShake";
-    private static final String SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS = "shouldShowFlashcardSetInstructions";
-    private static final String SHOULD_TEACH_IMPORT_FLASHCARDS = "shouldTeachImportFlashcards";
-    private static final String SHOULD_TEACH_LANGUAGE_SETTING = "shouldTeachLanguageSetting";
 
     // Pre-Kitkat (19), we work with file paths
     private static final String BACKUP_FILE_PATH = "backupFilePath";
@@ -131,12 +128,6 @@ public class PreferencesManager {
         prefs.edit().putLong(LAST_BACKUP_TIME, System.currentTimeMillis()).apply();
     }
 
-    public boolean shouldShowRenameFlashcardSetInstructions() {
-        boolean shouldTeachRenameSet = prefs.getBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, true);
-        prefs.edit().putBoolean(SHOULD_SHOW_FLASHCARD_SET_INSTRUCTIONS, false).apply();
-        return shouldTeachRenameSet;
-    }
-
     public boolean getDarkModeEnabled() {
         return prefs.getBoolean(DARK_MODE_ENABLED, false);
     }
@@ -152,18 +143,6 @@ public class PreferencesManager {
 
     public void rememberDarkModeDialogSeen() {
         prefs.edit().putBoolean(HAS_SEEN_DARK_MODE_DIALOG, true).apply();
-    }
-
-    public boolean shouldShowTeachImportFlashcards() {
-        boolean shouldTeachLanguageSetting = prefs.getBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, true);
-        prefs.edit().putBoolean(SHOULD_TEACH_IMPORT_FLASHCARDS, false).apply();
-        return shouldTeachLanguageSetting;
-    }
-
-    public boolean shouldTeachLanguageSetting() {
-        boolean shouldTeachImport = prefs.getBoolean(SHOULD_TEACH_LANGUAGE_SETTING, true);
-        prefs.edit().putBoolean(SHOULD_TEACH_LANGUAGE_SETTING, false).apply();
-        return shouldTeachImport;
     }
 
     public boolean getBrowseDoNotShowLearned() {

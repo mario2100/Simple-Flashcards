@@ -10,8 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,17 +22,12 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
-import com.randomappsinc.simpleflashcards.common.constants.Language;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.EditFlashcardsAdapter;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.CreateFlashcardDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.DeleteFlashcardDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardDefinitionDialog;
-import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardSetNameDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.EditFlashcardTermDialog;
 import com.randomappsinc.simpleflashcards.editflashcards.dialogs.FlashcardImageOptionsDialog;
-import com.randomappsinc.simpleflashcards.editflashcards.dialogs.SetLanguagesDialog;
-import com.randomappsinc.simpleflashcards.editflashcards.helpers.EditFlashcardsTutorialHelper;
-import com.randomappsinc.simpleflashcards.editflashcards.managers.ImportFlashcardsManager;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
@@ -54,15 +47,13 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class EditFlashcardSetActivity extends StandardActivity
-        implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener,
-        ImportFlashcardsManager.Listener, SetLanguagesDialog.Listener {
+        implements EditFlashcardsAdapter.Listener, FlashcardImageOptionsDialog.Listener {
 
     // Intent codes
     private static final int IMAGE_FILE_REQUEST_CODE = 1;
     private static final int SEARCH_SPEECH_REQUEST_CODE = 2;
     private static final int TERM_ENTRY_SPEECH_REQUEST_CODE = 3;
     private static final int DEFINITION_ENTRY_SPEECH_REQUEST_CODE = 4;
-    private static final int IMPORT_CODE = 5;
 
     // Permission codes
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
@@ -83,10 +74,7 @@ public class EditFlashcardSetActivity extends StandardActivity
     protected EditFlashcardTermDialog editFlashcardTermDialog;
     protected EditFlashcardDefinitionDialog editFlashcardDefinitionDialog;
     protected FlashcardImageOptionsDialog flashcardImageOptionsDialog;
-    private EditFlashcardSetNameDialog editFlashcardSetNameDialog;
-    private SetLanguagesDialog setLanguagesDialog;
     protected int currentlySelectedFlashcardId;
-    private ImportFlashcardsManager importFlashcardsManager;
 
     // Janky state boolean to figure out if we're working with term images or definition images
     protected boolean forTerm;
@@ -112,12 +100,8 @@ public class EditFlashcardSetActivity extends StandardActivity
         editFlashcardDefinitionDialog = new EditFlashcardDefinitionDialog(
                 this, flashcardDefinitionEditListener);
         flashcardImageOptionsDialog = new FlashcardImageOptionsDialog(this, this);
-        editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
-                this, flashcardSet.getName(), editSetNameListener);
-        setLanguagesDialog = new SetLanguagesDialog(this, flashcardSet, this);
         adapter = new EditFlashcardsAdapter(this, setId, noFlashcards, numFlashcards);
         flashcardsList.setAdapter(adapter);
-        importFlashcardsManager = new ImportFlashcardsManager(this, this, setId);
 
         // When the user is scrolling to browse flashcards, close the soft keyboard
         flashcardsList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -130,18 +114,11 @@ public class EditFlashcardSetActivity extends StandardActivity
                 }
             }
         });
-
-        EditFlashcardsTutorialHelper.teach(this);
     }
 
     // Stop the EditText cursor from blinking
     protected void takeAwayFocusFromSearch() {
         focusSink.requestFocus();
-    }
-
-    @Override
-    public void onLanguagesSelected(@Language int termsLanguage, @Language int definitionsLanguage) {
-        databaseManager.updateSetLanguages(setId, termsLanguage, definitionsLanguage);
     }
 
     @OnTextChanged(value = R.id.search_input, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
@@ -214,16 +191,6 @@ public class EditFlashcardSetActivity extends StandardActivity
     }
 
     @Override
-    public void onSetChosen(FlashcardSetDO flashcardSet, int importMode) {
-        Intent intent = new Intent(this, PickAndImportFlashcardsActivity.class)
-                .putExtra(Constants.RECEIVING_SET_ID, setId)
-                .putExtra(Constants.SENDING_SET_ID, flashcardSet.getId())
-                .putExtra(Constants.IMPORT_MODE_KEY, importMode);
-        startActivityForResult(intent, IMPORT_CODE);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         super.onActivityResult(requestCode, resultCode, resultData);
         switch (requestCode) {
@@ -270,11 +237,6 @@ public class EditFlashcardSetActivity extends StandardActivity
                 }
                 String definition = extractTranscription(resultData);
                 createFlashcardDialog.onVoiceDefinitionSpoken(definition);
-                break;
-            case IMPORT_CODE:
-                if (resultCode == RESULT_OK) {
-                    adapter.refreshSet();
-                }
                 break;
         }
     }
@@ -420,18 +382,6 @@ public class EditFlashcardSetActivity extends StandardActivity
         }
     }
 
-    private final EditFlashcardSetNameDialog.Listener editSetNameListener =
-            new EditFlashcardSetNameDialog.Listener() {
-                @Override
-                public void onFlashcardSetRename(String newSetName) {
-                    databaseManager.renameSet(setId, newSetName);
-                    setTitle(newSetName);
-                    UIUtils.showShortToast(
-                            R.string.flashcard_set_renamed,
-                            EditFlashcardSetActivity.this);
-                }
-            };
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -440,33 +390,5 @@ public class EditFlashcardSetActivity extends StandardActivity
         editFlashcardTermDialog.cleanUp();
         editFlashcardDefinitionDialog.cleanUp();
         flashcardImageOptionsDialog.cleanUp();
-        editFlashcardSetNameDialog.cleanUp();
-        setLanguagesDialog.cleanUp();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_edit_set, menu);
-        UIUtils.loadMenuIcon(menu, R.id.set_languages, IoniconsIcons.ion_android_globe, this);
-        UIUtils.loadMenuIcon(menu, R.id.import_flashcards, IoniconsIcons.ion_android_upload, this);
-        UIUtils.loadMenuIcon(menu, R.id.rename_flashcard_set, IoniconsIcons.ion_edit, this);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.set_languages:
-                setLanguagesDialog.show();
-                return true;
-            case R.id.import_flashcards:
-                importFlashcardsManager.startImport();
-                return true;
-            case R.id.rename_flashcard_set:
-                editFlashcardSetNameDialog.show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }
