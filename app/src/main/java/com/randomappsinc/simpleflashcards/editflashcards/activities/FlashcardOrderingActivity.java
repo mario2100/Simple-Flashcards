@@ -9,6 +9,7 @@ import com.randomappsinc.simpleflashcards.editflashcards.adapters.FlashcardOrder
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.SimpleItemTouchHelperCallback;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
+import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class FlashcardOrderingActivity extends StandardActivity {
 
     @BindView(R.id.flashcards_list) RecyclerView flashcardsList;
 
+    private FlashcardOrderingAdapter flashcardOrderingAdapter;
     private DatabaseManager databaseManager = DatabaseManager.get();
 
     @Override
@@ -33,7 +35,7 @@ public class FlashcardOrderingActivity extends StandardActivity {
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
         List<FlashcardDO> flashcardList = databaseManager.getAllFlashcards(setId);
-        FlashcardOrderingAdapter flashcardOrderingAdapter = new FlashcardOrderingAdapter(flashcardList);
+        flashcardOrderingAdapter = new FlashcardOrderingAdapter(flashcardList);
         flashcardsList.setAdapter(flashcardOrderingAdapter);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(flashcardOrderingAdapter);
@@ -43,6 +45,8 @@ public class FlashcardOrderingActivity extends StandardActivity {
 
     @OnClick(R.id.save)
     public void saveOrder() {
-
+        databaseManager.setFlashcardPositions(flashcardOrderingAdapter.getFlashcards());
+        UIUtils.showShortToast(R.string.flashcards_reordered, this);
+        finish();
     }
 }

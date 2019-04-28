@@ -24,7 +24,9 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmMigration;
 import io.realm.RealmObjectSchema;
+import io.realm.RealmResults;
 import io.realm.RealmSchema;
+import io.realm.Sort;
 
 public class DatabaseManager {
 
@@ -32,7 +34,7 @@ public class DatabaseManager {
         void onDatabaseUpdated();
     }
 
-    private static final int CURRENT_REALM_VERSION = 9;
+    private static final int CURRENT_REALM_VERSION = 10;
 
     private static DatabaseManager instance;
 
@@ -200,6 +202,17 @@ public class DatabaseManager {
                 } else {
                     throw new IllegalStateException("FlashcardSetDO schema doesn't exist.");
                 }
+                oldVersion++;
+            }
+
+            // Add flashcard position
+            if (oldVersion == 9) {
+                RealmObjectSchema flashcardSchema = schema.get("FlashcardDO");
+                if (flashcardSchema != null) {
+                    flashcardSchema.addField("position", int.class);
+                } else {
+                    throw new IllegalStateException("FlashcardDO schema doesn't exist.");
+                }
             }
         }
     };
@@ -328,7 +341,10 @@ public class DatabaseManager {
     public void deleteFlashcard(int flashcardId) {
         try {
             realm.beginTransaction();
-            FlashcardDO flashcard = realm.where(FlashcardDO.class).equalTo("id", flashcardId).findFirst();
+            FlashcardDO flashcard = realm
+                    .where(FlashcardDO.class)
+                    .equalTo("id", flashcardId)
+                    .findFirst();
             flashcard.deleteFromRealm();
             realm.commitTransaction();
         } catch (Exception e) {
@@ -382,10 +398,11 @@ public class DatabaseManager {
     }
 
     public List<FlashcardDO> getAllFlashcards(int setId) {
-        RealmList<FlashcardDO> flashcards = realm.where(FlashcardSetDO.class)
+        RealmResults<FlashcardDO> flashcards = realm.where(FlashcardSetDO.class)
                 .equalTo("id", setId)
                 .findFirst()
-                .getFlashcards();
+                .getFlashcards()
+                .sort("position", Sort.ASCENDING);
         List<FlashcardDO> copies = new ArrayList<>();
         for (FlashcardDO flashcard : flashcards) {
             FlashcardDO flashcardCopy = new FlashcardDO();
@@ -764,6 +781,21 @@ public class DatabaseManager {
                     .findFirst();
             flashcardSetDO.setTermsLanguage(termsLanguage);
             flashcardSetDO.setDefinitionsLanguage(definitionsLanguage);
+            realm.commitTransaction();
+        } catch (Exception e) {
+            realm.cancelTransaction();
+        }
+    }
+
+    public void setFlashcardPositions(List<FlashcardDO> cardsInNewOrder) {
+        try {
+            realm.beginTransaction();
+            for (int i = 0; i < cardsInNewOrder.size(); i++) {
+                FlashcardDO flashcardDO = realm.where(FlashcardDO.class)
+                        .equalTo("id", cardsInNewOrder.get(i).getId())
+                        .findFirst();
+                flashcardDO.setPosition(i);
+            }
             realm.commitTransaction();
         } catch (Exception e) {
             realm.cancelTransaction();

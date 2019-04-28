@@ -29,10 +29,14 @@ public class FlashcardOrderingAdapter
         this.flashcards = flashcards;
     }
 
+    public List<FlashcardDO> getFlashcards() {
+        return flashcards;
+    }
+
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        FlashcardDO previous = flashcards.remove(fromPosition);
-        flashcards.add(toPosition > fromPosition ? toPosition - 1 : toPosition, previous);
+        FlashcardDO movedCard = flashcards.remove(fromPosition);
+        flashcards.add(toPosition, movedCard);
         notifyItemMoved(fromPosition, toPosition);
     }
 

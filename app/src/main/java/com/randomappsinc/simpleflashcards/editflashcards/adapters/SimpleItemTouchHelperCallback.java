@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Expects the <code>RecyclerView.Adapter</code> to react to {@link
  * ItemTouchHelperAdapter} callbacks.
  *
- * @author Paul Burke (ipaulpro)
  */
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 

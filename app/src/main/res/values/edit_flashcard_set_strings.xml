@@ -68,8 +68,12 @@
     </string-array>
     <string name="no_non_empty_sets_error">You have no non-empty flashcard sets to import from!</string>
 
-    <string name="move_flashcards_description">Choose the flashcard set you want to move flashcards from.</string>
-    <string name="copy_flashcards_description">Choose the flashcard set you want to copy flashcards from.</string>
+    <string name="move_flashcards_description">
+        Choose the flashcard set you want to move flashcards from.
+    </string>
+    <string name="copy_flashcards_description">
+        Choose the flashcard set you want to copy flashcards from.
+    </string>
 
     <string name="select_all">Select All</string>
 
@@ -114,4 +118,6 @@
     <string name="set_languages">Set languages</string>
     <string name="set_languages_title">Set Languages</string>
     <string name="language_settings_applied">Language settings applied.</string>
+
+    <string name="flashcards_reordered">Flashcards reordered.</string>
 </resources>

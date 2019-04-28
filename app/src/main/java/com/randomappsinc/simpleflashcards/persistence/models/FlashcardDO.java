@@ -10,6 +10,7 @@ public class FlashcardDO extends RealmObject {
     private String termImageUrl;
     private String definitionImageUrl;
     private boolean learned;
+    private int position;
 
     public int getId() {
         return id;
@@ -57,5 +58,13 @@ public class FlashcardDO extends RealmObject {
 
     public void setLearned(boolean learned) {
         this.learned = learned;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }
