@@ -4,59 +4,35 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
-import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MultiFlashcardsSelectorAdapter
-        extends RecyclerView.Adapter<MultiFlashcardsSelectorAdapter.FlashcardViewHolder>{
-
-    public interface Listener {
-        void onNumSelectedSetsUpdated(int numSelectedFlashcards);
-    }
+/** Adapter for rendering a list of flashcard sets the user can drag and drop around */
+public class FlashcardOrderingAdapter
+        extends RecyclerView.Adapter<FlashcardOrderingAdapter.FlashcardViewHolder> {
 
     protected List<FlashcardDO> flashcards;
-    protected Set<Integer> selectedFlashcardIds = new HashSet<>();
-    protected Listener listener;
 
-    public MultiFlashcardsSelectorAdapter(Listener listener, List<FlashcardDO> flashcards) {
-        this.listener = listener;
+    public FlashcardOrderingAdapter(List<FlashcardDO> flashcards) {
         this.flashcards = flashcards;
-    }
-
-    public Set<Integer> getSelectedFlashcardIds() {
-        return selectedFlashcardIds;
-    }
-
-    public void selectAll() {
-        selectedFlashcardIds.clear();
-        for (FlashcardDO flashcard : flashcards) {
-            selectedFlashcardIds.add(flashcard.getId());
-        }
-        notifyDataSetChanged();
-        listener.onNumSelectedSetsUpdated(selectedFlashcardIds.size());
     }
 
     @NonNull
     @Override
     public FlashcardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.flashcard_for_choosing,
+                R.layout.movable_flashcard,
                 parent,
                 false);
         return new FlashcardViewHolder(itemView);
@@ -78,7 +54,6 @@ public class MultiFlashcardsSelectorAdapter
         @BindView(R.id.term_image) ImageView termImage;
         @BindView(R.id.definition_text) ThemedTextView definitionText;
         @BindView(R.id.definition_image) ImageView definitionImage;
-        @BindView(R.id.flashcard_selected_toggle) CheckBox flashcardToggle;
 
         FlashcardViewHolder(View view) {
             super(view);
@@ -125,32 +100,6 @@ public class MultiFlashcardsSelectorAdapter
                         .centerCrop()
                         .into(definitionImage);
             }
-
-            UIUtils.setCheckedImmediately(flashcardToggle, selectedFlashcardIds.contains(flashcard.getId()));
-        }
-
-        @OnClick(R.id.flashcard_for_choosing_parent)
-        public void onFlashcardClick() {
-            int flashcardId = flashcards.get(getAdapterPosition()).getId();
-            if (selectedFlashcardIds.contains(flashcardId)) {
-                selectedFlashcardIds.remove(flashcardId);
-                flashcardToggle.setChecked(false);
-            } else {
-                selectedFlashcardIds.add(flashcardId);
-                flashcardToggle.setChecked(true);
-            }
-            listener.onNumSelectedSetsUpdated(selectedFlashcardIds.size());
-        }
-
-        @OnClick(R.id.flashcard_selected_toggle)
-        public void onFlashcardSelection() {
-            int flashcardId = flashcards.get(getAdapterPosition()).getId();
-            if (selectedFlashcardIds.contains(flashcardId)) {
-                selectedFlashcardIds.remove(flashcardId);
-            } else {
-                selectedFlashcardIds.add(flashcardId);
-            }
-            listener.onNumSelectedSetsUpdated(selectedFlashcardIds.size());
         }
     }
 }
