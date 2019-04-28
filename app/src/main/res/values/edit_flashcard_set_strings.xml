@@ -120,4 +120,11 @@
     <string name="language_settings_applied">Language settings applied.</string>
 
     <string name="flashcards_reordered">Flashcards reordered.</string>
+
+    <string name="reordering_flashcards">Reordering Flashcards</string>
+    <string name="reorder_flashcards_instructions">
+        To change the position of a flashcard, simply tap and hold on it and then drag it
+        to where you want it to go.
+    </string>
+    <string name="save_order">Save Order</string>
 </resources>

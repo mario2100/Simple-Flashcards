@@ -39,6 +39,8 @@ public class PreferencesManager {
     private static final String BROWSE_TEXT_SIZE = "browseTextSize";
     private static final String BROWSE_TEXT_COLOR = "browseTextColor";
 
+    private static final String SHOULD_TEACH_FLASHCARDS_REORDER = "shouldTeachFlashcardsReorder";
+
     private SharedPreferences prefs;
 
     public PreferencesManager(Context context) {
@@ -167,5 +169,11 @@ public class PreferencesManager {
 
     public void setBrowseTextColor(int newColor) {
         prefs.edit().putInt(BROWSE_TEXT_COLOR, newColor).apply();
+    }
+
+    public boolean shouldTeachFlashcardsReorder() {
+        boolean shouldTeach = prefs.getBoolean(SHOULD_TEACH_FLASHCARDS_REORDER, true);
+        prefs.edit().putBoolean(SHOULD_TEACH_FLASHCARDS_REORDER, false).apply();
+        return shouldTeach;
     }
 }

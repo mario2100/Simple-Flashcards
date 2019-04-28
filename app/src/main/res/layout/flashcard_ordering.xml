@@ -10,7 +10,7 @@
         android:id="@+id/save"
         android:layout_marginTop="0dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/save"
+        android:text="@string/save_order"
         style="@style/button"/>
 
     <androidx.recyclerview.widget.RecyclerView

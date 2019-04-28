@@ -2,12 +2,15 @@ package com.randomappsinc.simpleflashcards.editflashcards.activities;
 
 import android.os.Bundle;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.FlashcardOrderingAdapter;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.SimpleItemTouchHelperCallback;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
+import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
@@ -34,6 +37,7 @@ public class FlashcardOrderingActivity extends StandardActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
+        setTitle(databaseManager.getFlashcardSet(setId).getName());
         List<FlashcardDO> flashcardList = databaseManager.getAllFlashcards(setId);
         flashcardOrderingAdapter = new FlashcardOrderingAdapter(flashcardList);
         flashcardsList.setAdapter(flashcardOrderingAdapter);
@@ -41,6 +45,17 @@ public class FlashcardOrderingActivity extends StandardActivity {
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(flashcardOrderingAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(flashcardsList);
+
+        PreferencesManager preferencesManager = new PreferencesManager(this);
+        if (preferencesManager.shouldTeachFlashcardsReorder()) {
+            new MaterialDialog.Builder(this)
+                    .theme(themeManager.getDarkModeEnabled(this) ? Theme.DARK : Theme.LIGHT)
+                    .title(R.string.reordering_flashcards)
+                    .content(R.string.reorder_flashcards_instructions)
+                    .positiveText(R.string.got_it)
+                    .cancelable(false)
+                    .show();
+        }
     }
 
     @OnClick(R.id.save)
