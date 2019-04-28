@@ -6,11 +6,13 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.FlashcardOrderingAdapter;
+import com.randomappsinc.simpleflashcards.editflashcards.adapters.SimpleItemTouchHelperCallback;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +33,12 @@ public class FlashcardOrderingActivity extends StandardActivity {
 
         int setId = getIntent().getIntExtra(Constants.FLASHCARD_SET_ID_KEY, 0);
         List<FlashcardDO> flashcardList = databaseManager.getAllFlashcards(setId);
-        flashcardsList.setAdapter(new FlashcardOrderingAdapter(flashcardList));
+        FlashcardOrderingAdapter flashcardOrderingAdapter = new FlashcardOrderingAdapter(flashcardList);
+        flashcardsList.setAdapter(flashcardOrderingAdapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(flashcardOrderingAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(flashcardsList);
     }
 
     @OnClick(R.id.save)

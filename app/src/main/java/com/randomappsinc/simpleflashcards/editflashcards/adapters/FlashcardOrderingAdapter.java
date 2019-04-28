@@ -20,12 +20,20 @@ import butterknife.ButterKnife;
 
 /** Adapter for rendering a list of flashcard sets the user can drag and drop around */
 public class FlashcardOrderingAdapter
-        extends RecyclerView.Adapter<FlashcardOrderingAdapter.FlashcardViewHolder> {
+        extends RecyclerView.Adapter<FlashcardOrderingAdapter.FlashcardViewHolder>
+        implements ItemTouchHelperAdapter {
 
     protected List<FlashcardDO> flashcards;
 
     public FlashcardOrderingAdapter(List<FlashcardDO> flashcards) {
         this.flashcards = flashcards;
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        FlashcardDO previous = flashcards.remove(fromPosition);
+        flashcards.add(toPosition > fromPosition ? toPosition - 1 : toPosition, previous);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     @NonNull
