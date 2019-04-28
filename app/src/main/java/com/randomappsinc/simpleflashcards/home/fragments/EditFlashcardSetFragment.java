@@ -74,7 +74,10 @@ public class EditFlashcardSetFragment extends Fragment
         importFlashcardsManager = new ImportFlashcardsManager(getActivity(), this, setId);
         FlashcardSetDO flashcardSetDO = databaseManager.getFlashcardSet(setId);
         setLanguagesDialog = new SetLanguagesDialog(getActivity(), flashcardSetDO, this);
-        editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(getActivity(), flashcardSetDO.getName(), this);
+        editFlashcardSetNameDialog = new EditFlashcardSetNameDialog(
+                getActivity(),
+                flashcardSetDO.getName(),
+                this);
         deleteFlashcardSetDialog = new DeleteFlashcardSetDialog(getActivity(), this);
     }
 
@@ -93,10 +96,10 @@ public class EditFlashcardSetFragment extends Fragment
             case 2:
                 setLanguagesDialog.show();
                 break;
-            case 3:
+            case 4:
                 editFlashcardSetNameDialog.show();
                 break;
-            case 4:
+            case 5:
                 FlashcardSetDO flashcardSetDO = databaseManager.getFlashcardSet(setId);
                 deleteFlashcardSetDialog.show(flashcardSetDO);
                 break;

@@ -29,8 +29,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FolderActivity extends StandardActivity
-        implements FlashcardSetSelectionDialog.Listener, FolderSetsAdapter.Listener, RenameFolderDialog.Listener {
+public class FolderActivity extends StandardActivity implements FlashcardSetSelectionDialog.Listener,
+        FolderSetsAdapter.Listener, RenameFolderDialog.Listener {
 
     @BindView(R.id.add_sets) FloatingActionButton addSetsButton;
     @BindView(R.id.no_sets) View noSets;

@@ -146,5 +146,10 @@
             android:name=".home.activities.FlashcardSetActivity"
             android:configChanges="orientation|screenSize"
             />
+
+        <activity
+            android:name=".editflashcards.activities.FlashcardOrderingActivity"
+            android:configChanges="orientation|screenSize"
+            />
     </application>
 </manifest>

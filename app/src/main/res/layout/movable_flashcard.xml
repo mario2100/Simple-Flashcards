@@ -1,0 +1,78 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flashcard_for_choosing_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    tools:ignore="SpUsage, RtlHardcoded, ContentDescription"
+    >
+
+    <com.randomappsinc.simpleflashcards.theme.ThemedCardView
+        android:layout_height="wrap_content"
+        style="@style/flashcard_card"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:orientation="vertical"
+                >
+
+                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                    android:id="@+id/term_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    />
+
+                <com.randomappsinc.simpleflashcards.common.views.SquareImageView
+                    android:id="@+id/term_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/dark_gray"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:orientation="vertical"
+                >
+
+                <com.randomappsinc.simpleflashcards.theme.ThemedTextView
+                    android:id="@+id/definition_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    />
+
+                <com.randomappsinc.simpleflashcards.common.views.SquareImageView
+                    android:id="@+id/definition_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </com.randomappsinc.simpleflashcards.theme.ThemedCardView>
+</FrameLayout>

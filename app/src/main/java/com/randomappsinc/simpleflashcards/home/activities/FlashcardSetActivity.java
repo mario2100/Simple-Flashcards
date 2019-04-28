@@ -72,5 +72,4 @@ public class FlashcardSetActivity extends StandardActivity {
                 break;
         }
     }
-
 }
