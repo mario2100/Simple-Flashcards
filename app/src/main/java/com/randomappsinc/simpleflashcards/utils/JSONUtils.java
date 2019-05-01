@@ -26,6 +26,7 @@ public class JSONUtils {
     private static final String TERM_KEY = "term";
     private static final String TERM_IMAGE_URL_KEY = "termImageUrl";
     private static final String DEFINITION_KEY = "definition";
+    private static final String POSITION_KEY = "position";
 
     public static String serializeFlashcardSet(FlashcardSetDO flashcardSet) {
         JSONObject flashcardSetJson = createFlashcardSetJson(flashcardSet);
@@ -62,6 +63,7 @@ public class JSONUtils {
                 }
 
                 flashcardJson.put(DEFINITION_KEY, flashcard.getDefinition());
+                flashcardJson.put(POSITION_KEY, flashcard.getPosition());
                 flashcards.put(flashcardJson);
             }
             flashcardSetJson.put(FLASHCARDS_KEY, flashcards);
@@ -102,6 +104,7 @@ public class JSONUtils {
                     flashcard.setTermImageUrl(flashcardJson.getString(TERM_IMAGE_URL_KEY));
                 }
                 flashcard.setDefinition(flashcardJson.getString(DEFINITION_KEY));
+                flashcard.setPosition(flashcardJson.getInt(POSITION_KEY));
                 flashcards.add(flashcard);
             }
             flashcardSet.setFlashcards(flashcards);

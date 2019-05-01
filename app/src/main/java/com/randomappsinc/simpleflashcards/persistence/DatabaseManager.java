@@ -419,6 +419,7 @@ public class DatabaseManager {
             flashcardCopy.setDefinition(flashcard.getDefinition());
             flashcardCopy.setDefinitionImageUrl(flashcard.getDefinitionImageUrl());
             flashcardCopy.setLearned(flashcard.isLearned());
+            flashcardCopy.setPosition(flashcard.getPosition());
             copies.add(flashcardCopy);
         }
         return copies;
@@ -448,12 +449,14 @@ public class DatabaseManager {
 
             RealmList<FlashcardDO> flashcards = new RealmList<>();
             int flashcardId = getNextFlashcardId();
+            int position = 0;
             for (QuizletFlashcard quizletFlashcard : quizletFlashcardSet.getFlashcards()) {
                 FlashcardDO flashcard = new FlashcardDO();
                 flashcard.setId(flashcardId++);
                 flashcard.setTerm(quizletFlashcard.getTerm());
                 flashcard.setDefinition(quizletFlashcard.getDefinition());
                 flashcard.setTermImageUrl(quizletFlashcard.getImageUrl());
+                flashcard.setPosition(position++);
                 flashcards.add(flashcard);
             }
             set.setFlashcards(flashcards);
@@ -524,6 +527,7 @@ public class DatabaseManager {
                         flashcard.setTerm(original.getTerm());
                         flashcard.setDefinition(original.getDefinition());
                         flashcard.setTermImageUrl(original.getTermImageUrl());
+                        flashcard.setPosition(original.getPosition());
                         flashcards.add(flashcard);
                     }
                     set.setFlashcards(flashcards);

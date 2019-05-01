@@ -17,7 +17,7 @@
     </string-array>
 
     <string-array name="flashcard_set_edit_options">
-        <item>Edit flashcards</item>
+        <item>Add/edit flashcards</item>
         <item>Import flashcards</item>
         <item>Set languages</item>
         <item>Reorder flashcards</item>
