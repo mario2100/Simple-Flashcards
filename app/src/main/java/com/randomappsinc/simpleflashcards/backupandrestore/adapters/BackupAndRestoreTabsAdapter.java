@@ -1,11 +1,11 @@
 package com.randomappsinc.simpleflashcards.backupandrestore.adapters;
 
-import com.randomappsinc.simpleflashcards.backupandrestore.fragments.BackupDataFragment;
-import com.randomappsinc.simpleflashcards.backupandrestore.fragments.RestoreDataFragment;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.randomappsinc.simpleflashcards.backupandrestore.fragments.BackupDataFragment;
+import com.randomappsinc.simpleflashcards.backupandrestore.fragments.RestoreDataFragment;
 
 public class BackupAndRestoreTabsAdapter extends FragmentPagerAdapter {
 

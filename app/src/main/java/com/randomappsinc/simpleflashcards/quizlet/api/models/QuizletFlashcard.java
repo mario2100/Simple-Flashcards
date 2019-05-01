@@ -1,10 +1,10 @@
 package com.randomappsinc.simpleflashcards.quizlet.api.models;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
-
-import androidx.annotation.Nullable;
 
 public class QuizletFlashcard {
 

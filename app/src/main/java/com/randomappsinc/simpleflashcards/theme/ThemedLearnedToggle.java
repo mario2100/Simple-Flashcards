@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+import androidx.core.content.ContextCompat;
+
 import com.joanzapata.iconify.widget.IconTextView;
 import com.randomappsinc.simpleflashcards.R;
-
-import androidx.core.content.ContextCompat;
 
 public class ThemedLearnedToggle extends IconTextView implements ThemeManager.Listener {
 

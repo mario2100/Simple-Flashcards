@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
@@ -12,7 +14,6 @@ import com.randomappsinc.simpleflashcards.home.adapters.FlashcardSetOptionTabsAd
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;

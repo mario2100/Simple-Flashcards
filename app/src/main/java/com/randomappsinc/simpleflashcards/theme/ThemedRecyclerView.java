@@ -3,10 +3,10 @@ package com.randomappsinc.simpleflashcards.theme;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.randomappsinc.simpleflashcards.R;
-
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.randomappsinc.simpleflashcards.R;
 
 public class ThemedRecyclerView extends RecyclerView implements ThemeManager.Listener {
 

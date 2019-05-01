@@ -2,6 +2,10 @@ package com.randomappsinc.simpleflashcards.backupandrestore.activities;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.randomappsinc.simpleflashcards.R;
@@ -14,9 +18,6 @@ import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;

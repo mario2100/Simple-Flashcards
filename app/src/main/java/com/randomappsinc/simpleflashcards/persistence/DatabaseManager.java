@@ -1,5 +1,8 @@
 package com.randomappsinc.simpleflashcards.persistence;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.randomappsinc.simpleflashcards.common.constants.Language;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.folders.models.Folder;
@@ -14,8 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import io.realm.Case;
 import io.realm.DynamicRealm;
 import io.realm.Realm;
@@ -279,6 +280,12 @@ public class DatabaseManager {
             flashcard.setId(getNextFlashcardId());
             flashcard.setTerm(term);
             flashcard.setDefinition(definition);
+            if (set.getFlashcards() == null || set.getFlashcards().isEmpty()) {
+                flashcard.setPosition(0);
+            } else {
+                Number currentMaxPosition = set.getFlashcards().max("position");
+                flashcard.setPosition(currentMaxPosition.intValue());
+            }
             set.getFlashcards().add(flashcard);
             realm.commitTransaction();
         } catch (Exception e) {

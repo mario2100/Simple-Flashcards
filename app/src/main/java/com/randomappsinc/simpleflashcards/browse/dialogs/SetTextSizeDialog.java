@@ -5,6 +5,8 @@ import android.util.TypedValue;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -12,7 +14,6 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

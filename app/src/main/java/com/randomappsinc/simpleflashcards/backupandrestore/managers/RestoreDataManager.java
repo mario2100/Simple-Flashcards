@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
+import androidx.annotation.Nullable;
+
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
@@ -18,8 +20,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
 
 public class RestoreDataManager {
 

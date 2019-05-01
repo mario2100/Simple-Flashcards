@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -13,7 +15,6 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.managers.BackupDataManager;
@@ -23,8 +26,6 @@ import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.TimeUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;

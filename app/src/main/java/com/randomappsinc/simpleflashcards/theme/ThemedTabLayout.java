@@ -3,10 +3,10 @@ package com.randomappsinc.simpleflashcards.theme;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.tabs.TabLayout;
 import com.randomappsinc.simpleflashcards.R;
-
-import androidx.core.content.ContextCompat;
 
 public class ThemedTabLayout extends TabLayout implements ThemeManager.Listener {
 

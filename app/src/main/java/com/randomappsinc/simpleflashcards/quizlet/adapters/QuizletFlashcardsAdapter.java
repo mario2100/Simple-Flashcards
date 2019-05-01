@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcard;
 import com.squareup.picasso.Picasso;
@@ -15,8 +18,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

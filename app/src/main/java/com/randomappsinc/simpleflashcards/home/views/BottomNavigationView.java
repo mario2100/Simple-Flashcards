@@ -5,10 +5,11 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.IdRes;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 
-import androidx.annotation.IdRes;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -3,6 +3,8 @@ package com.randomappsinc.simpleflashcards.common.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
@@ -11,7 +13,6 @@ import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.models.FlashcardSetPreview;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

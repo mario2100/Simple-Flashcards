@@ -2,10 +2,10 @@ package com.randomappsinc.simpleflashcards.quiz.managers;
 
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
+
 import com.randomappsinc.simpleflashcards.quiz.constants.TimerState;
 import com.randomappsinc.simpleflashcards.utils.TimeUtils;
-
-import androidx.annotation.NonNull;
 
 public class TimerManager {
 

@@ -5,6 +5,9 @@ import android.graphics.PorterDuff;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -14,8 +17,6 @@ import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

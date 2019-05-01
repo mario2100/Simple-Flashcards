@@ -2,6 +2,8 @@ package com.randomappsinc.simpleflashcards.editflashcards.dialogs;
 
 import android.content.Context;
 
+import androidx.annotation.StringRes;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
@@ -9,8 +11,6 @@ import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecorati
 import com.randomappsinc.simpleflashcards.editflashcards.adapters.SingleFlashcardSetChooserAdapter;
 import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
-
-import androidx.annotation.StringRes;
 
 public class SingleFlashcardSetChooserDialog implements SingleFlashcardSetChooserAdapter.Listener {
 

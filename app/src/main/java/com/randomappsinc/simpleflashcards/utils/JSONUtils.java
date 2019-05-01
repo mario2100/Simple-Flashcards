@@ -2,6 +2,8 @@ package com.randomappsinc.simpleflashcards.utils;
 
 import android.text.TextUtils;
 
+import androidx.annotation.Nullable;
+
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
@@ -14,7 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import io.realm.RealmList;
 
 public class JSONUtils {

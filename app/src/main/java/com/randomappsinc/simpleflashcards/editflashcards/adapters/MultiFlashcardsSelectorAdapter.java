@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
@@ -17,8 +20,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

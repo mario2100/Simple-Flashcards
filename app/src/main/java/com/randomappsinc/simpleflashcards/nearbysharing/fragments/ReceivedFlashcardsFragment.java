@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.activities.PlainSetViewActivity;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
@@ -18,9 +22,6 @@ import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyConnectio
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

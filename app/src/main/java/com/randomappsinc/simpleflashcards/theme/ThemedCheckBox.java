@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 
-import com.randomappsinc.simpleflashcards.R;
-
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.CompoundButtonCompat;
+
+import com.randomappsinc.simpleflashcards.R;
 
 public class ThemedCheckBox extends AppCompatCheckBox implements ThemeManager.Listener {
 

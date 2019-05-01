@@ -14,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
@@ -32,9 +36,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

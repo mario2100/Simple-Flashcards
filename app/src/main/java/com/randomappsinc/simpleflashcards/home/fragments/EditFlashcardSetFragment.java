@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.common.constants.Language;
@@ -23,9 +27,6 @@ import com.randomappsinc.simpleflashcards.persistence.DatabaseManager;
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardSetDO;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

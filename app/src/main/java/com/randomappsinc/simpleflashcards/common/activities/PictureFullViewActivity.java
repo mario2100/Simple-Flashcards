@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
@@ -15,7 +17,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

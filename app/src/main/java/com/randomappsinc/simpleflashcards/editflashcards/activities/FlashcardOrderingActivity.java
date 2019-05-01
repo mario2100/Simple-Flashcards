@@ -2,6 +2,9 @@ package com.randomappsinc.simpleflashcards.editflashcards.activities;
 
 import android.os.Bundle;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.randomappsinc.simpleflashcards.R;
@@ -16,8 +19,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

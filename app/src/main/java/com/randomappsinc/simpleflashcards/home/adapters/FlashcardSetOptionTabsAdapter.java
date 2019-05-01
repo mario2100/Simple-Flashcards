@@ -1,12 +1,12 @@
 package com.randomappsinc.simpleflashcards.home.adapters;
 
-import com.randomappsinc.simpleflashcards.home.fragments.EditFlashcardSetFragment;
-import com.randomappsinc.simpleflashcards.home.fragments.LearnFlashcardSetFragment;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.randomappsinc.simpleflashcards.home.fragments.EditFlashcardSetFragment;
+import com.randomappsinc.simpleflashcards.home.fragments.LearnFlashcardSetFragment;
 
 public class FlashcardSetOptionTabsAdapter extends FragmentPagerAdapter {
 

@@ -1,5 +1,10 @@
 package com.randomappsinc.simpleflashcards.browse.adapters;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.randomappsinc.simpleflashcards.browse.fragments.BrowseFlashcardFragment;
 import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
 import com.randomappsinc.simpleflashcards.common.models.Flashcard;
@@ -9,11 +14,6 @@ import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class FlashcardsBrowsingAdapter extends FragmentStatePagerAdapter {
 

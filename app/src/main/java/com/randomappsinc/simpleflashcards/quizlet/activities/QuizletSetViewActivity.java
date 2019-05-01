@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
@@ -17,8 +20,6 @@ import com.randomappsinc.simpleflashcards.quizlet.api.QuizletFlashcardSetFetcher
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcard;
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcardSet;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;

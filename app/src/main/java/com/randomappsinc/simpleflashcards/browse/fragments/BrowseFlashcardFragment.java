@@ -15,6 +15,11 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.util.Preconditions;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.browse.activities.BrowseFlashcardsActivity;
 import com.randomappsinc.simpleflashcards.browse.managers.BrowseFlashcardsSettingsManager;
@@ -26,10 +31,6 @@ import com.randomappsinc.simpleflashcards.theme.ThemedLearnedToggle;
 import com.randomappsinc.simpleflashcards.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.NonNull;
-import androidx.core.util.Preconditions;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;

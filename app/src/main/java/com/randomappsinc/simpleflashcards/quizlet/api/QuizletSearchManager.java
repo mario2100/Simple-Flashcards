@@ -1,11 +1,11 @@
 package com.randomappsinc.simpleflashcards.quizlet.api;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletSetResult;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /** Utility class to do Quizlet searches, so UI pieces don't need to do any networking **/
 public class QuizletSearchManager {

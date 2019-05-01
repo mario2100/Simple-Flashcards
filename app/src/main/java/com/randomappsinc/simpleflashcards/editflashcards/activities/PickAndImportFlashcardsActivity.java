@@ -5,6 +5,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
@@ -19,7 +21,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import java.util.List;
 import java.util.Set;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

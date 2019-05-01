@@ -3,10 +3,10 @@ package com.randomappsinc.simpleflashcards.theme;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.randomappsinc.simpleflashcards.R;
-
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+
+import com.randomappsinc.simpleflashcards.R;
 
 public class ThemedSubtitleTextView extends AppCompatTextView implements ThemeManager.Listener {
 

@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 import com.randomappsinc.simpleflashcards.R;
@@ -23,8 +26,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;

@@ -17,6 +17,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.constants.Constants;
 import com.randomappsinc.simpleflashcards.quizlet.activities.QuizletSearchFilterActivity;
@@ -30,9 +34,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

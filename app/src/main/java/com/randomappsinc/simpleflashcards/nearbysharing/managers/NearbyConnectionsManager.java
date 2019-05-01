@@ -3,6 +3,9 @@ package com.randomappsinc.simpleflashcards.nearbysharing.managers;
 import android.content.Context;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.AdvertisingOptions;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
@@ -31,9 +34,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class NearbyConnectionsManager {
 

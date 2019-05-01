@@ -7,6 +7,11 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.app.ShareCompat;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -14,11 +19,6 @@ import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.app.ShareCompat;
 
 public class DialogUtil {
 

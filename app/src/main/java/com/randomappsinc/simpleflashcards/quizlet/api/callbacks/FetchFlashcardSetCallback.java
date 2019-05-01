@@ -1,10 +1,11 @@
 package com.randomappsinc.simpleflashcards.quizlet.api.callbacks;
 
+import androidx.annotation.NonNull;
+
 import com.randomappsinc.simpleflashcards.quizlet.api.ApiConstants;
 import com.randomappsinc.simpleflashcards.quizlet.api.QuizletFlashcardSetFetcher;
 import com.randomappsinc.simpleflashcards.quizlet.api.models.QuizletFlashcardSet;
 
-import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

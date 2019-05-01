@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.persistence.PreferencesManager;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
@@ -13,8 +16,6 @@ import com.randomappsinc.simpleflashcards.theme.ThemedIconTextView;
 import com.randomappsinc.simpleflashcards.theme.ThemedTextView;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

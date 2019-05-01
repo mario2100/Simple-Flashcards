@@ -3,10 +3,10 @@ package com.randomappsinc.simpleflashcards.theme;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.core.content.ContextCompat;
+
 import com.joanzapata.iconify.widget.IconTextView;
 import com.randomappsinc.simpleflashcards.R;
-
-import androidx.core.content.ContextCompat;
 
 public class ThemedIconTextView extends IconTextView implements ThemeManager.Listener {
 

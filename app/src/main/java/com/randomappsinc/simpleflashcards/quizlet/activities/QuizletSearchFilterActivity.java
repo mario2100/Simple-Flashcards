@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 
+import androidx.appcompat.app.ActionBar;
+
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.simpleflashcards.R;
@@ -11,7 +13,6 @@ import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
 import com.randomappsinc.simpleflashcards.quizlet.api.QuizletSearchManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.appcompat.app.ActionBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

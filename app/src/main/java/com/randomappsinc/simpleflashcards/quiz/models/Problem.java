@@ -3,6 +3,8 @@ package com.randomappsinc.simpleflashcards.quiz.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
+
 import com.randomappsinc.simpleflashcards.persistence.models.FlashcardDO;
 import com.randomappsinc.simpleflashcards.quiz.constants.QuestionType;
 import com.randomappsinc.simpleflashcards.utils.StringUtils;
@@ -13,8 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import androidx.annotation.Nullable;
 
 public class Problem implements Parcelable {
 

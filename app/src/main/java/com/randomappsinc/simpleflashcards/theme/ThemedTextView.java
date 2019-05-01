@@ -3,11 +3,11 @@ package com.randomappsinc.simpleflashcards.theme;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.randomappsinc.simpleflashcards.R;
-
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+
+import com.randomappsinc.simpleflashcards.R;
 
 public class ThemedTextView extends AppCompatTextView implements ThemeManager.Listener {
 

@@ -5,6 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
 import com.randomappsinc.simpleflashcards.nearbysharing.adapters.SendFlashcardsAdapter;
@@ -15,9 +19,6 @@ import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

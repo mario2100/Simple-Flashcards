@@ -2,6 +2,9 @@ package com.randomappsinc.simpleflashcards.quiz.activities;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
@@ -13,8 +16,6 @@ import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 
 import java.util.List;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;

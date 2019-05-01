@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.afollestad.materialdialogs.Theme;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.randomappsinc.simpleflashcards.R;
@@ -23,9 +27,6 @@ import com.squareup.seismic.ShakeDetector;
 
 import java.util.Random;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

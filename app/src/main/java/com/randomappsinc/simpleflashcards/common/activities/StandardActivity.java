@@ -6,12 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 public class StandardActivity extends AppCompatActivity implements ThemeManager.Listener {
 

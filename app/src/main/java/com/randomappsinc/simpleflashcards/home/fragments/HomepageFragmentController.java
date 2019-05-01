@@ -1,12 +1,12 @@
 package com.randomappsinc.simpleflashcards.home.fragments;
 
-import com.randomappsinc.simpleflashcards.R;
-import com.randomappsinc.simpleflashcards.folders.fragments.FoldersFragment;
-import com.randomappsinc.simpleflashcards.quizlet.fragments.QuizletSearchFragment;
-
 import androidx.annotation.IdRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.randomappsinc.simpleflashcards.R;
+import com.randomappsinc.simpleflashcards.folders.fragments.FoldersFragment;
+import com.randomappsinc.simpleflashcards.quizlet.fragments.QuizletSearchFragment;
 
 public class HomepageFragmentController {
 

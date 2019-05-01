@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.randomappsinc.simpleflashcards.R;
-
 import androidx.core.content.ContextCompat;
+
+import com.randomappsinc.simpleflashcards.R;
 
 public class ThemedDivider extends View implements ThemeManager.Listener {
 

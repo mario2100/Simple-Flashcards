@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
@@ -19,8 +22,6 @@ import com.randomappsinc.simpleflashcards.nearbysharing.models.NearbyDevice;
 import com.randomappsinc.simpleflashcards.utils.PermissionUtils;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

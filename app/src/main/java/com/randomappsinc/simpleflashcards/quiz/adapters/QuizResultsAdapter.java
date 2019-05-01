@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.quiz.models.Problem;
 import com.randomappsinc.simpleflashcards.utils.ViewUtils;
@@ -14,9 +18,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;

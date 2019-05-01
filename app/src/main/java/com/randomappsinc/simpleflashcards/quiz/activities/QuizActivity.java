@@ -13,6 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.common.activities.PictureFullViewActivity;
 import com.randomappsinc.simpleflashcards.common.activities.StandardActivity;
@@ -33,8 +36,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;

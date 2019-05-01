@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ShareCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.randomappsinc.simpleflashcards.R;
 import com.randomappsinc.simpleflashcards.backupandrestore.activities.BackupAndRestoreActivity;
 import com.randomappsinc.simpleflashcards.common.views.SimpleDividerItemDecoration;
@@ -19,10 +24,6 @@ import com.randomappsinc.simpleflashcards.nearbysharing.managers.NearbyNameManag
 import com.randomappsinc.simpleflashcards.theme.ThemeManager;
 import com.randomappsinc.simpleflashcards.utils.UIUtils;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ShareCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
